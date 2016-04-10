@@ -22,8 +22,6 @@ app.factory('CloudService', function ($base64, $http) {
             });
         }*/
 
-
-
         var url =  baseUrl + '/Patient/' + patientId + '/MedicationPrescription';//'http://aerospace.med.auth.gr:8080/welcome/api/data/MedicationPrescription/99425607-9d7a-497f-aeda-c7a3e866d381';
         var encodedCred = $base64.encode(username + ':' + password);
         return  $http({
@@ -51,13 +49,13 @@ app.factory('CloudService', function ($base64, $http) {
         });
     }
 
-    /*CloudService.postQuestionnaire = function (username, password, patientId, score, questionnaire) {
+    CloudService.postQuestionnaire = function (username, password, patientId, answers, questionnaire) {
         var url = baseUrl + 'QuestionnaireAnswers';
         var encodedCred = $base64.encode(username + ':' + password);
         return  $http({
             url: url,
             method: 'POST',
-            data: CloudService.populateRegBodyForQuestionnaire(patientId, score, questionnaire),
+            data: CloudService.populateRegBodyForQuestionnaire(patientId, null, questionnaire),
             headers: {
                 'Authorization' : 'Basic ' + encodedCred,
                 'Accept' : 'text/turtle',
@@ -140,7 +138,7 @@ app.factory('CloudService', function ($base64, $http) {
             default:
                 break;
         }
-    };*/
+    };
 
     return CloudService;
 });

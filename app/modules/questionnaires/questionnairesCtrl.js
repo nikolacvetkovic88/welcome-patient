@@ -22,9 +22,9 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
   }
 
   $scope.submit = function() {
-    var score = $scope.selectedQuestionnaire.answers; //'gsdgh67246427889798'
+    var answers = $scope.selectedQuestionnaire.answers;
 
-    if(!score){ 
+    if(!answers.length){ 
       bootbox.alert("<div class='text-danger'>Please select at least one answer!</div>");
       return;
     }
@@ -33,8 +33,8 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
       return;
     }
 
-    /*$scope.loading = true;
-    CloudService.postQuestionnaire('welk','welk', $scope.patientId, score, $scope.selectedQuestionnaire.questionnaire)
+    $scope.loading = true;
+    CloudService.postQuestionnaire('welk','welk', $scope.patientId, answers, $scope.selectedQuestionnaire.questionnaire)
       .success(function(data) {
         $scope.loading = false;
         bootbox.alert("<div class='text-info'>Your questionnaire has been submitted successfully!</div>");
@@ -51,7 +51,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
       .error(function() {
         $scope.loading = false;
         bootbox.alert("<div class='text-danger'>Error while submitting questionnaire. If this continues please contact support.</div>");
-      });*/
+      });
   }
 
 });

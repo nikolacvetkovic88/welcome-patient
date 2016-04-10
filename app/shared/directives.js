@@ -70,7 +70,9 @@ app.directive("dropdown", function($timeout) {
                 if(index != -1) {
                 	scope.selectedQuestionnaire.answers.splice(index, 1);
                 }
-                scope.selectedQuestionnaire.answers.push({questionId: questionId, answer: value});
+                
+                if(value)
+                	scope.selectedQuestionnaire.answers.push({questionId: questionId, answer: value});
             });
         }
     }

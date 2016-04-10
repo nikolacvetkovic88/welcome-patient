@@ -1,0 +1,132 @@
+body {
+  font-size: 17px !important;
+}
+
+.main-page-container {
+  text-align: center;
+}
+
+.fc-view {
+  /*background-color: gainsboro;
+  color: #23003F;*/
+}
+
+.fc-content {
+  /*color: white;
+  background-color: #F07822;
+  border: 1px solid #00AEEF;*/
+}
+
+.fc-today {
+  background-color: #00AEEF !important;
+}
+
+.fc-toolbar h2 {
+  color: #F07822;
+}
+
+button.fc-state-default{
+  background: #00AEEF;
+  color: white;
+}
+
+button.fc-state-active, button.fc-state-hover  {
+  background: #F07822;
+  color: white;
+  border-color: #F07822;
+  outline-style: none;
+}
+
+.well {
+  margin-left: 10%;
+  margin-right: 10%
+}
+
+.module-icons {
+  display: none;
+  margin-top: 35px;
+  border-radius: 15px;
+  width: 150px;
+  height: 150px;
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+}
+
+.patient-name {				
+  color: #00AEEF;		
+}
+
+.logout {
+  color: #00AEEF;
+  font-size: 14px;
+}
+
+.content-menu {
+  position: fixed;
+}
+
+.history-item {
+  width: 100%;
+  display: block;
+  border: 1px solid #ddd;
+}
+
+.education-content{
+  margin-left: 10px;
+}
+
+.education-link{
+  cursor: pointer;
+}
+
+.selected-item {
+  color: white;
+  background-color: #F07822 !important;
+}
+
+.loader {
+  background: rgba(0, 0, 0, 0.8) url("images/loading.gif") no-repeat center center;
+  z-index: 999;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+#warning-message { 
+    display: none; 
+    margin-top: 50%;
+    text-align: center;
+    font-size: 40px;
+}
+
+.st-sort-ascent:before{
+   content: '\25B2';
+}
+
+.st-sort-descent:before{
+   content: '\25BC';
+}
+
+.transparent {
+  background-color: white !important;
+}
+
+@media (min-width:320px) { .loader { height: 400px; } }
+@media (min-width:480px) { .loader { height: 540px; } }
+@media (min-width:600px) { .loader { height: 700px; } }
+@media (min-width:801px) { .loader { height: 923px; } }
+@media (min-width:1025px) { .loader { hegiht: 1157px; } }
+@media (min-width:1281px) { .loader { hegiht: 1400px; } }
+
+@media only screen and (orientation:portrait){
+  #wrapper { display:none; }
+  #warning-message { display:block; }
+}
+
+@media only screen and (orientation:landscape){
+  #warning-message { display:none; }
+}

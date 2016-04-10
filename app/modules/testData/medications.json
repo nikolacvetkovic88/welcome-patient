@@ -1,0 +1,54 @@
+{
+"medications": [
+  {
+    "medicationId" : "1",
+    "medication" : "Clopidogrel",
+    "medicationDescription" : "Clopidogrel 75 mg OM"
+  },
+    {
+    "medicationId" : "2",
+    "medication" : "Simvastatin",
+    "medicationDescription" : "Simvastatin 40 mg ON"
+  },
+    {
+    "medicationId" : "3",
+    "medication" : "Perindopril",
+    "medicationDescription" : "Perindopril 4mg OM"
+  },
+    {
+    "medicationId" : "4",
+    "medication" : "Lantus Solostar",
+    "medicationDescription" : "Lantus Solustar 38 units"
+  },
+  {
+    "medicationId" : "5",
+    "medication" : "Novorapid Flexpen TDS ",
+    "medicationDescription" : "Novorapid Flexpen TDS: variable dose, patient self-adjusts"
+  },
+  {
+    "medicationId" : "6",
+    "medication" : "Levothyroxine ",
+    "medicationDescription" : "Levothyroxine 125 micrograms OM"
+  },
+  {
+    "medicationId" : "7",
+    "medication" : "Gabapentin",
+    "medicationDescription" : "Gabapentin 600g TDS"
+  },
+  {
+    "medicationId" : "8",
+    "medication" : "Omeprazol",
+    "medicationDescription" : "Omeprazol 20 mg OM"
+  },
+   {
+    "medicationId" : "9",
+    "medication" : "Adcal-D3",
+    "medicationDescription" : "Adcal-D3 one tablet BD"
+  },
+   {
+    "medicationId" : "10",
+    "medication" : "Alendronic acid",
+    "medicationDescription" : "Alendronic acid 70 mg weekly"
+  }
+]
+}

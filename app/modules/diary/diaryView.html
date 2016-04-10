@@ -1,0 +1,43 @@
+<nav class="nav navbar-inverse" style="margin-bottom: 5px;">
+  <ul class="nav navbar-nav">
+    <li><a href="#home" data-icon="home"><span class="glyphicon glyphicon-home" ng-click="$route.reload()"></span>Home</a></li>    
+    <li><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurement</a></li>   
+    <li><a href="#questionnaires" data-icon="edit"><span class="glyphicon glyphicon-pencil"></span>Questionnaires</a></li>    
+    <li><a href="#education" data-icon="info"><span class="glyphicon glyphicon-info-sign"></span>Education</a></li>    
+    <li><a href="#" data-icon="comment"><span class="glyphicon glyphicon-blackboard"></span>Comments</a></li>     
+    <li><a href="#diary" data-icon="calendar"><span class="glyphicon glyphicon-calendar"></span>Diary</a></li>   
+    <li><a href="#history" data-icon="heart"><span class="glyphicon glyphicon-heart"></span>History</a></li>   
+    <li><a href="#medication" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medication</a></li>   
+  </ul>
+</nav>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="btn-group-vertical" style="width: 100%">
+      <button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#today">Today<span class="badge pull-right">{{diaryEntriesToday.length}}</span></button>
+      <div id="today" class="collapse in">
+       <ul class="list-group">
+        <li class="list-group-item" ng-repeat="entry in diaryEntriesToday">
+          <span>{{entry.start}} - </span>
+          <span>{{entry.title}}</span>
+        </li>
+       </ul>
+      </div>
+      <button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#tomorrow">Tomorrow<span class="badge pull-right">{{diaryEntriesTomorrow.length}}</span></button>
+      <div id="tomorrow" class="collapse">
+       <ul class="list-group">
+        <li class="list-group-item" ng-repeat="entry in diaryEntriesTomorrow">
+          <span>{{entry.start}} - </span>
+          <span>{{entry.title}}</span>
+        </li>
+       </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <div id="diary" class="calendar" ng-model="eventSources" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+  </div>
+  
+  <div class="loader" ng-show="loading"></div>
+</div>
+
+    

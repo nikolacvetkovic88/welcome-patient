@@ -1,0 +1,64 @@
+<nav class="nav navbar-inverse" style="margin-bottom: 5px;">
+  <ul class="nav navbar-nav">
+    <li><a href="#home" data-icon="home"><span class="glyphicon glyphicon-home" ng-click="$route.reload()"></span>Home</a></li>    
+    <li><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurement</a></li>   
+    <li><a href="#questionnaires" data-icon="edit"><span class="glyphicon glyphicon-pencil"></span>Questionnaires</a></li>    
+    <li><a href="#education" data-icon="info"><span class="glyphicon glyphicon-info-sign"></span>Education</a></li>    
+    <li><a href="#" data-icon="comment"><span class="glyphicon glyphicon-blackboard"></span>Comments</a></li>     
+    <li><a href="#diary" data-icon="calendar"><span class="glyphicon glyphicon-calendar"></span>Diary</a></li>   
+    <li><a href="#history" data-icon="heart"><span class="glyphicon glyphicon-heart"></span>History</a></li>   
+    <li><a href="#medication" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medication</a></li>   
+  </ul>
+</nav>
+<div class="row container">
+	<div class="col-sm-3">
+		<div class="btn-group-vertical" style="width: 100%" ng-repeat="topic in topics">
+			<button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#{{topic.id}}">{{topic.topic}}</button>
+			<div id="{{topic.id}}" ng-class="collapse($index)">
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="subTopic in topic.subTopics" ng-attr-id={{subTopic.id}} ng-click="setSelectedSubTopic(subTopic)" ng-class="{'selected-item': subTopic == selectedSubTopic}">{{subTopic.subTopic}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-9">
+		<h4 class="text-info">{{selectedSubTopic.subTopic}}</h4>
+		<div class="panel panel-default" ng-repeat="content in selectedSubTopic.content">
+			<div ng-if="content.type == 1">
+				<div class="panel-body">
+					<span class="education-content" ng-bind-html="content.content | newlines | html"></span>
+				</div>
+			</div>
+
+			<div ng-if="content.type == 2">
+				<div class="panel-body">
+					<span class="education-content education-link text-info" educationlink>{{content.description}}</span>
+				</div>
+			</div>
+
+			<div ng-if="content.type == 3">
+				<div class="panel-body row">
+					<div class="col-sm-6">
+						<embed-video iframe-id="{{content.id}}" data-ng-href="{{content.content}}"></embed-video>
+					</div>
+					<div class="col-sm-6">
+						{{content.description}}
+					</div>
+				</div>
+			</div>
+
+			<div ng-if="content.type == 4">
+				<div class="panel-body row">
+					<div class="col-sm-6">
+						<img alt="exercise1.png" ng-src="data:image/png;base64,{{content.content}}" />
+					</div>
+					<div class="col-sm-6">
+						{{content.description}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="loader" ng-show="loading"></div>
+</div>

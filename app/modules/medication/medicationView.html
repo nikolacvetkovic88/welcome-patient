@@ -1,0 +1,36 @@
+<nav class="nav navbar-inverse" style="margin-bottom: 5px;">
+  <ul class="nav navbar-nav">
+    <li><a href="#home" data-icon="home"><span class="glyphicon glyphicon-home" ng-click="$route.reload()"></span>Home</a></li>    
+    <li><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurement</a></li>   
+    <li><a href="#questionnaires" data-icon="edit"><span class="glyphicon glyphicon-pencil"></span>Questionnaires</a></li>    
+    <li><a href="#education" data-icon="info"><span class="glyphicon glyphicon-info-sign"></span>Education</a></li>    
+    <li><a href="#" data-icon="comment"><span class="glyphicon glyphicon-blackboard"></span>Comments</a></li>     
+    <li><a href="#diary" data-icon="calendar"><span class="glyphicon glyphicon-calendar"></span>Diary</a></li>   
+    <li><a href="#history" data-icon="heart"><span class="glyphicon glyphicon-heart"></span>History</a></li>   
+    <li><a href="#medication" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medication</a></li>   
+  </ul>
+</nav>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="form-group">
+            <p class=text-info>This is the list of medications that you have been prescribed. Please contact your GP if you need more information.</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+	<div class="col-sm-8">
+		<div class="form-group">
+			<label for="search">Search:</label>
+		    <input type="search" name="name" id="search" value="" placeholder="Search for medication" class="form-control" ng-model="medication" />
+		</div>
+		<div class="btn-group-vertical" style="width: 100%" ng-repeat="medication in medications | filter: medication">
+			<button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#{{medication.medicationId}}">{{medication.medication}}</button>
+			<div id="{{medication.medicationId}}" class="collapse in">
+				<p>{{medication.medicationDescription}}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4"></div>
+
+	<div class="loader" ng-show="loading"></div>
+</div>

@@ -1,0 +1,289 @@
+{
+    "questionnaires": [
+        {
+            "questionnaireId": "1",
+            "questionnaire": "CAT Questionnaire: How is your COPD?",
+            "questions": [
+                {
+                    "id": "1",
+                    "questionStart": "I never cough",
+                    "questionEnd": "I cough all the time",
+                    "type": "1"
+                },
+                {
+                    "id": "2",
+                    "questionStart": "I have no phlegm (mucus) in my chest at all",
+                    "questionEnd": "My chest is completely full of phlegm",
+                    "type": "1"
+                },
+                {
+                    "id": "3",
+                    "questionStart": "My chest does not feel tight at all",
+                    "questionEnd": "My chest feels very tight",
+                    "type": "1"
+                },
+                {
+                    "id": "4",
+                    "questionStart": "When I walk up a hill or one flight of stairs I am not breathless",
+                    "questionEnd": "When I walk up a hill or one flight of stairs I am very breathless",
+                    "type": "1"
+                },
+                {
+                    "id": "5",
+                    "questionStart": "I am not limited doing any activites at home",
+                    "questionEnd": "I am limited doing any activites at home",
+                    "type": "1"
+                },
+                {
+                    "id": "6",
+                    "questionStart": "I am confident leaving my home despite my lung condition",
+                    "questionEnd": "I am not at all confident leaving my home beacause of my lung condition",
+                    "type": "1"
+                },
+                {
+                    "id": "7",
+                    "questionStart": "I sleep soundly",
+                    "questionEnd": "I don't sleep soundly because of my lung condition",
+                    "type": "1"
+                },
+                {
+                    "id": "8",
+                    "questionStart": "I have lots of energy",
+                    "questionEnd": "I have no energy at all",
+                    "type": "1"
+                }
+            ]
+        },
+        {
+            "questionnaireId": "2",
+            "questionnaire": "Karl Fagerstrom Nicotine Tolerance Questionnaire",
+            "questions": [
+                {
+                    "id": "9",
+                    "question": "How many cigarettes do you smoke per day?",
+                    "type": "5",
+                    "values": [
+                        {
+                            "id": "1",
+                            "name": "10 or less"
+                        },
+                        {
+                            "id": "2",
+                            "name": "11-20"
+                        },
+                        {
+                            "id": "3",
+                            "name": "21-30"
+                        },
+                        {
+                            "id": "4",
+                            "name": "31 or more"
+                        }
+                    ]
+                },
+                {
+                    "id": "10",
+                    "question": "How soon after you wake up do you smoke your first cigarette?",
+                    "type": "5",
+                    "values": [
+                        {
+                            "id": "5",
+                            "name": "0-5"
+                        },
+                        {
+                            "id": "6",
+                            "name": "30 min"
+                        },
+                        {
+                            "id": "7",
+                            "name": "31-60 min"
+                        },
+                        {
+                            "id": "8",
+                            "name": "After 60 min"
+                        }
+                    ]
+                },
+                {
+                    "id": "11",
+                    "question": "Do you find it difficult to refrain from smoking in places where smoking is not allowed (e.g. hospitals, government offices, cinemas,libraries etc)? ",
+                    "type": "3",
+                    "values": [
+                        {
+                            "name": "Yes"
+                        },
+                        {
+                            "name": "No"
+                        }
+                    ]
+                },
+                {
+                    "id": "12",
+                    "question": "Do you smoke more during the first hours after waking than during the rest of the day? ",
+                    "type": "3",
+                    "values": [
+                        {
+                            "name": "Yes"
+                        },
+                        {
+                            "name": "No"
+                        }
+                    ]
+                },
+                {
+                    "id": "13",
+                    "question": "Which cigarette would you be the most unwilling to give up?",
+                    "type": "5",
+                    "values": [
+                        {
+                            "id": "9",
+                            "name": "First in the morning "
+                        },
+                        {
+                            "id": "10",
+                            "name": "Any of the others"
+                        }
+                    ]
+                },
+                {
+                    "id": "14",
+                    "question": "Do you smoke even when you are very ill? ",
+                    "type": "3",
+                    "values": [
+                        {
+                            "name": "Yes"
+                        },
+                        {
+                            "name": "No"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "questionnaireId": "3",
+            "questionnaire": "Fatigue Severity Scale (FSS)",
+            "questions": [
+                {
+                    "id": 1,
+                    "question": "My motivation is lower when I am fatigued.",
+                    "type": "4"
+                },
+                {
+                    "id": 2,
+                    "question": "Exercise brings on my fatigue.",
+                    "type": "4"
+                },
+                {
+                    "id": 3,
+                    "question": "I am easily fatigued.",
+                    "type": "4"
+                },
+                {
+                    "id": 4,
+                    "question": "Fatigue interferes with my physical functioning.",
+                    "type": "4"
+                },
+                {
+                    "id": 5,
+                    "question": "Fatigue causes frequent problems for me.",
+                    "type": "4"
+                },
+                {
+                    "id": 6,
+                    "question": "My fatigue prevents sustained physical functioning.",
+                    "type": "4"
+                },
+                {
+                    "id": 7,
+                    "question": "Fatigue interferes with carrying out certain duties and responsibilities.",
+                    "type": "4"
+                },
+                {
+                    "id": 8,
+                    "question": "Fatigue is among my three most disabling symptoms.",
+                    "type": "4"
+                },
+                {
+                    "id": 9,
+                    "question": "Fatigue interferes with my work, family, or social life.",
+                    "type": "4"
+                }
+            ]
+        },
+        {
+            "questionnaireId": "4",
+            "questionnaire": "Physical Exercise questionnaire",
+            "questions": [
+                {
+                    "id": "62",
+                    "question": "Type of activities",
+                    "type": "2",
+                    "values": [
+                        {
+                            "id": "1",
+                            "name": "Walking"
+                        },
+                        {
+                            "id": "2",
+                            "name": "Running"
+                        },
+                        {
+                            "id": "3",
+                            "name": "Cycling"
+                        },
+                        {
+                            "id": "4",
+                            "name": "Upper Body Exercise"
+                        },
+                        {
+                            "id": "5",
+                            "name": "Lower Body Exercise"
+                        }
+                    ]
+                },
+                {
+                    "id": "68",
+                    "question": "Time spent exercising",
+                    "type": "3",
+                    "values": [
+                        {
+                            "name": "Hours"
+                        },
+                        {
+                            "name": "0-2"
+                        },
+                        {
+                            "name": "2-4"
+                        },
+                        {
+                            "name": "4-6"
+                        },
+                        {
+                            "name": "6-8"
+                        },
+                        {
+                            "name": "8-10"
+                        }
+                    ]
+                },
+                {
+                    "id": "83",
+                    "question": "Intensity of exercises",
+                    "type": "3",
+                    "values": [
+                        {
+                            "name": "Low"
+                        },
+                        {
+                            "name": "Moderate"
+                        },
+                        {
+                            "name": "High Impact Exercies"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

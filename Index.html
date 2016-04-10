@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html ng-app="welcomeApp">
+<head>
+	<title>WELCOME</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-title" content="WELCOME">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+	<meta name="application-name" content="WELCOME">
+	<link rel="icon" type="image/png" href="assets/img/favicon-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="assets/img/favicon-160x160.png" sizes="160x160">
+	<link rel="icon" type="image/png" href="assets/img/favicon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="assets/img/favicon-16x16.png" sizes="16x16">
+	<link rel="icon" type="image/png" href="assets/img/favicon-32x32.png" sizes="32x32">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+	<link rel="stylesheet" href="assets/css/welcome.css" />
+	<link rel="stylesheet" href='assets/css/fullcalendar.css' rel='stylesheet' />
+	<link rel="stylesheet" href="assets/css/bootstrap-select.min.css" />
+	<link rel="stylesheet" type="text/css" href="assets/css/weather.css">
+	<link rel="apple-touch-icon" sizes="57x57" href="assets/img/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="assets/img/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="assets/img/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="assets/img/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="assets/img/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="assets/img/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="assets/img/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon-180x180.png">
+	<script src="assets/libs/jquery-2.1.4.min.js"></script>
+	<script src="assets/libs/bootstrap.min.js"></script>
+	<script src="assets/libs/angular.min.js"></script>
+	<script src="assets/libs/angular-route.min.js"></script>
+	<script src="assets/libs/angular-cookies.min.js"></script>
+	<script src="assets/libs/angular-base64.js"></script>
+	<script src="assets/libs/bootbox.min.js"></script>
+	<script src="assets/libs/eModal.js"></script>
+	<script src="assets/libs/bootstrap-select.min.js"></script>
+	<script src="assets/libs/moment.min.js"></script>
+	<script src="assets/libs/calendar.js"></script>
+	<script src="assets/libs/fullcalendar.min.js"></script>
+	<script src="assets/libs/gcal.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+	<script src="assets/libs/highcharts-ng.js"></script>
+	<script src="assets/libs/ng-videosharing-embed.min.js"></script>
+	<script src="assets/libs/n3-browserify.js"></script>
+	<script src="app/app.module.js"></script>
+    <script src="app/app.routes.js"></script>
+    <script src="app/shared/directives.js"></script>
+    <script src="app/shared/filters.js"></script>
+    <script src="assets/js/helperFunctions.js"></script>
+</head>
+<body id="weather-background" body>
+    <div ng-Show="showMainContent">
+		<canvas id="rain-canvas" class="canvas"></canvas>
+	    <canvas id="cloud-canvas" class="canvas"> </canvas>
+	    <canvas id="weather-canvas" class="canvas"></canvas>
+	    <canvas id="time-canvas" class="canvas"></canvas>
+	    <canvas id="lightning-canvas" class="canvas"></canvas>
+    </div>
+
+	<div id="wrapper" class="container">
+		<div class="well" style="margin-bottom: 0px;" ng-Show="showMainContent">
+			<div class="row">
+				<div class="col-sm-8">
+					<div>
+					    <img ng-src="assets/img/logo_final.png" alt="logo"/>
+			        </div>
+					<div style="margin-top: 5px;">
+						<img ng-src="assets/img/avatar.png" class="avatar" alt="avatar"/>
+						<div class="patient-name">Hello <span ng-bind="Patient.firstName"></span></div>
+						<div ng-controller="logoutCtrl">
+						    <div class="logout" ng-click="logout()">Logout</div>
+						</div>
+						<!--<div class="pull-left">
+							<audio controls style="width: 45px;">
+							    <source src="assets/audio/test.mp3" type="audio/mpeg">
+							    <p class="text-info">Your browser does not support the audio element.</p>
+						    </audio>
+					    </div>-->
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input id="search-location-input" class="form-control" type="text" placeholder="Weather forecast">
+						<span class="input-group-btn">
+							<button id="search-location-button" class="btn btn-info" title="Show weather for specific location"><span class="glyphicon glyphicon-search"></span></button>
+							<button id="geo-button" class="btn btn-info" title="Show weather for current location"> <span class="glyphicon glyphicon-screenshot"></span></button>
+						</span>
+					</div>
+
+					<div class="pull-right">
+						<div id="weather" class="hide">
+							<div class="location text-info" id="location"></div>
+							<div class="weather-container text-info">
+								<div id="temperature-info" class="temperature-info">
+									<div>
+										<span id="temperature" class="text-info" style="font-weight: bold;"></span>
+										<span class="temp-change">
+											<button id="celsius" class="btn btn-info btn-xs">&deg;C</button><button id="fahrenheit" class="btn btn-info btn-xs">&deg;F</button>
+										</span>
+									</div>
+									<div id="weather-description" class="text-info weather-description" style="padding: 0;"></div>
+								</div>
+							</div>
+							<div class="weather-box text-info" style="padding: 0;">
+								<ul class="weather-info" id="weather-info">
+									<li class="weather-item" style="padding: 0; font-size: 14px;">Humidity: <span id="humidity"></span>%</li>
+									<li class="weather-item" style="padding: 0; font-size: 14px;">Wind: <span id="wind-direction"></span> <span id="wind"></span><span id="speed-unit"></span></li>
+								</ul>
+							</div>
+						</div>
+						 <div id="geo-error-message" class="geo-error-message hide"><button id='close-error' class='fa fa-times close-error'></button>It looks like we can't find your location. Please type your city into the search box above!</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+		<div ng-view></div>
+	</div>
+	<div id="warning-message" class="text-danger">
+		This application is only viewable in landscape mode.
+	</div>
+	<script src="app/login/logoutCtrl.js"></script>
+	<script src="app/login/loginCtrl.js"></script>
+	<script src="app/login/loginServices.js"></script>
+	<script src="app/home/homeCtrl.js"></script>
+	<script src="app/modules/diary/dataService.js"></script>
+    <script src="app/modules/diary/diaryCtrl.js"></script>
+    <script src="app/modules/medication/dataService.js"></script>
+	<script src="app/modules/medication/medicationCtrl.js"></script>
+	<script src="app/modules/education/dataService.js"></script>
+	<script src="app/modules/education/educationCtrl.js"></script>
+	<script src="app/shared/cloudService.js"></script>
+	<script src="app/modules/questionnaires/dataService.js"></script>
+	<script src="app/modules/questionnaires/questionnairesCtrl.js"></script>
+	<script src="app/modules/history/dataService.js"></script>
+	<script src="app/modules/history/historyCtrl.js"></script>
+	<script src="assets/libs/weather.js"></script>
+</body>
+</html>
+</body>
+</html>

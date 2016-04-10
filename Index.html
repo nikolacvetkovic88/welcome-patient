@@ -62,7 +62,7 @@
 	    <canvas id="lightning-canvas" class="canvas"></canvas>
     </div>
 
-	<div id="wrapper" class="container">
+	<div id="wrapper" class="container" ng-controller="mainCtrl">
 		<div class="well" style="margin-bottom: 0px;" ng-Show="showMainContent">
 			<div class="row">
 				<div class="col-sm-8">
@@ -124,6 +124,8 @@
 	<div id="warning-message" class="text-danger">
 		This application is only viewable in landscape mode.
 	</div>
+	<script src="mainCtrl.js"></script>
+	<script src="dataService.js"></script>
 	<script src="app/login/logoutCtrl.js"></script>
 	<script src="app/login/loginCtrl.js"></script>
 	<script src="app/login/loginServices.js"></script>

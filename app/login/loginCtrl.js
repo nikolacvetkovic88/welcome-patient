@@ -1,4 +1,4 @@
-app.controller('loginCtrl', function ($scope, $rootScope, $location, $timeout, AuthService, AccountService) {
+app.controller('loginCtrl', function ($scope, $rootScope, $location, $timeout, AuthService, AccountService, ReminderService) {
     $scope.$emit('body:class:add', "transparent");
     AuthService.clearCredentials();
 
@@ -12,6 +12,7 @@ app.controller('loginCtrl', function ($scope, $rootScope, $location, $timeout, A
             .success(function(data) {
                 AccountService.storePatient(data);
                 $location.path('/');
+                ReminderService.registerReminders();
             })
             .error(function(data, status) {
                 $scope.error = (data || "Retrieving patient account failed") + " :" + status; 

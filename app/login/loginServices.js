@@ -1,4 +1,4 @@
-app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $base64) {
+app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $base64, ReminderService) {
         return {
             login: function(credentials) {
                 var data = "username=" +  encodeURIComponent(credentials.username) + "&password="
@@ -24,7 +24,6 @@ app.factory('AuthService', function loginService($rootScope, $http, $cookieStore
                 var expiredAt = new Date();
                 expiredAt.setSeconds(expiredAt.getSeconds() + response.expires_in);
                 response.expires_at = expiredAt.getTime();
-
 
                 $rootScope.globals = {
                     currentUser: {

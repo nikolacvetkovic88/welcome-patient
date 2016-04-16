@@ -22,7 +22,7 @@ app.factory('ReminderService', function ($rootScope, $http) {
     this.registerReminders = function() {
         self.reminderInterval = setInterval(function () {
             self.checkReminders();
-        }, 10000); 
+        }, 3600000); 
     }
 
     this.clearReminderInterval = function() {

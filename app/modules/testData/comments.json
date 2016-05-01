@@ -1,0 +1,108 @@
+{
+    "todayComments": [
+        {
+            "sender": "Me",
+            "content": "Thank you doctor, have a good day.",
+            "dateTime": "2016-05-02 13:37"
+        },
+        {
+            "sender": "Dr Atkins",
+            "content": "You can also attend smoking cessation programs. Contact your local heltcare provider to find out more.Just follow this link http://www.nhs.uk/Conditions/Smoking-(quitting)/Pages/Treatment.aspx .",
+            "dateTime": "2016-05-02 13:23"
+        },
+        {
+            "sender": "Me",
+            "content": "Is there anything else I can do doctor that will definitely help me?",
+            "dateTime": "2016-05-02 11:31"
+        },
+        {
+            "sender": "Dr Atkins",
+            "content": "You should try to lower the number of cigaretters you smoke daily and try to do it progressively.",
+            "dateTime": "2016-05-02 11:18"
+        },
+        {
+            "sender": "Dr Atkins",
+            "content": "Quitting smoking is the one thing you can do that has been proven to slow progression of COPD.",
+            "dateTime": "2016-05-02 11:07"
+        },
+        {
+            "sender": "Me",
+            "content": "I am struggling with quitting smoking. How can you help me quit and will it really help me breath better?",
+            "dateTime": "2016-05-02 10:23"
+        }
+    ],
+    "weekComments": [
+        {
+            "sender": "Me",
+            "content": "Thank you doctor.",
+            "dateTime": "2016-05-01 07:47"
+        },
+        {
+            "sender": "Dr Smith",
+            "content": "The burning is caused by the build up of lactic acid in the muscles. The best cure for this is to build up the muscles so that they can react for a longer period of time before the lactic acid builds up. It is also possible that you are not getting enough oxygen. Exercise is key, healthy muscle requires less O2.",
+            "dateTime": "2016-04-29 17:37"
+        }, 
+        {
+            "sender": "Me",
+            "content": "Hi doctor, it is only while I'm doing the activity and for a few minutes after.",
+            "dateTime": "2016-04-27 20:17"
+        },
+        {
+            "sender": "Dr Smith",
+            "content": "Hi John! Does the burn happen while you are still doing the activity, or is it something that you feel later, after you have stopped the activity and perhaps rested? ",
+            "dateTime": "2016-04-27 18:16"
+        },
+        {     
+            "sender": "Me",
+            "content": "I noticed recently (last 6 months) that when I shower, fix my hair do dishes or have to move or stand for very long my arm, shoulder and back muscles feel like I have working out for the last 5 hours. It happens all the time, but some days are worse than others. I was diagnosed in 2013 but I am just beginning to grasp exactly what this disease is and what it can do.",
+            "dateTime": "2016-04-27 13:13"
+        }
+    ],
+    "monthComments": [
+        {
+            "sender": "Dr Smith",
+            "content": "Other health problems are called co-morbidities. Because the heart and lungs work so closely together, COPD may put a strain on your heart, so heart disease is a common co-morbidity. Of course, additional chronic health problems call for close monitoring, and possibly additional medications, but with proper management you may still enjoy a long life :) ",
+            "dateTime": "2016-04-26 22:13"
+        },
+        {
+            "sender": "Me",
+            "content": "My health is not what it used to be, and COPD is not my only problem. What other diseases are associated with COPD? Will these other conditions impact my overall health?",
+            "dateTime": "2016-04-22 05:48"
+        },
+        {
+            "sender": "Dr Atkins",
+            "content": "No problem.",
+            "dateTime": "2016-04-21 19:28"
+        },
+        {
+            "sender": "Me",
+            "content": "No, I do not have any allergies as far as I am aware. Thank you, I will have my sinuses checked soon.",
+            "dateTime": "2016-04-21 16:29"
+        },
+        {
+            "sender": "Dr Atkins ",
+            "content": "Have you had your sinuses checked? Also are you allergic to anything so that your sinuses get blocked up over night?",
+            "dateTime": "2016-04-21 13:04"
+        },
+        {
+            "sender": "Me",
+            "content": "I'm experiencing runny nose syndrome ? Does anyone else have this problem with there copd every time I get up I blow my nose constantly for at least for a half hour also when I eat this happens very embarrassing beside being on oxygen 24/7 I know it doesn't have anything to do with the oxygen because it was happening before I was ever diagnosed with copd.",
+            "dateTime": "2016-04-21 10:37"
+        },
+        {
+            "sender": "Me",
+            "content": "Thank you doctor, I will try to discuss this at my next pulmonary rehab session.",
+            "dateTime": "2016-04-20 06:52"
+        },
+        {
+            "sender": "Dr Tucker",
+            "content": "A trained respiratory health care professional can teach you techniques to keep yourself calm, even when you’re short of breath. Participation in pulmonary rehabilitation is the best way to learn and get reinforcement for this important issue.",
+            "dateTime": "2016-04-16 13:27"
+        },
+        {
+            "sender": "Me",
+            "content": "At times, I become extremely short of breath, anxious, and frightened. How can I avoid these panic attacks?",
+            "dateTime": "2016-04-13 13:48"
+        }
+    ]
+}

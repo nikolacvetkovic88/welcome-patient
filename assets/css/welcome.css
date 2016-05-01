@@ -85,6 +85,7 @@ button.fc-state-active, button.fc-state-hover  {
 .selected-item {
   color: white;
   background-color: #F07822 !important;
+  border-color: #F07822;
 }
 
 .loader {

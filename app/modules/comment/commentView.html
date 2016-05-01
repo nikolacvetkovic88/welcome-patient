@@ -13,28 +13,28 @@
 <div class="row">
   <div class="col-sm-3">
     <div class="btn-group-vertical" style="width: 100%">
-      <button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#today">Today<span class="badge pull-right">{{diaryEntriesToday.length}}</span></button>
-      <div id="today" class="collapse in">
-       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="entry in diaryEntriesToday">
-          <span>{{entry.start}} - </span>
-          <span>{{entry.title}}</span>
-        </li>
-       </ul>
-      </div>
-      <button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#tomorrow">Tomorrow<span class="badge pull-right">{{diaryEntriesTomorrow.length}}</span></button>
-      <div id="tomorrow" class="collapse">
-       <ul class="list-group">
-        <li class="list-group-item" ng-repeat="entry in diaryEntriesTomorrow">
-          <span>{{entry.start}} - </span>
-          <span>{{entry.title}}</span>
-        </li>
-       </ul>
-      </div>
+      <button type="button" class="btn btn-info text-left" ng-click="setContent('today')" ng-class="{'selected-item': commentType == 'today'}">Today
+        <span class="badge pull-right">{{commentsToday.length}}</span>
+      </button>
+      <button type="button" class="btn btn-info text-left" ng-click="setContent('week')" ng-class="{'selected-item': commentType == 'week'}">Last Week
+        <span class="badge pull-right">{{commentsWeek.length}}</span>
+      </button>
+      <button type="button" class="btn btn-info text-left" ng-click="setContent('month')" ng-class="{'selected-item': commentType == 'month'}">Last Month
+        <span class="badge pull-right">{{commentsMonth.length}}</span>
+      </button>
     </div>
   </div>
   <div class="col-sm-9">
-    <div id="diary" class="calendar" ng-model="eventSources" calendar="myCalendar" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+    <div ng-repeat="entry in commentsToDisplay">
+      <div class="row">
+          {{entry.sender}}:
+      </div>
+      <div class="row text-info">
+        <span>{{entry.content}}</span><br />
+        <span style="font-size: 10px;">{{entry.dateTime}}</span>
+      </div>
+      <br />
+    </div>
   </div>
   
   <div class="loader" ng-show="loading"></div>

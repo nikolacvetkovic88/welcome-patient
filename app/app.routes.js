@@ -21,6 +21,11 @@ app.config(function($routeProvider) {
             controller: 'diaryCtrl'
         })
 
+        .when('/comment', {
+            templateUrl : 'app/modules/comment/commentView.html',
+            controller: 'commentCtrl'
+        })
+
         .when('/medication', {
             templateUrl : 'app/modules/medication/medicationView.html',
             controller: 'medicationCtrl'

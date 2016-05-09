@@ -10,9 +10,17 @@
     <li><a href="#medication" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medication</a></li>   
   </ul>
 </nav>
+
+<button class="btn btn-info pull-right btn-sm">
+  <span class="glyphicon glyphicon-refresh" ng-click="loadComments()"></span>
+</button>
+
 <div class="row">
   <div class="col-sm-3">
     <div class="btn-group-vertical" style="width: 100%">
+      <button type="button" class="btn btn-primary text-left"  ng-click="setContent('new')"> 
+        New Comment<span class="glyphicon glyphicon-envelope pull-right"></span>
+      </button>
       <button type="button" class="btn btn-info text-left" ng-click="setContent('today')" ng-class="{'selected-item': commentType == 'today'}">Today
         <span class="badge pull-right">{{commentsToday.length}}</span>
       </button>
@@ -24,10 +32,10 @@
       </button>
     </div>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-9" ng-hide="commentType == 'new'">
     <div ng-repeat="entry in commentsToDisplay">
       <div class="row">
-          {{entry.sender}}:
+        {{entry.sender}}:
       </div>
       <div class="row text-info">
         <span>{{entry.content}}</span><br />
@@ -36,8 +44,18 @@
       <br />
     </div>
   </div>
-  
-  <div class="loader" ng-show="loading"></div>
+
+  <div class="col-sm-9" ng-show="commentType == 'new'">
+    <div class="form-group">
+      <label for='comment'>Comment:</label>
+      <textarea class="form-control" rows="7" id="comment" placeholder="Type your comment here..." ng-model="myComment"></textarea>
+    </div>
+    <div class="text-center">
+      <button type="button" class="btn btn-success" ng-click="submitNewComment()">Submit</button>
+    </div>
+  </div>  
 </div>
 
-    
+<div class="loader" ng-show="loading"></div>
+</div>
+

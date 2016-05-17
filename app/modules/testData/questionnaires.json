@@ -1,7 +1,6 @@
 {
-    "questionnaires": [
-   
- {
+    "questionnaires": [ 
+       {
             "questionnaireId": "0",
             "questionnaire": "mMRC Questionnaire",
             "questions": [
@@ -39,8 +38,7 @@
                 }
              ]
         },
-
-         {
+        {
             "questionnaireId": "1",
             "questionnaire": "Your Daily Questionnaire",
             "questions": [
@@ -59,12 +57,8 @@
                         }
                     ]
                 }
-                ]
-
-
-    },
-
-
+            ]
+        },
         {
             "questionnaireId": "2",
             "questionnaire": "CAT Questionnaire: How is your COPD?",
@@ -130,19 +124,23 @@
                     "values": [
                         {
                             "id": "1",
-                            "name": "10 or less"
+                            "name": "10 or less",
+                            "score": "1"
                         },
                         {
                             "id": "2",
-                            "name": "11-20"
+                            "name": "11-20",
+                            "score": "2"
                         },
                         {
                             "id": "3",
-                            "name": "21-30"
+                            "name": "21-30",
+                            "score": "3"
                         },
                         {
                             "id": "4",
-                            "name": "31 or more"
+                            "name": "31 or more",
+                            "score": "4"
                         }
                     ]
                 },
@@ -153,19 +151,23 @@
                     "values": [
                         {
                             "id": "5",
-                            "name": "0-5"
+                            "name": "0-5",
+                            "score": "1"
                         },
                         {
                             "id": "6",
-                            "name": "30 min"
+                            "name": "30 min",
+                            "score": "2"
                         },
                         {
                             "id": "7",
-                            "name": "31-60 min"
+                            "name": "31-60 min",
+                            "score": "3"
                         },
                         {
                             "id": "8",
-                            "name": "After 60 min"
+                            "name": "After 60 min",
+                            "score": "4"
                         }
                     ]
                 },
@@ -175,10 +177,12 @@
                     "type": "3",
                     "values": [
                         {
-                            "name": "Yes"
+                            "name": "Yes",
+                            "score": "1"
                         },
                         {
-                            "name": "No"
+                            "name": "No",
+                            "score": "0"
                         }
                     ]
                 },
@@ -188,10 +192,12 @@
                     "type": "3",
                     "values": [
                         {
-                            "name": "Yes"
+                            "name": "Yes",
+                            "score": "1"
                         },
                         {
-                            "name": "No"
+                            "name": "No",
+                            "score": "0"
                         }
                     ]
                 },
@@ -202,11 +208,13 @@
                     "values": [
                         {
                             "id": "9",
-                            "name": "First in the morning "
+                            "name": "First in the morning",
+                            "score": "1"
                         },
                         {
                             "id": "10",
-                            "name": "Any of the others"
+                            "name": "Any of the others",
+                            "score": "0"
                         }
                     ]
                 },
@@ -216,10 +224,12 @@
                     "type": "3",
                     "values": [
                         {
-                            "name": "Yes"
+                            "name": "Yes",
+                            "score": "1"
                         },
                         {
-                            "name": "No"
+                            "name": "No",
+                            "score": "0"
                         }
                     ]
                 }
@@ -287,23 +297,28 @@
                     "values": [
                         {
                             "id": "1",
-                            "name": "Walking"
+                            "name": "Walking",
+                            "score": "1"
                         },
                         {
                             "id": "2",
-                            "name": "Running"
+                            "name": "Running",
+                            "score": "2"
                         },
                         {
                             "id": "3",
-                            "name": "Cycling"
+                            "name": "Cycling",
+                            "score": "3"
                         },
                         {
                             "id": "4",
-                            "name": "Upper Body Exercise"
+                            "name": "Upper Body Exercise",
+                            "score": "4"
                         },
                         {
                             "id": "5",
-                            "name": "Lower Body Exercise"
+                            "name": "Lower Body Exercise",
+                            "score": "5"
                         }
                     ]
                 },
@@ -313,22 +328,28 @@
                     "type": "3",
                     "values": [
                         {
-                            "name": "Hours"
+                            "name": "Hours",
+                            "score": "0"
                         },
                         {
-                            "name": "0-2"
+                            "name": "0-2",
+                            "score": "1"
                         },
                         {
-                            "name": "2-4"
+                            "name": "2-4",
+                            "score": "2"
                         },
                         {
-                            "name": "4-6"
+                            "name": "4-6",
+                            "score": "3"
                         },
                         {
-                            "name": "6-8"
+                            "name": "6-8",
+                            "score": "4"
                         },
                         {
-                            "name": "8-10"
+                            "name": "8-10",
+                            "score": "5"
                         }
                     ]
                 },
@@ -338,13 +359,16 @@
                     "type": "3",
                     "values": [
                         {
-                            "name": "Low"
+                            "name": "Low",
+                            "score": "0"
                         },
                         {
-                            "name": "Moderate"
+                            "name": "Moderate",
+                            "score": "1"
                         },
                         {
-                            "name": "High Impact Exercies"
+                            "name": "High Impact Exercies",
+                            "score": "2"
                         }
                     ]
                 }

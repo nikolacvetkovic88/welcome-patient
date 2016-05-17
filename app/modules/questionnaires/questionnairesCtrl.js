@@ -21,17 +21,34 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
     $scope.selectedQuestionnaire.answers = [];
   }
 
+  $scope.calculateTotalScore = function() {
+  	var score = 0;
+  	angular.forEach($scope.selectedQuestionnaire.answers, function(answer, key) {
+  		score += parseInt(answer.answer);
+  	});
+
+  	return score;
+  }
+
   $scope.submit = function() {
     var answers = $scope.selectedQuestionnaire.answers;
+
+    if(!$scope.patientId) {
+      bootbox.alert("<div class='text-danger'>No patient ID defined!</div>");
+      return;
+    }
 
     if(!answers.length){ 
       bootbox.alert("<div class='text-danger'>Please select at least one answer!</div>");
       return;
     }
-    if(!$scope.patientId) {
-      bootbox.alert("<div class='text-danger'>No patient ID defined!</div>");
-      return;
+
+    if(answers.length && answers.length != $scope.selectedQuestionnaire.questions.length) {
+    	bootbox.alert("<div class='text-danger'>Please give answers to all the questions!</div>");
+    	return;
     }
+
+    console.log($scope.calculateTotalScore());
 
     $scope.loading = true;
     CloudService.postQuestionnaire('welk','welk', $scope.patientId, answers, $scope.selectedQuestionnaire.questionnaire)

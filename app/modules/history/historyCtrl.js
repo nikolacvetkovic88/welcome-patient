@@ -1,20 +1,23 @@
 app.controller('historyCtrl', function($scope, $timeout, historyRepository) {
     $scope.$emit('body:class:add', "transparent");
     $scope.selected = null;
-    $scope.loading = true;
 
-    historyRepository.getAllHistoryEntries()
-    .success(function(data) {
-        $scope.historyData = data.history;
-        $scope.loading = false;
+    $scope.getHistoryData = function() {
+        $scope.loading = true;
+        
+        historyRepository.getAllHistoryEntries()
+        .success(function(data) {
+            $scope.historyData = data.history;
+            $scope.loading = false;
 
-        $scope.setSelected($scope.historyData[0].id);
-        initCharts($scope); // init here or just push data here?
-     })
-    .error(function() {
-        $scope.loading = false;
-        bootbox.alert("<div class='text-danger'>Failed loading history data.</div>");
-    });
+            $scope.setSelected($scope.historyData[0].id);
+            initCharts($scope); // init here or just push data here?
+         })
+        .error(function() {
+            $scope.loading = false;
+            bootbox.alert("<div class='text-danger'>Failed loading history data.</div>");
+        });
+    }
 
     $scope.setSelected = function(id) {
         $scope.selected = id;
@@ -90,4 +93,5 @@ app.controller('historyCtrl', function($scope, $timeout, historyRepository) {
         return graphData;
     }
 
+    $scope.getHistoryData();
 });

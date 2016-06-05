@@ -1,20 +1,23 @@
-app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64, questionnairesRepository, CloudService) {
+app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64, questionnairesRepository) {
   $scope.$emit('body:class:add', "transparent");
-  $scope.loading = true;
   $scope.patientId = $rootScope.Patient ? $rootScope.Patient.cloudRef : null;
 
-  questionnairesRepository.getAllQuestionnaires()
-  .success(function(data) {
-    $scope.questionnaires = data.questionnaires;
-    if($scope.questionnaires[0])
-      $scope.setSelectedQuestionnaire($scope.questionnaires[0]);
+  $scope.getQuestionnaires = function() {
+    $scope.loading = true;
     
-    $scope.loading = false;
+    questionnairesRepository.getAllQuestionnaires()
+    .success(function(data) {
+      $scope.questionnaires = data.questionnaires;
+      if($scope.questionnaires[0])
+        $scope.setSelectedQuestionnaire($scope.questionnaires[0]);
+      
+      $scope.loading = false;
     })
-  .error(function() {
-    $scope.loading = false;
-    bootbox.alert("<div class='text-danger'>Failed loading questionnaires</div>");
+    .error(function() {
+      $scope.loading = false;
+      bootbox.alert("<div class='text-danger'>Failed loading questionnaires</div>");
     });
+  }
 
   $scope.setSelectedQuestionnaire = function(questionnaire) {
     $scope.selectedQuestionnaire = questionnaire;
@@ -71,4 +74,5 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
       });
   }
 
+  $scope.getQuestionnaires();
 });

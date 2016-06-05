@@ -10,22 +10,27 @@
     <li><a href="#medication" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medication</a></li>   
   </ul>
 </nav>
+
+<button class="btn btn-info pull-right btn-sm refresh" ng-click="getDiaryEntries()">
+  <span class="glyphicon glyphicon-refresh"></span>
+</button>
+
 <div class="row">
   <div class="col-sm-3">
     <div class="btn-group-vertical" style="width: 100%">
-      <button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#today">Today<span class="badge pull-right">{{diaryEntriesToday.length}}</span></button>
+      <button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#today">Today<span class="badge pull-right">{{diaryToday.length}}</span></button>
       <div id="today" class="collapse in">
        <ul class="list-group">
-        <li class="list-group-item" ng-repeat="entry in diaryEntriesToday">
+        <li class="list-group-item" ng-repeat="entry in diaryToday">
           <span>{{entry.start}} - </span>
           <span>{{entry.title}}</span>
         </li>
        </ul>
       </div>
-      <button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#tomorrow">Tomorrow<span class="badge pull-right">{{diaryEntriesTomorrow.length}}</span></button>
+      <button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#tomorrow">Tomorrow<span class="badge pull-right">{{diaryTomorrow.length}}</span></button>
       <div id="tomorrow" class="collapse">
        <ul class="list-group">
-        <li class="list-group-item" ng-repeat="entry in diaryEntriesTomorrow">
+        <li class="list-group-item" ng-repeat="entry in diaryTomorrow">
           <span>{{entry.start}} - </span>
           <span>{{entry.title}}</span>
         </li>

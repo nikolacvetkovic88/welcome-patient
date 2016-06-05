@@ -116,6 +116,10 @@ button.fc-state-active, button.fc-state-hover  {
   background-color: white !important;
 }
 
+.refresh {
+  margin-bottom: 10px;
+}
+
 @media (min-width:320px) { .loader { height: 400px; } }
 @media (min-width:480px) { .loader { height: 540px; } }
 @media (min-width:600px) { .loader { height: 700px; } }

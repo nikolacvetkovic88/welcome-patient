@@ -1,22 +1,110 @@
-app.factory('ReminderService', function ($rootScope, $http) {
+app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository) {
     var self = this;
+
     this.reminderInterval = null;
     this.questionnaires = [];
     this.measurements = [];
 
     this.getReminders = function() {
-         var remindersUrl = "app/modules/testData/reminders.json";
-
-        return $http.get(remindersUrl)  
-        .success(function (data) {
-            self.questionnaires = data.questionnaires;
-            self.measurements = data.measurements;
-            self.checkReminders();
-            self.registerReminders();
+        diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.Patient.cloudRef)
+        .then(function(response) {
+            return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.Patient.cloudRef); 
         })
-        .error(function() {
-            bootbox.alert("<div class='text-danger'>Failed loading reminders.</div>");
+        .then(function(questionnaireDiaryRefs) {
+            return self.getQuestionnaireDiaryEntryUriPromises(questionnaireDiaryRefs); 
+        })
+        .then(function(questionnaireDiaries) {
+            return self.getAllQuestionnaireDiaryEntries(questionnaireDiaries);
+        })
+        .then(function(results) {
+            self.questionnaires = self.parseData(results, "q");
+            self.getDevices()
+            .then(function(deviceResults) {
+                self.measurements = self.parseData(deviceResults, "m");
+                self.checkReminders();
+                self.registerReminders();
+            });
         });
+    }
+
+    this.getQuestionnaireDiaryEntryUriPromises = function(refs) {
+        var promises = [];
+        angular.forEach(refs, function(ref) {
+            promises.push(diaryRepository.getQuestionnaireDiaryEntryByRef('welk', 'welk', ref));
+        });
+
+        return $q.all(promises);
+    }
+
+    this.getAllQuestionnaireDiaryEntries = function(questionnaireDiaries) {
+        var promises = [];
+        angular.forEach(questionnaireDiaries, function(questionnaireDiary) {
+            promises.push(diaryRepository.decodeQuestionnaireDiaryEntry(questionnaireDiary.data));
+        });
+
+        return $q.all(promises);
+    }
+
+    this.getDevices = function() {
+        return diaryRepository.getDevices('welk', 'welk', $rootScope.Patient.cloudRef)
+        .then(function(response) {
+            return diaryRepository.decodeDevices(response.data, $rootScope.Patient.cloudRef)
+        })
+        .then(function(deviceRefs) {
+            return self.getDeviceUriPromises(deviceRefs);
+        })
+        .then(function(response) {
+            return self.decodeDeviceEntries(response);
+        })
+        .then(function(deviceEntryRefs) {
+            var nonEmptyRefs = [];
+                angular.forEach(deviceEntryRefs, function(refArray) {
+                    angular.forEach(refArray, function(ref) {
+                        nonEmptyRefs.push(ref);
+                    });
+                })
+
+            return self.getDeviceEntryUriPromises(nonEmptyRefs);
+        })
+        .then(function(deviceDiaries) {
+            return self.getAllDeviceDiaryEntries(deviceDiaries);
+        })
+    }
+
+    this.getDeviceUriPromises = function(refs) {
+        var promises = [];
+        angular.forEach(refs, function(ref) {
+            promises.push(diaryRepository.getDeviceByRef('welk', 'welk', ref));
+        });
+
+        return $q.all(promises);
+    }
+
+    this.decodeDeviceEntries = function(deviceRefs) {
+        var promises = [];
+        angular.forEach(deviceRefs, function(ref) {
+            promises.push(diaryRepository.decodeDeviceEntry(ref.data));
+        });
+
+        return $q.all(promises);
+    }
+
+    this.getDeviceEntryUriPromises = function(refs) {
+        var promises = [];
+        angular.forEach(refs, function(ref) {
+            promises.push(diaryRepository.getDeviceDiaryEntryByRef('welk', 'welk', ref));
+        });
+
+        return $q.all(promises);
+    }
+
+    this.getAllDeviceDiaryEntries = function(deviceDiaries) {
+        var promises = [];
+        angular.forEach(deviceDiaries, function(deviceDiary) {
+            promises.push(diaryRepository.decodeDeviceDiaryEntry(deviceDiary.data));
+        });
+
+        return $q.all(promises);
     }
 
     this.registerReminders = function() {
@@ -28,83 +116,104 @@ app.factory('ReminderService', function ($rootScope, $http) {
     this.clearReminderInterval = function() {
         clearInterval(self.reminderInterval);
         self.reminderInterval = null;
-        self.questionnaires = [];
-        self.measurements = [];
+        self.questionnaires.length = 0;
+        self.measurements.length = 0;
     }
 
     this.checkReminders = function() {
-        var dailyReminders = [],
-            hourlyReminders = [],
-            dailyMessage = "",
-            hourlyMessage = "";
+        var todayReminders = [],
+            tomorrowReminders = [],
+            todayMessage = "",
+            tomorrowMessage = "";
 
         angular.forEach(self.questionnaires, function(reminder, i) {
-            var questionnaireReminder = self.checkReminder(reminder);
-            if(questionnaireReminder.daily) {
-                dailyReminders.push(reminder.name);
+            var questionnaireReminder = self.checkReminder(reminder.start);
+            if(questionnaireReminder.isToday) {
+                todayReminders.push("Questionnaire " + reminder.title + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
-            if(questionnaireReminder.hourly) {
-                hourlyReminders.push(reminder.name);
+            if(questionnaireReminder.isTomorrow) {
+                tomorrowReminders.push("Questionnaire " + reminder.title + " is due tomorrow");
             }
         });
 
-        if(dailyReminders.length) {
-            dailyMessage += "<div>You have following questionnaires</div><div class='text text-info' style='margin-left: 20px;'>" + dailyReminders.toString() + ".</div>";
+        if(todayReminders.length) {
+            todayMessage += todayReminders.toString();
         }
 
-        if(hourlyReminders.length) {
-            hourlyMessage += "<div>You have following questionnaires</div><div class='text text-danger' style='margin-left: 20px;'>" + hourlyReminders.toString() + ".</div>";
+        if(tomorrowReminders.length) {
+            tomorrowMessage += tomorrowReminders.toString();
         }
 
-        dailyReminders = [];
-        hourlyReminders = [];
+        todayReminders.length = 0;
+        tomorrowReminders.length = 0;
 
         angular.forEach(self.measurements, function(reminder, i) {
-            var measurementReminder = self.checkReminder(reminder);
-            if(measurementReminder.daily) {
-                dailyReminders.push(reminder.name);
+            var measurementReminder = self.checkReminder(reminder.start);
+            if(measurementReminder.isToday) {
+                todayReminders.push("Measurement " + reminder.title + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
-            if(measurementReminder.hourly) {
-                hourlyReminders.push(reminder.name);
+            if(measurementReminder.isTomorrow) {
+                tomorrowReminders.push("Measurement " + reminder.title + " is due tomorrow");
             }
         });
 
-        if(dailyReminders.length) {
-            dailyMessage += "<div>You have following measurements:</div><div class='text text-info' style='margin-left: 20px;'>" + dailyReminders.toString() + ".</div>";
+        if(todayReminders.length) {
+            todayMessage += todayReminders.toString();
         }
 
-        if(hourlyReminders.length) {
-            hourlyMessage += "<div>You have following measurements</div><div class='text text-danger' style='margin-left: 20px;'>" + hourlyReminders.toString() + ".</div>";
+        if(tomorrowReminders.length) {
+            tomorrowMessage += tomorrowReminders.toString();
         }
 
-        if(dailyMessage)
-            bootbox.alert($rootScope.Patient.firstName + ", " + dailyMessage + "<div>scheduled for tomorrow.</div>");
-
-        if(hourlyMessage)
-            bootbox.alert($rootScope.Patient.firstName + ", " + hourlyMessage + "<div>due in an hour.</div>");
+        var message = "<div class='text text-danger' style='margin-left: 20px;'>" + todayMessage + "</div>" + 
+                      "<hr />" + "<div class='text text-info' style='margin-left: 20px;'>" + tomorrowMessage + "</div>";
+        if(message)
+            bootbox.alert(message);
     }
 
     this.checkReminder = function(reminder) {
-        var daily = false,
-            hourly = false,
-            currentDate = moment(reminder.dateTime),
-            dayLater = moment().add(1, 'days').startOf('day'),
-            hourLater = moment().add(1, 'hours');
+        var isTomorrow = false,
+            isToday = false,
+            today = moment();
+            tomorrow = moment().add(1, 'days').startOf('day');
 
         // check if something is due tomorrow
-        if(currentDate.year() == dayLater.year() && currentDate.date() == dayLater.date()) {
-            daily = true;
+        if(reminder.year() == tomorrow.year() && reminder.month() == tomorrow.month() && reminder.date() == tomorrow.date()) {
+            isTomorrow = true;
         }
 
         // check if something is due in an hour
-        if(currentDate.year() == hourLater.year() && currentDate.date() == hourLater.date() && currentDate.hour() == hourLater.hour() && currentDate.minute() == hourLater.minute()) {
-            hourly = true;
+        if(reminder.year() == today.year() && reminder.month() == today.month() && reminder.date() == today.date()) {
+            if(reminder.hour() > today.hour()) {
+                isToday = true;
+            } else if(reminder.hour() == today.hour()) {
+                if(reminder.minute() > today.minute())
+                    isToday = true;
+            } else {
+                isToday = false;
+            }
         }
 
         return {
-            daily: daily,
-            hourly: hourly
+            isToday: isToday,
+            isTomorrow: isTomorrow
         };
+    }
+
+    this.parseData = function(data, mode) {
+        var parsedData = [];
+
+        angular.forEach(data, function(value) {
+          angular.forEach(value.eventDates, function(date) {
+            var parsedObject = {};
+            parsedObject.title = value.title;
+            parsedObject.start = moment(date, "YYYY-MM-DD HH:mm");
+            parsedObject.mode = mode;
+            parsedData.push(parsedObject);
+          });
+        });
+
+        return parsedData;
     }
 
     return {

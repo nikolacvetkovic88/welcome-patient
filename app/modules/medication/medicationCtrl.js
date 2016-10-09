@@ -3,16 +3,8 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
 	$scope.patientId = $rootScope.Patient ? $rootScope.Patient.cloudRef : null;
 
 	$scope.getMedications = function() {
-		/*medicationRepository.getMedicationPrescriptions('welk','welk', $scope.patientId)
-		.success(function(data) {
-			$scope.medications = medicationRepository.decodeMedicationPrescriptions('welk', 'welk', $scope.patientId, data);
-			$scope.loading = false;
-		})
-		.error(function() {
-            $scope.loading = false;
-            bootbox.alert("<div class='text-danger'>Error while getting medications. If this continues please contact support.</div>");
-        });*/
         $scope.loading = true;
+        
         medicationRepository.getMedicationPrescriptions('welk', 'welk', $scope.patientId)
         .then(function(response) {
         	return medicationRepository.decodeMedicationPrescriptions(response.data, $scope.patientId);
@@ -27,7 +19,6 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
         	return $scope.getMedicationPrescriptionOrMedicationUriPromises(medicationRefs);
         })
         .then(function(medications) {
-        	console.log(medications);
         	return $scope.getAllMedications(medications);
         })
         .then(function(results) {
@@ -36,6 +27,11 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
         });
 	}
 
+    $scope.refresh = function() {
+        $scope.filter = '';
+        $scope.getMedications();
+    }
+    
 	$scope.getMedicationPrescriptionOrMedicationUriPromises = function(refs) {	
         var promises = [];
         angular.forEach(refs, function(ref) {

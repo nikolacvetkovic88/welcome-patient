@@ -11,7 +11,7 @@
   </ul>
 </nav>
 
-<button class="btn btn-info pull-right btn-sm refresh" ng-click="getMedications()">
+<button class="btn btn-info pull-right btn-sm refresh" ng-click="refresh()">
   <span class="glyphicon glyphicon-refresh"></span>
 </button>
 
@@ -26,9 +26,9 @@
 	<div class="col-sm-8">
 		<div class="form-group">
 			<label for="search">Search:</label>
-		    <input type="search" name="name" id="search" value="" placeholder="Search for medication" class="form-control" ng-model="medication" />
+		    <input type="search" name="name" id="search" value="" placeholder="Search for medication" class="form-control" ng-model="filter" />
 		</div>
-		<div class="btn-group-vertical" style="width: 100%" ng-repeat="medication in medications | filter: medication">
+		<div class="btn-group-vertical" style="width: 100%" ng-repeat="medication in medications | filter: filter">
 			<button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#{{medication.medicationId}}">{{medication.medication}}</button>
 			<!--<div id="{{medication.medicationId}}" class="collapse in">
 				<p>{{medication.medicationDescription}}</p>

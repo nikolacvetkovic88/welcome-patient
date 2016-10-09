@@ -3,7 +3,7 @@ app.factory('medicationRepository', function($base64, $http, $q) {
 	baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
 
 	MedicationRepository.getMedicationPrescriptions= function(username, password, patientId) {
-		var url =  baseUrl + 'Patient/' + patientId + '/MedicationPrescription';//'http://aerospace.med.auth.gr:8080/welcome/api/data/MedicationPrescription/99425607-9d7a-497f-aeda-c7a3e866d381';
+		var url =  baseUrl + 'Patient/' + patientId + '/MedicationPrescription';
 		var encodedCred = $base64.encode(username + ':' + password);
 		return  $http({
 			url: url,
@@ -14,19 +14,6 @@ app.factory('medicationRepository', function($base64, $http, $q) {
 				'Content-Type' : 'text/turtle'
 			}
 		});
-    }
-
-    MedicationRepository.getMedicationPrescriptionOrMedicationByRef = function(username, password, url) {
-        var encodedCred = $base64.encode(username + ':' + password);
-        return  $http({
-            url: url,
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
     }
 
     MedicationRepository.decodeMedicationPrescriptions = function(data, patientId) {
@@ -52,6 +39,19 @@ app.factory('medicationRepository', function($base64, $http, $q) {
         });
 		
 		return defer.promise;
+    }
+
+    MedicationRepository.getMedicationPrescriptionOrMedicationByRef = function(username, password, url) {
+        var encodedCred = $base64.encode(username + ':' + password);
+        return  $http({
+            url: url,
+            method: 'GET',
+            headers: {
+                'Authorization' : 'Basic ' + encodedCred,
+                'Accept' : 'text/turtle',
+                'Content-Type' : 'text/turtle'
+            }
+        });
     }
 
     MedicationRepository.decodeMedicationPrescription = function(data) {
@@ -91,8 +91,9 @@ app.factory('medicationRepository', function($base64, $http, $q) {
         parser.parse(data,
             function (error, triple) {
                 if (triple) {
-                    if(N3Util.isBlank(triple.subject) && triple.predicate === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#value' && N3Util.isLiteral(triple.object) ) {//http://lomi.med.auth.gr/ontologies/FHIRResources#Medication.name
-                        medObj.medication = N3Util.getLiteralValue(triple.object);
+                    if(N3Util.isBlank(triple.subject) && triple.predicate === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#value' && N3Util.isLiteral(triple.object)) {
+                        if(N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#string")
+                            medObj.medication = N3Util.getLiteralValue(triple.object);
                     }
                 } else {
                     defer.resolve(medObj);

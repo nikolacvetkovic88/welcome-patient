@@ -20,5 +20,11 @@ var app = angular.module("welcomeApp", ['ngRoute', 'ngCookies', 'highcharts-ng',
             } else {
                 $rootScope.showMainContent = false;
             }
+
+            if($location.path() == '/' || $location.path() == '/home') {
+                $rootScope.isHomePage = true;
+            } else {
+                $rootScope.isHomePage = false;
+            }
         });
     });

@@ -1,4 +1,4 @@
-<nav class="nav navbar-inverse" style="margin-bottom: 5px;">
+<nav class="nav navbar-inverse navigation-bar">
   <ul class="nav navbar-nav">
     <li><a href="#home" data-icon="home"><span class="glyphicon glyphicon-home" ng-click="$route.reload()"></span>Home</a></li>    
     <li><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurement</a></li>   
@@ -11,103 +11,79 @@
   </ul>
 </nav>
 
-<button class="btn btn-info pull-right btn-sm refresh" ng-click="getQuestionnaires()">
+<button class="btn btn-info pull-right btn-sm refresh" ng-click="refresh()">
   <span class="glyphicon glyphicon-refresh"></span>
 </button>
 
 <div class="row">
 	<div class="col-sm-3">
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="questionnaire in questionnaires" ng-attr-id={{questionnaire.questionnaireId}} ng-click="setSelectedQuestionnaire(questionnaire)" ng-class="{'selected-item': questionnaire == selectedQuestionnaire}">{{questionnaire.questionnaire}}</li>
+			<li class="list-group-item" ng-repeat="questionnaire in assignedQuestionnaires" ng-attr-id={{questionnaire.questionnaire.name}} ng-click="setSelectedQuestionnaire(questionnaire)" ng-class="{'selected-item': questionnaire == selectedQuestionnaire}">{{questionnaire.questionnaire.name}}</li>
 		</ul>
 	</div>
 
-	<!--<div class="col-sm-9">
+	<div class="col-sm-9">
 		<div ng-repeat="question in selectedQuestionnaire.questions">
-			<div class="panel panel-default" ng-if="question.type == 1">
-				<div class="panel-body">
-					<strong>{{question.questionStart}}</strong>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="1" data-question-id ="{{question.id}}" question-Answer />1
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="2" data-question-id ="{{question.id}}" question-Answer />2
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="3" data-question-id ="{{question.id}}" question-Answer />3
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="4" data-question-id ="{{question.id}}" question-Answer />4
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="5" data-question-id ="{{question.id}}" question-Answer />5
-					</label>
-					<strong>{{question.questionEnd}}</strong>
-				</div>
-			</div>
-
-			<div class="panel panel-default" ng-if="question.type == 2">
+			<!--<div class="panel panel-default" ng-if="question.type == 2">
 				<div class="panel-body">
 					<div><strong>{{question.question}}</strong></div>
 					<label class="checkbox-inline" ng-repeat="value in question.values">
 						<input type="checkbox" ng-attr-id="{{value.id}}" ng-value="{{value.score}}" data-question-id ="{{question.id}}" question-Answer />{{value.name}}
 					</label>
 				</div>
-			</div>
+			</div>-->
 
-			<div class="panel panel-default" ng-if="question.type == 3">
-				<div class="panel-body">
-					<label class="control-label" for="{{question.id}}">{{question.question}}</label>
-					<select ng-attr-id="{{question.id}}" ng-options="o.name for o in question.values track by o.score" ng-model="selectedOption" class="selectpicker" data-style="btn-info" data-question-id ="{{question.id}}" question-Answer dropdown>
-						<option value="0" >Please select...</option>
-					</select>
-				</div>
-			</div>
-
-			<div class="panel panel-default" ng-if="question.type == 4">
-				<div class="panel-body">
-					<div>{{question.question}}</div>
-					<strong>Disagree</strong>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="1" data-question-id ="{{question.id}}" question-Answer />1
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="2" data-question-id ="{{question.id}}" question-Answer />2
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="3" data-question-id ="{{question.id}}" question-Answer />3
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="4" data-question-id ="{{question.id}}" question-Answer />4
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="5" data-question-id ="{{question.id}}" question-Answer />5
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="6" data-question-id ="{{question.id}}" question-Answer />6
-					</label>
-					<label class="radio-inline">
-						<input type="radio" name="{{question.id}}" value="7" data-question-id ="{{question.id}}" question-Answer />7
-					</label>
-					<strong>Agree</strong>
-				</div>
-			</div>
-			
-			<div class="panel panel-default" ng-if="question.type == 5">
+			<div class="panel panel-default" ng-if="question.question_type.name == 'choice-radio'">
 				<div class="panel-body">
 					<div>
-						<strong>{{question.question}}</strong>
+						<strong>{{question.question_text.name}}</strong>
 					</div>
-					    <label class="control-label" style="font-weight: normal; margin-right: 10px;" ng-repeat="value in question.values">
-						    <input type="radio" style="margin-right: 5px;" ng-attr-id="{{value.id}}" name="{{question.id}}" ng-value="{{value.score}}" data-question-id ="{{question.id}}" question-Answer />{{value.name}}
+					<div class="btn-group btn-group-justified" data-toggle="buttons">
+					    <label class="btn btn-label" ng-repeat="option in question.options">
+						    <input type="radio" name="{{question.question.name}}" ng-value="{{option.option_gravity.value}}" data-question-id ="{{question.question.name}}" question-Answer />{{option.option_gravity.value}}
 					    </label>
+					</div>
 				</div>
 			</div>
+
+			<div class="panel panel-default" ng-if="question.question_type.name == 'choice-radio2'">
+				<div class="panel-body">
+					<div>
+						<strong>{{question.question_text.name}}</strong>
+					</div>
+					<div class="radio" ng-repeat="option in question.options">
+					    <label class="control-label">
+						    <input type="radio" name="{{question.question.name}}" ng-value="{{option.option_score.value || option.option_gravity.value}}" data-question-id ="{{question.question.name}}" question-Answer />{{option.option_display.value}}
+					    </label>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default" ng-if="question.question_type.name == 'choice-dropdown'">
+				<div class="panel-body">
+				    <div class="form-group">
+						<label class="control-label" for="{{question.question.name}}">{{question.question_text.name}}</label>
+						<select ng-attr-id="{{question.question.name}}" ng-options="o.option_display.value for o in question.options track by o.option_gravity.value" ng-model="selectedOption" class="form-control" data-style="btn-info" data-question-id ="{{question.question.name}}" question-Answer dropDown>
+							<option value="">Please select...</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel panel-default" ng-if="question.question_type.name == 'free-choice'">
+				<div class="panel-body">
+				    <div class="form-group">
+						<label class="control-label" for="{{question.question.name}}">{{question.question_text.name}}</label>
+					    <input type="text" class="form-control" ng-attr-id="{{question.question.name}}" data-question-id ="{{question.question.name}}" question-Answer />
+					</div>
+				</div>
+			</div>
+
 		</div>
 		<div class="text-center">
 		    <button class="btn btn-primary " ng-show="!loading && selectedQuestionnaire" ng-click="submit()">Submit</button>
 	    </div>
-	</div>-->
+	</div>
 
 	<div class="loader" ng-show="loading"></div>
 </div>

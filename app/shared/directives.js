@@ -3,7 +3,10 @@ app.directive("dropdown", function($timeout) {
 		    restrict: "A",
 		    link: function(scope, elem, attrs) {
 		        $timeout(function() {
-		            $(elem).selectpicker();
+		            $(elem).select2({
+                        theme: "bootstrap",
+                        minimumResultsForSearch: Infinity
+                    });
 		        });
 		    }
 		}

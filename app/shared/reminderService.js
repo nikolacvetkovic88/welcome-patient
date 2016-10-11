@@ -167,7 +167,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
 
         var message = "<div class='text text-danger' style='margin-left: 20px;'>" + todayMessage + "</div>" + 
                       "<hr />" + "<div class='text text-info' style='margin-left: 20px;'>" + tomorrowMessage + "</div>";
-        if(message)
+        if(todayMessage || tomorrowMessage)
             bootbox.alert(message);
     }
 

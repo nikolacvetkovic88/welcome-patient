@@ -137,11 +137,11 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
         });
 
         if(todayReminders.length) {
-            todayMessage += todayReminders.toString();
+            todayMessage += todayReminders.toString() + ".";
         }
 
         if(tomorrowReminders.length) {
-            tomorrowMessage += tomorrowReminders.toString();
+            tomorrowMessage += tomorrowReminders.toString() + ".";
         }
 
         todayReminders.length = 0;
@@ -158,11 +158,11 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
         });
 
         if(todayReminders.length) {
-            todayMessage += todayReminders.toString();
+            todayMessage += todayReminders.toString() + ".";
         }
 
         if(tomorrowReminders.length) {
-            tomorrowMessage += tomorrowReminders.toString();
+            tomorrowMessage += tomorrowReminders.toString() + ".";
         }
 
         var message = "<div class='text text-danger' style='margin-left: 20px;'>" + todayMessage + "</div>" + 

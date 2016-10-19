@@ -208,13 +208,18 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.uiConfig = {
     calendar:{
       height: "auto",
-      eventLimit: false,
+      eventLimit: 2,
       draggable: false,
       editable: false,
+      navlinks: true,
       header:{
-        left: 'agendaDay, agendaWeek, month',
+        left: 'month, agendaWeek, agendaDay, listWeek, listDay',
         center: 'title',
         right: 'today, prev, next'
+      },
+      views: {
+        listDay: { buttonText: 'list day' },
+        listWeek: { buttonText: 'list week' }
       },
       timeFormat: '',
       eventClick: $scope.onClick,

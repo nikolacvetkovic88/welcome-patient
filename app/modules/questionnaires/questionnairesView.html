@@ -18,7 +18,7 @@
 <div class="row">
 	<div class="col-sm-3">
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="questionnaire in assignedQuestionnaires" ng-attr-id={{questionnaire.questionnaire.name}} ng-click="setSelectedQuestionnaire(questionnaire)" ng-class="{'selected-item': questionnaire == selectedQuestionnaire}">{{questionnaire.questionnaire.name}}</li>
+			<li class="list-group-item" ng-repeat="questionnaire in assignedQuestionnaires" ng-attr-id={{questionnaire.questionnaire.id}} ng-click="setSelectedQuestionnaire(questionnaire)" ng-class="{'selected-item': questionnaire == selectedQuestionnaire}">{{questionnaire.questionnaire.name}}</li>
 		</ul>
 	</div>
 

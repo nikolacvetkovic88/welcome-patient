@@ -4,7 +4,8 @@
         	"questionnaire": {
         		"type": "uri",
         		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_COPDAssessmentTest",
-        		"name": "COPDAssessmentTest"
+        		"id": "COPDAssessmentTest",
+                "name": "COPDAssessmentTest"
         	},
         	"questions": [
         	    {
@@ -869,6 +870,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_8",
+                "id": "DSQ_q8",
                 "name": "Daily Questionnaire 8"
             },
             "questions": [
@@ -951,6 +953,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_1",
+                "id": "DSQ_q1",
                 "name": "Daily Questionnaire 1"
             },
             "questions": [
@@ -1033,6 +1036,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_6",
+                "id": "DSQ_q6",
                 "name": "Daily Questionnaire 6"
             },
             "questions": [
@@ -1114,7 +1118,646 @@
         {
             "questionnaire": {
                 "type": "uri",
+                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_Physical_Activities",
+                "id": "Physical_Activities",
+                "name": "Physical Activities"
+            },
+            "questions": [
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_Physical_Activities_q1",
+                        "name": "Physical_Activities_q1"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "1"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Type of activities",
+                        "name": "Type of activities",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Walking",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Running",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o3"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Cycling",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "3"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o4"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Upper body exercise",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "4"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o5"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Lower body exercise",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "5"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o6"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Swimming",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "6"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o7"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Gardening",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "7"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o8"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "House chores",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "8"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q1_o9"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Ν/Α",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "9"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_Physical_Activities_q2",
+                        "name": "Physical_Activities_q2"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "2"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Time spent exercising",
+                        "name": "Time spent exercising",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_quantity",
+                        "name": "free-choice"
+                    }
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_Physical_Activities_q2",
+                        "name": "Physical_Activities_q2"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "2"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Time spent exercising",
+                        "name": "Time spent exercising",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_quantity",
+                        "name": "free-choice"
+                    }
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_Physical_Activities_q3",
+                        "name": "Physical_Activities_q3"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "3"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Intensity of exercises",
+                        "name": "Intensity of exercises",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q3_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Low",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q3_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Moderate",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Physical_Activities_q3_o3"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "High impact excercises",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "3"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "questionnaire": {
+                "type": "uri",
+                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_SmokingCessation",
+                "id": "SmokingCessation",
+                "name": "Smoking Cessation"
+            },
+            "questions": [
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q1",
+                        "name": "Question_sc_q1"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "1"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Do you smoke?",
+                        "name": "Do you smoke?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Yes"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Yes",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_No"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "No",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q2",
+                        "name": "Question_sc_q2"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "2"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Did you ever smoke in your life?",
+                        "name": "Did you ever smoke in your life?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Yes"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Yes",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_No"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "No",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q3",
+                        "name": "Question_sc_q3"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "3"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "How many per day?",
+                        "name": "How many per day?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_quantity",
+                        "name": "free-choice"
+                    }
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q4",
+                        "name": "Question_sc_q4"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "4"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Have you tried quitting before?",
+                        "name": "Have you tried quitting before?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_sc_q4_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "I have already quit",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_sc_q4_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "I want to quit",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_sc_q4_o3"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "I’m planning to quit",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "3"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_sc_q4_o4"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "I want to cut down now",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "4"
+                            }
+                        }
+                     
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q5",
+                        "name": "Question_sc_q5"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "5"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Quit date",
+                        "name": "Quit date",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_date",
+                        "name": "free-choice"
+                    }
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q6",
+                        "name": "Question_sc_q6"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "6"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Quitting Method",
+                        "name": "Quitting Method",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_sc_q6_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Medication",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_sc_q6_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Nicotine patch",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q7",
+                        "name": "Question_sc_q7"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "7"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "No of days not smoked",
+                        "name": "No of days not smoked",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_date",
+                        "name": "free-choice"
+                    }
+                }
+            ]
+        },
+        {
+            "questionnaire": {
+                "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_16",
+                "id": "DSQ_q16",
                 "name": "Daily Questionnaire 16"
             },
             "questions": [
@@ -1181,6 +1824,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_13",
+                "id": "DSQ_q13",
                 "name": "Daily Questionnaire 13"
             },
             "questions": [
@@ -1263,6 +1907,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_9",
+                "id": "DSQ_q9",
                 "name": "Daily Questionnaire 9"
             },
             "questions": [
@@ -1345,6 +1990,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_11",
+                "id": "DSQ_q11",
                 "name": "Daily Questionnaire 11"
             },
             "questions": [
@@ -1427,6 +2073,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_7",
+                "id": "DSQ_q7",
                 "name": "Daily Questionnaire 7"
             },
             "questions": [
@@ -1509,6 +2156,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_4",
+                "id": "DSQ_q4",
                 "name": "Daily Questionnaire 4"
             },
             "questions": [
@@ -1591,6 +2239,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_2",
+                "id": "DSQ_q2",
                 "name": "Daily Questionnaire 2"
             },
             "questions": [
@@ -1673,6 +2322,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_14",
+                "id": "DSQ_q14",
                 "name": "Daily Questionnaire 14"
             },
             "questions": [
@@ -1705,6 +2355,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_12",
+                "id": "DSQ_q12",
                 "name": "Daily Questionnaire 12"
             },
             "questions": [
@@ -1787,6 +2438,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_5",
+                "id": "DSQ_q5",
                 "name": "Daily Questionnaire 5"
             },
             "questions": [
@@ -1868,7 +2520,474 @@
         {
             "questionnaire": {
                 "type": "uri",
+                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_FagerstromToleranceQuestionnaire",
+                "id": "FagerstromToleranceQuestionnaire",
+                "name": "Fagerstrom Tolerance"
+            },
+            "questions": [
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q1",
+                        "name": "FTQ_q1"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "1"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "How many cigarettes do you smoke per day?",
+                        "name": "How many cigarettes do you smoke per day?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q1_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "10 or less",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "0"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q1_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "11 - 20",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q1_o3"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "21 - 30",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "3"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q1_o4"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "31 or more",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "4"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q2",
+                        "name": "FTQ_q2"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "2"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "How soon after you wake up do you smoke your first cigarette?",
+                        "name": "How soon after you wake up do you smoke your first cigarette?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q2_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "0 - 5 min",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "3"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q2_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "30 min",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q2_o3"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "31 - 60 min",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "3"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q2_o4"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "After 60 min",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "4"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "0"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q3",
+                        "name": "FTQ_q3"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "3"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Do you find it difficult to refrain from smoking in places where smoking is not allowed (e.g. hospitals, government offices, cinemas,libraries etc)?",
+                        "name": "Do you find it difficult to refrain from smoking in places where smoking is not allowed (e.g. hospitals, government offices, cinemas,libraries etc)?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Yes"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Yes",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_No"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "No",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q4",
+                        "name": "FTQ_q4"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "4"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Do you smoke more during the first hours after waking than during the rest of the day?",
+                        "name": "Do you smoke more during the first hours after waking than during the rest of the day?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Yes"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Yes",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_No"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "No",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q5",
+                        "name": "FTQ_q5"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "5"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Which cigarette would you be the most unwilling to give up?",
+                        "name": "Which cigarette would you be the most unwilling to give up?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q5_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "First in the morning",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#FTQ_q5_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Any of the others",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            },
+                            "option_score": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#integer",
+                                "type": "typed-literal",
+                                "value": "0"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q6",
+                        "name": "FTQ_q6"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "6"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Do you smoke even when you are very ill?",
+                        "name": "Do you smoke even when you are very ill?",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Yes"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Yes",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_No"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "No",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "questionnaire": {
+                "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_MMRC",
+                "id": "MMRC",
                 "name": "MMRC"
             },
             "questions": [
@@ -2008,6 +3127,7 @@
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_3",
+                "id": "DSQ_q3",
                 "name": "Daily Questionnaire 3"
             },
             "questions": [
@@ -2086,12 +3206,11 @@
                 }
             ]
         },
-
-
         {
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_10",
+                "id": "DSQ_q10",
                 "name": "Daily Questionnaire 10"
             },
             "questions": [
@@ -2120,11 +3239,11 @@
                 }
             ]
         },
-
         {
             "questionnaire": {
                 "type": "uri",
                 "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_15",
+                "id": "DSQ_q15",
                 "name": "Daily Questionnaire 15"
             },
             "questions": [
@@ -2152,7 +3271,249 @@
                     }
                 }
             ]
+        },
+        {
+            "questionnaire": {
+                "type": "uri",
+                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_MalnutritionUniversalScreeningTool",
+                "id": "MalnutritionUniversalScreeningTool",
+                "name": "Malnutrition Universal Screening Tool"
+            },
+            "questions": [
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q1",
+                        "name": "MUST_q1"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "1"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Height",
+                        "name": "Height",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_quantity",
+                        "name": "free-choice"
+                    }
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q2",
+                        "name": "MUST_q2"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "2"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Weight",
+                        "name": "Weight",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_quantity",
+                        "name": "free-choice"
+                    }
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q3",
+                        "name": "MUST_q3"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "3"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Unplanned weight loss in past 3-6 months (in %)",
+                        "name": "Unplanned weight loss in past 3-6 months (in %)",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_MUST_q3_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "<5",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_MUST_q3_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "5-10",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_MUST_q3_o3"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": ">10",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q4",
+                        "name": "MUST_q4"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "4"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Have you been admitted to the hospital in the past 3-6 months.",
+                        "name": "Have you been admitted to the hospital in the past 3-6 months.",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_Yes"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Yes",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_No"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "No",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "question": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q5",
+                        "name": "MUST_q5"
+                    },
+                    "question_gravity": {
+                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                        "type": "typed-literal",
+                        "value": "5"
+                    },
+                    "question_text": {
+                        "type": "literal",
+                        "value": "Factors affecting nutrition",
+                        "name": "Factors affecting nutrition",
+                        "xml:lang": "en"
+                    },
+                    "question_type": {
+                        "type": "uri",
+                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+                        "name": "choice-dropdown"
+                    },
+                    "options": [
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_MUST_q5_o1"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Fatigue",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "1"
+                            }
+                        },
+                        {
+                            "option": {
+                                "type": "uri",
+                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_MUST_q5_o2"
+                            },
+                            "option_display": {
+                                "type": "literal",
+                                "value": "Breathlessness when eating",
+                                "xml:lang": "en"
+                            },
+                            "option_gravity": {
+                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+                                "type": "typed-literal",
+                                "value": "2"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-
     ]	
 }

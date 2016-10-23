@@ -5,7 +5,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.diaryToday = [];
   $scope.diaryTomorrow = [];
 
-  $scope.getQuestionnaireDiaryEntries = function(_callback) {
+  $scope.getQuestionnaireDiaryEntries = function(_callback1, _callback2) {
     $scope.loading = true;
 
     diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $scope.patientId)
@@ -23,14 +23,14 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       $scope.addEvents($scope.questionnaires);
       $scope.diaryEntriesTodayAndTomorrow($scope.questionnaires);
       $scope.loading = false;
-      _callback();
+      _callback1(_callback2);
     });
   }
 
   $scope.getQuestionnaireDiaryEntryUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(diaryRepository.getQuestionnaireDiaryEntryByRef('welk', 'welk', ref));
+      promises.push(diaryRepository.getQuestionnaireDiaryEntryByRef('welk', 'welk', ref));
     });
 
     return $q.all(promises);
@@ -39,7 +39,47 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getAllQuestionnaireDiaryEntries = function(questionnaireDiaries) {
     var promises = [];
     angular.forEach(questionnaireDiaries, function(questionnaireDiary) {
-        promises.push(diaryRepository.decodeQuestionnaireDiaryEntry(questionnaireDiary.data));
+      promises.push(diaryRepository.decodeQuestionnaireDiaryEntry(questionnaireDiary.data));
+    });
+
+    return $q.all(promises);
+  }
+
+  $scope.getAppointmentDiaryEntries = function(_callback) {
+    $scope.loading = true;
+
+    diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $scope.patientId)
+    .then(function(response) {
+      return diaryRepository.decodeAppointmentDiaryEntries(response.data, $scope.patientId); 
+    })
+    .then(function(appointmentDiaryRefs) {
+      return $scope.getAppointmentDiaryEntryUriPromises(appointmentDiaryRefs); 
+    })
+    .then(function(appointmentDiaries) {
+      return $scope.getAllAppointmentDiaryEntries(appointmentDiaries);
+    })
+    .then(function(results) {
+      $scope.appointments = $scope.parseData(results, "a", "#00AEEF");
+      $scope.addEvents($scope.appointments);
+      $scope.diaryEntriesTodayAndTomorrow($scope.appointments);
+      $scope.loading = false;
+      _callback();
+    });
+  }
+
+  $scope.getAppointmentDiaryEntryUriPromises = function(refs) {
+    var promises = [];
+    angular.forEach(refs, function(ref) {
+        promises.push(diaryRepository.getAppointmentDiaryEntryByRef('welk', 'welk', ref));
+    });
+
+    return $q.all(promises);
+  }
+
+  $scope.getAllAppointmentDiaryEntries = function(appointmentDiaries) {
+    var promises = [];
+    angular.forEach(appointmentDiaries, function(appointmentDiary) {
+        promises.push(diaryRepository.decodeAppointmentDiaryEntry(appointmentDiary.data));
     });
 
     return $q.all(promises);
@@ -72,7 +112,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       return $scope.getAllDeviceDiaryEntries(deviceDiaries);
     })
     .then(function(results) {
-      $scope.devices = $scope.parseData(results, "m");
+      $scope.devices = $scope.parseData(results, "m", "#043248");
       $scope.addEvents($scope.devices);
       $scope.diaryEntriesTodayAndTomorrow($scope.devices);
       $scope.loading = false;
@@ -91,7 +131,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.decodeDeviceEntries = function(deviceRefs) {
     var promises = [];
     angular.forEach(deviceRefs, function(ref) {
-        promises.push(diaryRepository.decodeDeviceEntry(ref.data));
+      promises.push(diaryRepository.decodeDeviceEntry(ref.data));
     });
 
     return $q.all(promises);
@@ -100,7 +140,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getDeviceEntryUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(diaryRepository.getDeviceDiaryEntryByRef('welk', 'welk', ref));
+      promises.push(diaryRepository.getDeviceDiaryEntryByRef('welk', 'welk', ref));
     });
 
     return $q.all(promises);
@@ -109,13 +149,13 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getAllDeviceDiaryEntries = function(deviceDiaries) {
     var promises = [];
     angular.forEach(deviceDiaries, function(deviceDiary) {
-        promises.push(diaryRepository.decodeDeviceDiaryEntry(deviceDiary.data));
+      promises.push(diaryRepository.decodeDeviceDiaryEntry(deviceDiary.data));
     });
 
     return $q.all(promises);
   }
 
-  $scope.parseData = function(data, mode) {
+  $scope.parseData = function(data, mode, color) {
     var parsedData = [];
 
     angular.forEach(data, function(value) {
@@ -124,6 +164,9 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
         parsedObject.title = value.title;
         parsedObject.start = moment(date, "YYYY-MM-DD HH:mm");
         parsedObject.mode = mode;
+        if(color)
+          parsedObject.color = color;
+
         parsedData.push(parsedObject);
       });
     });
@@ -151,23 +194,29 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
 
   $scope.onClick = function(date, jsEvent, view) {
     var mode = date.mode,
-    location = null;
+        location = null,
+        title = "";
 
     switch (mode) {
       case "m":
-      location = "patienthub://app";
+        location = "patienthub://app";
+        title = "Measurement ";
       break;
       case "q":
-      location = "#questionnaires";
+        location = "#questionnaires";
+        title = "Questionnaire "
       break;
+      case "a":
+        title = "Appointment ";
+        break;
       default:
-      break;
+        break;
     }
 
     if(mode == "m" || mode == "q") {
       var dialog = bootbox.dialog({
         message: mode == "m" ? "Go to Measurement" : "Go to Questionnaires",
-        title: "<div class='text-info'>" + date.title + "</div>",
+        title: "<div class='text-info'>" + title + date.title + "</div>",
         closeButton: false,
         buttons: {
           main: {
@@ -189,7 +238,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     } else if (mode == "a") {
       var dialog = bootbox.dialog({
         message: " ",
-        title: "<div class='text-info'>" + date.title + "</div>",
+        title: "<div class='text-info'>" + title + date.title + "</div>",
         closeButton: false,
         buttons: {
           main: {
@@ -241,7 +290,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
  
   $scope.getDiaryEntries = function() {
     $scope.resetData();
-    $scope.getQuestionnaireDiaryEntries($scope.getDevices);
+    $scope.getQuestionnaireDiaryEntries($scope.getAppointmentDiaryEntries, $scope.getDevices);
   }
 
   $scope.getDiaryEntries();

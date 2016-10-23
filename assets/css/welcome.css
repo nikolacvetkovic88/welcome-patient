@@ -97,6 +97,10 @@ button.fc-state-active, button.fc-state-hover  {
   cursor: pointer;
 }
 
+.diary-info-desc {
+  height: 30px;
+}
+
 .selected-item {
   color: white;
   background-color: #F07822 !important;

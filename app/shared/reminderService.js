@@ -4,6 +4,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
     this.reminderInterval = null;
     this.questionnaires = [];
     this.measurements = [];
+    this.appointments = [];
 
     this.getReminders = function() {
         diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.Patient.cloudRef)
@@ -18,11 +19,15 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
         })
         .then(function(results) {
             self.questionnaires = self.parseData(results, "q");
-            self.getDevices()
+            self.getAppointments()
             .then(function(deviceResults) {
-                self.measurements = self.parseData(deviceResults, "m");
-                self.checkReminders();
-                self.registerReminders();
+                self.appointments = self.parseData(results, "a");
+                self.getDevices()
+                .then(function() {
+                    self.measurements = self.parseData(deviceResults, "m");
+                    self.checkReminders();
+                    self.registerReminders();
+                });
             });
         });
     }
@@ -40,6 +45,37 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
         var promises = [];
         angular.forEach(questionnaireDiaries, function(questionnaireDiary) {
             promises.push(diaryRepository.decodeQuestionnaireDiaryEntry(questionnaireDiary.data));
+        });
+
+        return $q.all(promises);
+    }
+
+    this.getAppointments = function() {
+        return diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $rootScope.Patient.cloudRef)
+        .then(function(response) {
+          return diaryRepository.decodeAppointmentDiaryEntries(response.data, $rootScope.Patient.cloudRef); 
+        })
+        .then(function(appointmentDiaryRefs) {
+          return self.getAppointmentDiaryEntryUriPromises(appointmentDiaryRefs); 
+        })
+        .then(function(appointmentDiaries) {
+          return self.getAllAppointmentDiaryEntries(appointmentDiaries);
+        });
+    }
+
+    this.getAppointmentDiaryEntryUriPromises = function(refs) {
+        var promises = [];
+        angular.forEach(refs, function(ref) {
+            promises.push(diaryRepository.getAppointmentDiaryEntryByRef('welk', 'welk', ref));
+        });
+
+        return $q.all(promises);
+    }
+
+    this.getAllAppointmentDiaryEntries = function(appointmentDiaries) {
+        var promises = [];
+        angular.forEach(appointmentDiaries, function(appointmentDiary) {
+            promises.push(diaryRepository.decodeAppointmentDiaryEntry(appointmentDiary.data));
         });
 
         return $q.all(promises);
@@ -147,6 +183,27 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
         todayReminders.length = 0;
         tomorrowReminders.length = 0;
 
+        angular.forEach(self.appointments, function(reminder, i) {
+            var measurementReminder = self.checkReminder(reminder.start);
+            if(measurementReminder.isToday) {
+                todayReminders.push("Appointment " + reminder.title + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
+            }
+            if(measurementReminder.isTomorrow) {
+                tomorrowReminders.push("Appointment " + reminder.title + " is due tomorrow");
+            }
+        });
+
+        if(todayReminders.length) {
+            todayMessage += todayReminders.toString() + ".";
+        }
+
+        if(tomorrowReminders.length) {
+            tomorrowMessage += tomorrowReminders.toString() + ".";
+        }
+
+        todayReminders.length = 0;
+        tomorrowReminders.length = 0;
+
         angular.forEach(self.measurements, function(reminder, i) {
             var measurementReminder = self.checkReminder(reminder.start);
             if(measurementReminder.isToday) {
@@ -164,7 +221,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
         if(tomorrowReminders.length) {
             tomorrowMessage += tomorrowReminders.toString() + ".";
         }
-
+      
         var message = "<div class='text text-danger' style='margin-left: 20px;'>" + todayMessage + "</div>" + 
                       "<hr />" + "<div class='text text-info' style='margin-left: 20px;'>" + tomorrowMessage + "</div>";
         if(todayMessage || tomorrowMessage)

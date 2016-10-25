@@ -101,8 +101,8 @@ button.fc-state-active, button.fc-state-hover  {
   height: 30px;
 }
 
-.selected-item {
-  color: white;
+.selected-item, .selected-item * {
+  color: white !important;
   background-color: #F07822 !important;
   border-color: #F07822;
 }

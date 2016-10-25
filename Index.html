@@ -69,7 +69,7 @@
 	<div id="wrapper" class="container">
 		<div class="well main-content" ng-Show="showMainContent">
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 					<div>
 					    <img ng-src="assets/img/logo_final.png" alt="logo"/>
 			        </div>
@@ -87,13 +87,31 @@
 					    </div>-->
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<div class="input-group">
-						<input id="search-location-input" class="form-control" type="text" placeholder="Weather forecast" ng-disabled="!isHomePage">
-						<span class="input-group-btn">
-							<button id="search-location-button" class="btn btn-info" title="Show weather for specific location" ng-disabled="!isHomePage"><span class="glyphicon glyphicon-search"></span></button>
-							<button id="geo-button" class="btn btn-info" title="Show weather for current location" ng-disabled="!isHomePage"><span class="glyphicon glyphicon-screenshot"></span></button>
-						</span>
+				<div class="col-sm-6">
+                    <div class="row">
+                        <div class=col-sm-10>
+							<div class="input-group">
+								<input id="search-location-input" class="form-control" type="text" placeholder="Weather forecast" ng-disabled="!isHomePage">
+								<span class="input-group-btn">
+									<button id="search-location-button" class="btn btn-info" title="Show weather for specific location" ng-disabled="!isHomePage"><span class="glyphicon glyphicon-search"></span></button>
+									<button id="geo-button" class="btn btn-info" title="Show weather for current location" ng-disabled="!isHomePage"><span class="glyphicon glyphicon-screenshot"></span></button>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="dropdown pull-right" ng-controller="reminderCtrl">
+							    <button class="btn btn-default dropdown-toggle btn-sm" type="button" data-toggle="dropdown">
+							        <span class="glyphicon glyphicon-menu-hamburger"></span>
+							    </button>
+							    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+							      <li class="dropdown-header">Set Reminders</li>
+							      <li role="presentation" ng-click="setInterval(3600000)" ng-class="{'selected-item': reminderInterval == 3600000}"><a role="menuitem" tabindex="-1" href="">Every hour</a></li>
+							      <li role="presentation" ng-click="setInterval(900000)" ng-class="{'selected-item': reminderInterval == 900000}"><a role="menuitem" tabindex="-1" href="">Every 15 minutes</a></li>		
+							      <li role="presentation"  ng-click="clearInterval()" ng-class="{'selected-item': reminderInterval == 0}"><a role="menuitem" tabindex="-1" href="">Disable(d)</a></li>
+							      <li class="divider"></li>
+							    </ul>
+	                        </div>
+                        </div>
 					</div>
 
 					<div class="pull-right">
@@ -118,7 +136,7 @@
 							</div>
 						</div>
 						 <div id="geo-error-message" class="geo-error-message hide"><button id='close-error' class='fa fa-times close-error'></button>It looks like we can't find your location. Please type your city into the search box above!</div>
-					</div>					
+					</div>	
 				</div>
 			</div>
 		</div>
@@ -129,6 +147,7 @@
 		This application is only viewable in landscape mode.
 	</div>
 
+    <script src="app/shared/reminderCtrl.js"></script>
 	<script src="app/shared/reminderService.js"></script>
 	<script src="app/login/logoutCtrl.js"></script>
 	<script src="app/login/loginCtrl.js"></script>

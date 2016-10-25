@@ -7,7 +7,7 @@ var app = angular.module("welcomeApp", ['ngRoute', 'ngCookies', 'highcharts-ng',
         $rootScope.showMainContent = false;
 
         if($rootScope.globals.currentUser) // this means that the user is already logged in
-            ReminderService.registerReminders();
+            ReminderService.getReminders($rootScope.reminderInterval || 3600000);
 
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {

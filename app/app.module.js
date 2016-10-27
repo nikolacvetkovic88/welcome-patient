@@ -1,13 +1,16 @@
 var app = angular.module("welcomeApp", ['ngRoute', 'ngCookies', 'highcharts-ng', 'videosharing-embed', 'ui.calendar', 'base64'])
-
 .run(function ($rootScope, $location, $cookieStore, ReminderService) {
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
         $rootScope.Patient = $cookieStore.get('patient') || {};
+        $rootScope.reminderInterval = $cookieStore.get('reminderInterval');
         $rootScope.showMainContent = false;
 
-        if($rootScope.globals.currentUser) // this means that the user is already logged in
-            ReminderService.getReminders($rootScope.reminderInterval || 3600000);
+        if(!$rootScope.reminderInterval)
+            $rootScope.reminderInterval = 3600000;
+        if($rootScope.globals && $rootScope.globals.currentUser && $rootScope.reminderInterval && $rootScope.reminderInterval > 0) { // this means that the user is already logged in
+            ReminderService.getReminders($rootScope.reminderInterval);
+        }
 
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {

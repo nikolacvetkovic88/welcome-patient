@@ -1,14 +1,19 @@
-app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository) {
+app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, diaryRepository) {
     var self = this;
 
-    this.reminderInterval = null;
+    this.interval = null;
     this.questionnaires = [];
     this.appointments = [];
     this.measurements = [];
 
     this.getReminders = function(duration) {
+        if(!duration || duration < 1)
+            return;
+
         self.clearData();
-        diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.Patient.cloudRef)
+        self.clearReminderInterval();
+
+        return diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.Patient.cloudRef)
         .then(function(response) {
             return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.Patient.cloudRef); 
         })
@@ -145,14 +150,26 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
     }
 
     this.registerReminders = function(duration) {
-        self.reminderInterval = setInterval(function () {
+        if(!duration || duration < 1)
+            return;
+
+        self.clearReminderInterval();
+        self.interval = setInterval(function () {
             self.checkReminders();
         }, duration); 
+        $rootScope.reminderInterval = duration;
+        $cookieStore.put('reminderInterval', $rootScope.reminderInterval);
+    }
+
+    this.unregisterReminders = function() {
+        self.clearReminderInterval();
+        $rootScope.reminderInterval = -1;
+        $cookieStore.put('reminderInterval', $rootScope.reminderInterval);
     }
 
     this.clearReminderInterval = function() {
-        clearInterval(self.reminderInterval);
-        self.reminderInterval = null;
+        clearInterval(self.interval);
+        self.interval = null;
     }
 
     this.clearData = function() {
@@ -286,7 +303,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, diaryRepository)
             return self.registerReminders(duration);
         },
         unregisterReminders: function() {
-            return self.clearReminderInterval();
+            return self.unregisterReminders();
         }
     };
 });

@@ -4,7 +4,6 @@ app.controller('logoutCtrl', function ($scope, $rootScope, $location, $timeout, 
         AuthService.logout();
         $timeout(function() {
         	$location.path("/login");
-            ReminderService.unregisterReminders();
         }, 200);
     }
 });

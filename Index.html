@@ -107,7 +107,7 @@
 							      <li class="dropdown-header">Set Reminders</li>
 							      <li role="presentation" ng-click="setInterval(3600000)" ng-class="{'selected-item': reminderInterval == 3600000}"><a role="menuitem" tabindex="-1" href="">Every hour</a></li>
 							      <li role="presentation" ng-click="setInterval(900000)" ng-class="{'selected-item': reminderInterval == 900000}"><a role="menuitem" tabindex="-1" href="">Every 15 minutes</a></li>		
-							      <li role="presentation"  ng-click="clearInterval()" ng-class="{'selected-item': reminderInterval == 0}"><a role="menuitem" tabindex="-1" href="">Disable(d)</a></li>
+							      <li role="presentation"  ng-click="clearInterval()" ng-class="{'selected-item': reminderInterval == -1}"><a role="menuitem" tabindex="-1" href="">Disable(d)</a></li>
 							      <li class="divider"></li>
 							    </ul>
 	                        </div>

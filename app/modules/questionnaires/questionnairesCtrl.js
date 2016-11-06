@@ -63,7 +63,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
   }
 
   $scope.mergeData = function(questionnaires) {
-    $scope.assignedQuestionnaires = $.grep($scope.staticQuestionnaires, function(questionnaire) { return questionnaires.indexOf(questionnaire.questionnaire.name) != -1; });
+    $scope.assignedQuestionnaires = $.grep($scope.staticQuestionnaires, function(questionnaire) { return questionnaires.indexOf(questionnaire.id) != -1; });
   }
 
   $scope.setSelectedQuestionnaire = function(questionnaire) {
@@ -93,11 +93,10 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
       return;
     }
 
-    if(answers.length && answers.length != $scope.selectedQuestionnaire.questions.length) {
+    if(answers.length && answers.length != $scope.selectedQuestionnaire.group.questions.length) {
       bootbox.alert("<div class='text-danger'>Please give answers to all the questions!</div>");
       return;
     }
-    //console.log($scope.calculateTotalScore());
   }
 
   $scope.refresh = function() {
@@ -110,32 +109,8 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
 
   $scope.getQuestionnaires();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$scope.getQuestionnaireUriPromises = function(refs) {
+//getting static questionnaires from SPARQL 
+/*$scope.getQuestionnaireUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
       promises.push(questionnairesRepository.getQuestionnaire('welk', 'welk', ref.url));
@@ -148,7 +123,7 @@ $scope.getQuestionnaireUriPromises = function(refs) {
     var promises = [];
     var i =0;
     angular.forEach(questionnaires, function(questionnaire) {
-      console.log(questionnaire);
+      console.log(questionnaire.data.results.bindings);
     });
 
     return $q.all(promises);
@@ -169,8 +144,7 @@ $scope.getQuestionnaires = function() {
     });
   }
 
-
-
-//$scope.getQuestionnaires();
+$scope.getQuestionnaires();
+*/
 
 });

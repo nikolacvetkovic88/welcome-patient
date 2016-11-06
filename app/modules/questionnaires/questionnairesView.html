@@ -18,21 +18,13 @@
 <div class="row">
 	<div class="col-sm-3">
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="questionnaire in assignedQuestionnaires" ng-attr-id={{questionnaire.questionnaire.id}} ng-click="setSelectedQuestionnaire(questionnaire)" ng-class="{'selected-item': questionnaire == selectedQuestionnaire}">{{questionnaire.questionnaire.name}}</li>
+			<li class="list-group-item" ng-repeat="questionnaire in assignedQuestionnaires" ng-attr-id={{questionnaire.id}} ng-click="setSelectedQuestionnaire(questionnaire)" ng-class="{'selected-item': questionnaire == selectedQuestionnaire}">{{questionnaire.name}}</li>
 		</ul>
 	</div>
 
 	<div class="col-sm-9">
-		<div ng-repeat="question in selectedQuestionnaire.questions">
-			<!--<div class="panel panel-default" ng-if="question.type == 2">
-				<div class="panel-body">
-					<div><strong>{{question.question}}</strong></div>
-					<label class="checkbox-inline" ng-repeat="value in question.values">
-						<input type="checkbox" ng-attr-id="{{value.id}}" ng-value="{{value.score}}" data-question-id ="{{question.id}}" question-Answer />{{value.name}}
-					</label>
-				</div>
-			</div>-->
-
+	    <h4 ng-if="selectedQuestionnaire.group">{{selectedQuestionnaire.group.value}}</h3>
+		<div ng-repeat="question in selectedQuestionnaire.group.questions">
 			<div class="panel panel-default" ng-if="question.question_type.name == 'choice-radio'">
 				<div class="panel-body">
 					<div>

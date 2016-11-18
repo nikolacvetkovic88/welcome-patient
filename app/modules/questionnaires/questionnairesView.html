@@ -32,7 +32,7 @@
 					</div>
 					<div class="btn-group btn-group-justified" data-toggle="buttons">
 					    <label class="btn btn-label" ng-repeat="option in question.options">
-						    <input type="radio" name="{{question.question.name}}" ng-value="{{option.option_gravity.value}}" data-question-id ="{{question.question.name}}" question-Answer />{{option.option_gravity.value}}
+						    <input type="radio" name="{{question.question.name}}" ng-value="{{option.option_score.value || option.option_dislay.value}}" data-question-id ="{{question.question.name}}" question-Answer />{{option.option_display.value}}
 					    </label>
 					</div>
 				</div>
@@ -45,7 +45,7 @@
 					</div>
 					<div class="radio" ng-repeat="option in question.options">
 					    <label class="control-label">
-						    <input type="radio" name="{{question.question.name}}" ng-value="{{option.option_score.value || option.option_gravity.value}}" data-question-id ="{{question.question.name}}" question-Answer />{{option.option_display.value}}
+						    <input type="radio" name="{{question.question.name}}" ng-value="{{option.option_score.value || option.option_display.value}}" data-question-id ="{{question.question.name}}" question-Answer />{{option.option_display.value}}
 					    </label>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 				<div class="panel-body">
 				    <div class="form-group">
 						<label class="control-label" for="{{question.question.name}}">{{question.question_text.name}}</label>
-						<select ng-attr-id="{{question.question.name}}" ng-options="o.option_display.value for o in question.options track by o.option_gravity.value" ng-model="selectedOption" class="form-control" data-style="btn-info" data-question-id ="{{question.question.name}}" question-Answer dropDown>
+						<select ng-attr-id="{{question.question.name}}" ng-options="o.option_display.value for o in question.options track by o.option_score.value || o.option_display.value" ng-model="selectedOption" class="form-control" data-style="btn-info" data-question-id ="{{question.question.name}}" question-Answer dropDown>
 							<option value="">Please select...</option>
 						</select>
 					</div>

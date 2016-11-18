@@ -3,7 +3,7 @@
         {
     		"type": "uri",
     		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_COPDAssessmentTest",
-    		"id": "COPDAssessmentTest",
+    		"id": "Questionnaire_COPDAssessmentTest",
             "name": "COPD Assessment Test",
             "group": {
 	    		"type": "literal",
@@ -872,7 +872,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_8",
-            "id": "DSQ_q8",
+            "id": "Questionnaire_DSQ_q8",
             "name": "Daily Questionnaire 8",
             "group": {
 	    		"type": "literal",
@@ -958,7 +958,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_1",
-            "id": "DSQ_q1",
+            "id": "Questionnaire_DSQ_q1",
             "name": "Daily Questionnaire 1",
             "group": {
 	    		"type": "literal",
@@ -1044,7 +1044,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_6",
-            "id": "DSQ_q6",
+            "id": "Questionnaire_DSQ_q6",
             "name": "Daily Questionnaire 6",
             "group": {
 	    		"type": "literal",
@@ -1130,7 +1130,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_Physical_Activities",
-            "id": "Physical_Activities",
+            "id": "Questionnaire_Physical_Activities",
             "name": "Physical Activities",
             "group": {
 	    		"type": "literal",
@@ -1408,7 +1408,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_SmokingCessation",
-            "id": "SmokingCessation",
+            "id": "Questionnaire_SmokingCessation",
             "name": "Smoking Cessation",
             "group": {
 	    		"type": "literal",
@@ -1751,7 +1751,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_16",
-            "id": "DSQ_q16",
+            "id": "Questionnaire_DSQ_q16",
             "name": "Daily Questionnaire 16",
             "group": {
 	    		"type": "literal",
@@ -1821,7 +1821,7 @@
         {
     		"type": "uri",
     		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_FatigueSeverityScale",
-    		"id": "FatigueSeverityScale",
+    		"id": "Questionnaire_FatigueSeverityScale",
             "name": "Fatigue Severity Scale",
             "group": {
 	    		"type": "literal",
@@ -2779,7 +2779,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_13",
-            "id": "DSQ_q13",
+            "id": "Questionnaire_DSQ_q13",
             "name": "Daily Questionnaire 13",
             "group": {
 	    		"type": "literal",
@@ -2865,7 +2865,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_9",
-            "id": "DSQ_q9",
+            "id": "Questionnaire_DSQ_q9",
             "name": "Daily Questionnaire 9",
              "group": {
 	    		"type": "literal",
@@ -2951,7 +2951,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_11",
-            "id": "DSQ_q11",
+            "id": "Questionnaire_DSQ_q11",
             "name": "Daily Questionnaire 11",
             "group": {
 	    		"type": "literal",
@@ -3037,7 +3037,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_7",
-            "id": "DSQ_q7",
+            "id": "Questionnaire_DSQ_q7",
             "name": "Daily Questionnaire 7",
             "group": {
 	    		"type": "literal",
@@ -3123,7 +3123,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_4",
-            "id": "DSQ_q4",
+            "id": "Questionnaire_DSQ_q4",
             "name": "Daily Questionnaire 4",
             "group": {
 	    		"type": "literal",
@@ -3209,7 +3209,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_2",
-            "id": "DSQ_q2",
+            "id": "Questionnaire_DSQ_q2",
             "name": "Daily Questionnaire 2",
             "group": {
 	    		"type": "literal",
@@ -3295,7 +3295,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_14",
-            "id": "DSQ_q14",
+            "id": "Questionnaire_DSQ_q14",
             "name": "Daily Questionnaire 14",
             "group": {
 	    		"type": "literal",
@@ -3331,7 +3331,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_12",
-            "id": "DSQ_q12",
+            "id": "Questionnaire_DSQ_q12",
             "name": "Daily Questionnaire 12",
              "group": {
 	    		"type": "literal",
@@ -3417,7 +3417,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_5",
-            "id": "DSQ_q5",
+            "id": "Questionnaire_DSQ_q5",
             "name": "Daily Questionnaire 5",
             "group": {
 	    		"type": "literal",
@@ -3500,10 +3500,1549 @@
 	            ]
 	        }
         },
+        {
+            "type": "uri",
+            "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_HospitalAnxietyAndDepressionScale",
+            "id": "Questionnaire_HospitalAnxietyAndDepressionScale",
+            "name": "Hospital Anxiety And Depression Scale",
+            "group": {
+	    		"type": "literal",
+	            "value": "Anxiety related questions",
+	        	"xml:lang": "en",
+	            "questions": [
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q1",
+	                        "name": "HADS_q1"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "1"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I feel tense or ‘wound up’",
+	                        "name": "I feel tense or ‘wound up’",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q1_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Most of the time",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q1_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "A lot of the time",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q1_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "From time to time(occ.)",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q1_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q2",
+	                        "name": "HADS_q2"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "2"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I still enjoy the things I used to enjoy",
+	                        "name": "I still enjoy the things I used to enjoy",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q2_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Definetely as much",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q2_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not quite as much",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q2_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Only a little",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q2_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Hardly at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q3",
+	                        "name": "HADS_q3"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "3"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I get a sort of frightened feeling as if something awful is about to happen",
+	                        "name": "I get a sort of frightened feeling as if something awful is about to happen",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q3_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Very definitely and quite badly",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q3_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Yes, but not too badly",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q3_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "A little but it doesn't worry me",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q3_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q4",
+	                        "name": "HADS_q4"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "4"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I can laugh and see the funny side of things",
+	                        "name": "I can laugh and see the funny side of things",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q4_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "As much as i always could",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q4_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not quite so much now",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q4_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Definitely not so much now",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q4_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q5",
+	                        "name": "HADS_q5"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "5"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "Worrying thoughts go through my mind",
+	                        "name": "Worrying thoughts go through my mind",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q5_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "A great deal of the time",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q5_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "A lot of the time",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q5_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "From time to time, but not often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q5_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Only occasionally",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q6",
+	                        "name": "HADS_q6"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "6"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I feel cheerful",
+	                        "name": "I feel cheerful",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q6_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q6_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q6_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Sometimes",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q6_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Most of the time",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q7",
+	                        "name": "HADS_q6"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "7"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I can sit at ease and feel relaxed",
+	                        "name": "I can sit at ease and feel relaxed",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Definitely",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Usually",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q7",
+	                        "name": "HADS_q7"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "7"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I feel as if I am slowed down",
+	                        "name": "I feel as if I am slowed down",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Nearly all the time",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Very often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Sometimes",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q9",
+	                        "name": "HADS_q9"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "9"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I get a sort of frightened  feeling like 'butterflies' in the stomach",
+	                        "name": "I get a sort of frightened  feeling like 'butterflies' in the stomach",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q9_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q9_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Occasionally",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q9_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Quite often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q9_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Very often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q10",
+	                        "name": "HADS_q10"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "10"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I have lost interest in my appearance",
+	                        "name": "I have lost interest in my appearance",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q10_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Definitely",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q10_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "I don’t take as much care as I should",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q10_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "I may not take quite as much care",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q10_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "I take just as much care",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q11",
+	                        "name": "HADS_q11"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "11"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I feel restless as i have to be on the move",
+	                        "name": "I feel restless as i have to be on the move",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q11_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Very much indeed",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q11_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Quite a lot",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q11_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not very much",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q11_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q12",
+	                        "name": "HADS_q12"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "12"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I look forward with enjoyment to things",
+	                        "name": "I look forward with enjoyment to things",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q12_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "As much as I ever did",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q12_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Rather less than I used to",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q12_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Definitely less  than I used to",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q12_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Hardly at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q13",
+	                        "name": "HADS_q13"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "13"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I get sudden feelings of panic",
+	                        "name": "I get sudden feelings of panic",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q13_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Very often indeed",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q13_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Quite often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q13_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not very often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q13_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not at all",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        }
+	                    ]
+	                },
+	                {
+	                    "question": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q14",
+	                        "name": "HADS_q14"
+	                    },
+	                    "question_gravity": {
+	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                        "type": "typed-literal",
+	                        "value": "14"
+	                    },
+	                    "question_text": {
+	                        "type": "literal",
+	                        "value": "I can enjoy a good book or radio/TV program",
+	                        "name": "I can enjoy a good book or radio/TV program",
+	                        "xml:lang": "en"
+	                    },
+	                    "question_type": {
+	                        "type": "uri",
+	                        "value": "http://lomi.med.auth.gr/ontologies/FHIRResources#AnswerFormat_choice",
+	                        "name": "choice-dropdown"
+	                    },
+	                    "options": [
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q14_o1"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "1"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "0"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q14_o2"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Sometimes",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "2"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "1"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q14_o3"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Not often",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "3"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "2"
+	                            }
+	                        },
+	                        {
+	                            "option": {
+	                                "type": "uri",
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q14_o4"
+	                            },
+	                            "option_display": {
+	                                "type": "literal",
+	                                "value": "Very seldom",
+	                                "xml:lang": "en"
+	                            },
+	                            "option_gravity": {
+	                                "datatype": "http://www.w3.org/2001/XMLSchema#int",
+	                                "type": "typed-literal",
+	                                "value": "4"
+	                            },
+	                            "option_score": {
+	                            	"datatype": "http://www.w3.org/2001/XMLSchema#integer",
+	                            	"type": "typed-literal",
+	                            	"value": "3"
+	                            }
+	                        }
+	                    ]
+	                }
+	            ]
+	        }
+        },
         {    	
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_FagerstromToleranceQuestionnaire",
-            "id": "FagerstromToleranceQuestionnaire",
+            "id": "Questionnaire_FagerstromToleranceQuestionnaire",
             "name": "Fagerstrom Tolerance",
             "group": {
 	    		"type": "literal",
@@ -3972,7 +5511,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_MMRC",
-            "id": "MMRC",
+            "id": "Questionnaire_MMRC",
             "name": "MMRC",
             "group": {
 	    		"type": "literal",
@@ -4115,7 +5654,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_3",
-            "id": "DSQ_q3",
+            "id": "Questionnaire_DSQ_q3",
             "name": "Daily Questionnaire 3",
             "group": {
 	    		"type": "literal",
@@ -4201,7 +5740,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_10",
-            "id": "DSQ_q10",
+            "id": "Questionnaire_DSQ_q10",
             "name": "Daily Questionnaire 10",
             "group": {
 	    		"type": "literal",
@@ -4237,7 +5776,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_15",
-            "id": "DSQ_q15",
+            "id": "Questionnaire_DSQ_q15",
             "name": "Daily Questionnaire 15",
             "group": {
 	    		"type": "literal",
@@ -4273,7 +5812,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_MalnutritionUniversalScreeningTool",
-            "id": "MalnutritionUniversalScreeningTool",
+            "id": "Questionnaire_MalnutritionUniversalScreeningTool",
             "name": "Malnutrition Universal Screening Tool",
             "group": {
 	    		"type": "literal",

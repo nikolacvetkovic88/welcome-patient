@@ -23,54 +23,57 @@
 	</div>
 
 	<div class="col-sm-9">
-	    <h4 ng-if="selectedQuestionnaire.group">{{selectedQuestionnaire.group.value}}</h3>
-		<div ng-repeat="question in selectedQuestionnaire.group.questions">
-			<div class="panel panel-default" ng-if="question.question_type.name == 'choice-radio'">
-				<div class="panel-body">
-					<div>
-						<strong>{{question.question_text.name}}</strong>
-					</div>
-					<div class="btn-group btn-group-justified" data-toggle="buttons">
-					    <label class="btn btn-label" ng-repeat="option in question.options">
-						    <input type="radio" name="{{question.question.name}}" ng-value="{{option.option_score.value || option.option_dislay.value}}" data-question-id ="{{question.question.name}}" question-Answer />{{option.option_display.value}}
-					    </label>
+	    <div ng-repeat="questionGroup in selectedQuestionnaire.questionGroups">
+	        <h4>{{questionGroup.value}}</h4>
+			<div ng-repeat="question in questionGroup.questions">
+
+				<div class="panel panel-default" ng-if="question.question_type.name == 'choice-radio'">
+					<div class="panel-body">
+						<div>
+							<strong>{{question.question_text.name}}</strong>
+						</div>
+						<div class="btn-group btn-group-justified" data-toggle="buttons">
+						    <label class="btn btn-label" ng-repeat="option in question.options">
+							    <input type="radio" name="{{question.question.name}}" ng-model="radioOption" ng-value="option.option_score.value || option.option.value" data-question-type="choice-radio" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" question-Answer />{{option.option_display.value}}
+						    </label>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="panel panel-default" ng-if="question.question_type.name == 'choice-radio2'">
-				<div class="panel-body">
-					<div>
-						<strong>{{question.question_text.name}}</strong>
-					</div>
-					<div class="radio" ng-repeat="option in question.options">
-					    <label class="control-label">
-						    <input type="radio" name="{{question.question.name}}" ng-value="{{option.option_score.value || option.option_display.value}}" data-question-id ="{{question.question.name}}" question-Answer />{{option.option_display.value}}
-					    </label>
-					</div>
-				</div>
-			</div>
-
-			<div class="panel panel-default" ng-if="question.question_type.name == 'choice-dropdown'">
-				<div class="panel-body">
-				    <div class="form-group">
-						<label class="control-label" for="{{question.question.name}}">{{question.question_text.name}}</label>
-						<select ng-attr-id="{{question.question.name}}" ng-options="o.option_display.value for o in question.options track by o.option_score.value || o.option_display.value" ng-model="selectedOption" class="form-control" data-style="btn-info" data-question-id ="{{question.question.name}}" question-Answer dropDown>
-							<option value="">Please select...</option>
-						</select>
+				<div class="panel panel-default" ng-if="question.question_type.name == 'choice-radio2'">
+					<div class="panel-body">
+						<div>
+							<strong>{{question.question_text.name}}</strong>
+						</div>
+						<div class="radio">
+							<label ng-repeat="option in question.options">
+							    <input type="radio" name="{{question.question.name}}" ng-model="radioOption2" ng-value="option.option_score.value || option.option.value" data-question-type="choice-radio2" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" question-Answer />{{option.option_display.value}}
+							</label>  
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="panel panel-default" ng-if="question.question_type.name == 'free-choice'">
-				<div class="panel-body">
-				    <div class="form-group">
-						<label class="control-label" for="{{question.question.name}}">{{question.question_text.name}}</label>
-					    <input type="text" class="form-control" ng-attr-id="{{question.question.name}}" data-question-id ="{{question.question.name}}" question-Answer />
+				<div class="panel panel-default" ng-if="question.question_type.name == 'choice-dropdown'">
+					<div class="panel-body">
+					    <div class="form-group">
+							<label class="control-label" for="{{question.question.id}}">{{question.question_text.name}}</label>
+							<select ng-attr-id="{{question.question.id}}" ng-options="o.option_display.value for o in question.options track by o.option_score.value || o.option.value" ng-model="dropdownOption" class="form-control" data-style="btn-info" data-question-type="choice-dropdown" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" question-Answer dropDown>
+								<option value="">Please select...</option>
+							</select>
+						</div>
 					</div>
 				</div>
-			</div>
 
+				<div class="panel panel-default" ng-if="question.question_type.name == 'free-choice'">
+					<div class="panel-body">
+					    <div class="form-group">
+							<label class="control-label" for="{{question.question.id}}">{{question.question_text.name}}</label>
+						    <input type="text" class="form-control" data-question-type="free-choice" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" question-Answer />
+						</div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 		<div class="text-center">
 		    <button class="btn btn-primary " ng-show="!loading && selectedQuestionnaire" ng-click="submit()">Submit</button>

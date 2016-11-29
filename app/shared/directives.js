@@ -32,8 +32,8 @@ app.directive("dropdown", function($timeout) {
 		            }
 
 		            var buttons = [
-		            {text: 'Go back', style: 'default', close: true},
-		            {text: 'Go to external page', style: 'primary', close: true, click: goToExternal }
+			            {text: 'Go back', style: 'default', close: true},
+			            {text: 'Go to external page', style: 'primary', close: true, click: goToExternal }
 		            ];
 
 		            var params = {
@@ -67,15 +67,29 @@ app.directive("dropdown", function($timeout) {
 		link: function(scope, elem, attrs) {
 		    elem.change(function() {
 		        var value = $(this).val(),
-		        questionId = $(this).data('questionId');
+		        questionType = $(this).data('questionType'),
+		        questionGroupId = $(this).data('questionGroupId'),
+		        questionId = $(this).data('questionId'),
+		        questionnaire = scope.selectedQuestionnaire;
 
-		        var index = $.map(scope.selectedQuestionnaire.answers, function(answer) { return answer.questionId; }).indexOf(questionId); 
+		        var index = $.map(questionnaire.answers, function(answer) { return answer.questionId; }).indexOf(questionId); 
 		        if(index != -1) {
-		           scope.selectedQuestionnaire.answers.splice(index, 1);
-		       }
+		           questionnaire.answers.splice(index, 1);
+		        }
 		       
-		       if(value)
-		           scope.selectedQuestionnaire.answers.push({questionId: questionId, answer: value});
+			    if(value) {
+			    	var answer = null,
+			    	    patt = /^[+-]?\d+(\.\d+)?$/;
+
+                    if(value.indexOf("#") != -1)
+			    		answer = value.split("#")[1]; 
+			    	else if(patt.test(value))
+			    		answer = parseFloat(value);
+			    	else 
+			    		answer = value;
+
+			        questionnaire.answers.push({ questionGroupId: questionGroupId, questionId: questionId, answer: answer });
+			    }
 		   });
 		}
 	}

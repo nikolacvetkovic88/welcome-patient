@@ -96,14 +96,28 @@ var QuestionnairesRepository = {},
 
         return defer.promise;
     }
+ 
+    QuestionnairesRepository.postQuestion = function(username, password, questionId, answer) {
+        var regBody =   '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\
+                        @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\
+                        @prefix FHIRct:   <http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#> .\
+                        @prefix FHIRpt:   <http://lomi.med.auth.gr/ontologies/FHIRPrimitiveTypes#> .\
+                        @prefix FHIRResources:   <http://lomi.med.auth.gr/ontologies/FHIRResources#> .\
+                        @prefix FHIRResourcesExtensions: <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#> .\
+                        @prefix WELCOME_entities: <http://lomi.med.auth.gr/ontologies/WELCOME_entities#> .\
+                        \
+                        []\
+                          rdf:type FHIRResourcesExtensions:QuestionAnswer ;\
+                          <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#QuestionAnswer.value> WELCOME_entities:' + answer + ';\
+                          FHIRResourcesExtensions:question WELCOME_entities:' + questionId + ';\
+                        .';
 
-    QuestionnairesRepository.postQuestionnaire = function (username, password, patientId, answers, questionnaire) {
-        var url = baseUrl + 'QuestionnaireAnswers';
+        var url = baseUrl + 'QuestionAnswer';
         var encodedCred = $base64.encode(username + ':' + password);
         return  $http({
             url: url,
             method: 'POST',
-            data: CloudService.populateRegBodyForQuestionnaire(patientId, null, questionnaire),
+            data: regBody,
             headers: {
                 'Authorization' : 'Basic ' + encodedCred,
                 'Accept' : 'text/turtle',
@@ -112,43 +126,88 @@ var QuestionnairesRepository = {},
         });
     }
 
-    QuestionnairesRepository.populateRegBodyForQuestionnaire = function(patientId, questionnaireId, score) {
-        var currentDate = moment().format('YYYY-MM-DD HH:mm');
-        
-        return  '@prefix arg: <http://spinrdf.org/arg#> .' +
-                '@prefix ns10: <http://lomi.med.auth.gr/ontologies/FHIRResources#> .' +
-                '@prefix ns11: <http://lomi.med.auth.gr/ontologies/WELCOME_entities#> .' +
-                '@prefix ns12: <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#> .' +
-                '@prefix ns3: <http://lomi.med.auth.gr/ontologies/> .' +
-                '@prefix ns7: <http://lomi.med.auth.gr/ontologies/LomiStorageServerSpecificProperties#> .' +
-                '@prefix ns8: <http://lomi.med.auth.gr/ontologies/FHIRPrimitiveTypes#> .' +
-                '@prefix ns9: <http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#> .' +
-                '@prefix owl: <http://www.w3.org/2002/07/owl#> .' +
-                '@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .' +
-                '@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .' +
-                '@prefix sp: <http://spinrdf.org/sp#> .' +
-                '@prefix spin: <http://spinrdf.org/spin#> .' +
-                '@prefix spl: <http://spinrdf.org/spl#> .' +
-                '@prefix working2: <http://lomi.med.auth.gr/ontologies/working2#> .' +
-                '@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .' +
+    QuestionnairesRepository.postQuestionGroup = function(username, password, questionGroupId, score, questionAnswers) {
+    	var regBody =  '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\
+                        @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\
+                        @prefix FHIRct:   <http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#> .\
+                        @prefix FHIRpt:   <http://lomi.med.auth.gr/ontologies/FHIRPrimitiveTypes#> .\
+                        @prefix FHIRResources:   <http://lomi.med.auth.gr/ontologies/FHIRResources#> .\
+                        @prefix FHIRResourcesExtensions: <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#> .\
+                        @prefix WELCOME_entities: <http://lomi.med.auth.gr/ontologies/WELCOME_entities#> .\
+                        \
+                        []\
+                          rdf:type FHIRResourcesExtensions:QuestionsGroupAnswers ;\
+                          <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#QuestionsGroupAnswers.score> [\
+                              rdf:type FHIRpt:decimal ;\
+                              rdf:value "' + score + '"^^xsd:decimal ;\
+                            ] ;';
+  
 
-                'ns10:QuestionnaireAnswers_2' +
-                ' rdf:type ns10:QuestionnaireAnswers ;' +
-                '<http://lomi.med.auth.gr/ontologies/FHIRResources#QuestionnaireAnswers.authored> [' +
-                '   rdf:type ns8:dateTime ;' +
-                '  rdf:value "' + currentDate + '"^^xsd:date ;' +
-                '] ;' +
-                '<http://lomi.med.auth.gr/ontologies/FHIRResources#QuestionnaireAnswers.status> ns10:QuestionnaireAnswersStatus_completed ;' +
-                'ns10:author <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;' +
-                'ns10:questionnaire ns11:' + questionnaireId + ';' +
-                'ns10:source <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;' +
-                'ns10:subject <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;' +
-                '<http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#QuestionnaireAnswers.score> [' +
-                '   rdf:type ns8:decimal ;' +
-                '  rdf:value "' + score + '"^^xsd:decimal ;' +
-                '] ' +
-                '.';       
-    };
 
+	    angular.forEach(questionAnswers, function(questionAnswer) {
+	    	regBody = regBody + 'FHIRResourcesExtensions:questionAnswer <' + questionAnswer + '>;'
+	    });
+
+	    regBody = regBody + 'FHIRResourcesExtensions:questionsGroup WELCOME_entities:' + questionGroupId + ';.';
+
+        var url = baseUrl + 'QuestionsGroupAnswers';
+        var encodedCred = $base64.encode(username + ':' + password);
+        return  $http({
+            url: url,
+            method: 'POST',
+            data: regBody,
+            headers: {
+                'Authorization' : 'Basic ' + encodedCred,
+                'Accept' : 'text/turtle',
+                'Content-Type' : 'text/turtle'
+            }
+        });
+    }
+
+    QuestionnairesRepository.postQuestionnaire = function(username, password, patientId, questionnaireId, score, questionGroupAnswers) {
+        var regBody =   '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\
+                        @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\
+                        @prefix FHIRct:   <http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#> .\
+                        @prefix FHIRpt:   <http://lomi.med.auth.gr/ontologies/FHIRPrimitiveTypes#> .\
+                        @prefix FHIRResources:   <http://lomi.med.auth.gr/ontologies/FHIRResources#> .\
+                        @prefix FHIRResourcesExtensions: <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#> .\
+                        @prefix WELCOME_entities: <http://lomi.med.auth.gr/ontologies/WELCOME_entities#> .\
+                        \
+                        []\
+                          rdf:type FHIRResources:QuestionnaireAnswers ;\
+                          <http://lomi.med.auth.gr/ontologies/FHIRResources#QuestionnaireAnswers.authored> [\
+                              rdf:type FHIRpt:dateTime ;\
+                              rdf:value "' + moment().format("YYYY-MM-DDTHH:mm") + '"^^xsd:dateTime ;\
+                            ] ;\
+                          <http://lomi.med.auth.gr/ontologies/FHIRResources#QuestionnaireAnswers.status> FHIRResources:QuestionnaireAnswersStatus_completed ;\
+                          FHIRResources:author <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;\
+                          FHIRResources:questionnaire WELCOME_entities:' + questionnaireId + ' ;\
+                          FHIRResources:source <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;\
+                          FHIRResources:subject <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;\
+                          <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#QuestionnaireAnswers.score> [\
+                              rdf:type FHIRpt:decimal ;\
+                              rdf:value "' + score + '"^^xsd:decimal ;\
+                            ] ;';
+
+
+        angular.forEach(questionGroupAnswers, function(questionGroupAnswer) {
+            regBody = regBody +  'FHIRResourcesExtensions:questionsGroupAnswers <' + questionGroupAnswer + '>;';
+        });
+        regBody = regBody + ".";
+
+        var url = baseUrl + 'QuestionnaireAnswers';
+        var encodedCred = $base64.encode(username + ':' + password);
+        return  $http({
+            url: url,
+            method: 'POST',
+            data: regBody,
+            headers: {
+                'Authorization' : 'Basic ' + encodedCred,
+                'Accept' : 'text/turtle',
+                'Content-Type' : 'text/turtle'
+            }
+        });
+    }
+     
     return QuestionnairesRepository;
 });

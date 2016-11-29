@@ -5,15 +5,17 @@
     		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_COPDAssessmentTest",
     		"id": "Questionnaire_COPDAssessmentTest",
             "name": "COPD Assessment Test",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_COPDAssessmentTest",
 	        	"questions": [
 	        	    {
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_CAT_q1",
+	        	    		"id": "Question_CAT_q1",
 	        	    		"name": "CAT_q1"
 	        	    	},
 	        	    	"question_gravity": {
@@ -135,6 +137,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_CAT_q2",
+	        	    		"id": "Question_CAT_q2",
 	        	    		"name": "CAT_q2"
 	        	    	},
 	        	    	"question_gravity": {
@@ -168,7 +171,7 @@
 	        	    	    		"datatype": "http://www.w3.org/2001/XMLSchema#int",
 	        	    	    		"type": "typed-literal",
 	        	    	    		"value": "0"
-	        	    	    	}
+	        	    	    	}	        	    	    	
 	        	    	    },
 	        	    	    {
 	        	    	    	"option": {
@@ -240,6 +243,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_CAT_q3",
+	        	    		"id": "Question_CAT_q3",
 	        	    		"name": "CAT_q3"
 	        	    	},
 	        	    	"question_gravity": {
@@ -345,6 +349,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_CAT_q4",
+	        	    		"id": "Question_CAT_q4",
 	        	    		"name": "CAT_q4"
 	        	    	},
 	        	    	"question_gravity": {
@@ -450,6 +455,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_CAT_q5",
+	        	    		"id": "Question_CAT_q5",
 	        	    		"name": "CAT_q5"
 	        	    	},
 	        	    	"question_gravity": {
@@ -555,6 +561,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_CAT_q6",
+	        	    		"id": "Question_CAT_q6",
 	        	    		"name": "CAT_q6"
 	        	    	},
 	        	    	"question_gravity": {
@@ -660,6 +667,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_CAT_q7",
+	        	    		"id": "Question_CAT_q7",
 	        	    		"name": "CAT_q7"
 	        	    	},
 	        	    	"question_gravity": {
@@ -765,6 +773,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_CAT_q8",
+	        	    		"id": "Question_CAT_q8",
 	        	    		"name": "CAT_q8"
 	        	    	},
 	        	    	"question_gravity": {
@@ -867,22 +876,24 @@
 	        	    	]
 	        	    }
 	        	]
-            }
+            }]
         },    
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_8",
             "id": "Questionnaire_DSQ_q8",
             "name": "Daily Questionnaire 8",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_8",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q8",
+	                        "id": "Question_DSQ_q8",
 	                        "name": "DSQ_q8"
 	                    },
 	                    "question_gravity": {
@@ -953,22 +964,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_1",
             "id": "Questionnaire_DSQ_q1",
             "name": "Daily Questionnaire 1",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_1",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q1",
+	                        "id": "Question_DSQ_q1",
 	                        "name": "DSQ_q1"
 	                    },
 	                    "question_gravity": {
@@ -1039,22 +1052,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_6",
             "id": "Questionnaire_DSQ_q6",
             "name": "Daily Questionnaire 6",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_6",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q6",
+	                        "id": "Question_DSQ_q6",
 	                        "name": "DSQ_q6"
 	                    },
 	                    "question_gravity": {
@@ -1125,22 +1140,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_Physical_Activities",
             "id": "Questionnaire_Physical_Activities",
             "name": "Physical Activities",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_Physical_Activities",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_Physical_Activities_q1",
+	                        "id": "Question_Physical_Activities_q1",
 	                        "name": "Physical_Activities_q1"
 	                    },
 	                    "question_gravity": {
@@ -1310,6 +1327,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_Physical_Activities_q2",
+	                        "id": "Question_Physical_Activities_q2",
 	                        "name": "Physical_Activities_q2"
 	                    },
 	                    "question_gravity": {
@@ -1333,6 +1351,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_Physical_Activities_q3",
+	                        "id": "Question_Physical_Activities_q3",
 	                        "name": "Physical_Activities_q3"
 	                    },
 	                    "question_gravity": {
@@ -1403,23 +1422,25 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_SmokingCessation",
             "id": "Questionnaire_SmokingCessation",
             "name": "Smoking Cessation",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_SmokingCessation",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q1",
-	                        "name": "Question_sc_q1"
+	                        "id": "Question_sc_q1",
+	                        "name": "sc_q1"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
@@ -1476,7 +1497,8 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q2",
-	                        "name": "Question_sc_q2"
+	                        "id": "Question_sc_q1",
+	                        "name": "sc_q2"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
@@ -1533,7 +1555,8 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q3",
-	                        "name": "Question_sc_q3"
+	                        "id": "Question_sc_q3",
+	                        "name": "sc_q3"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
@@ -1556,7 +1579,8 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q4",
-	                        "name": "Question_sc_q4"
+	                        "id": "Question_sc_q4",
+	                        "name": "sc_q4"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
@@ -1646,7 +1670,8 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q5",
-	                        "name": "Question_sc_q5"
+	                        "id": "Question_sc_q5",
+	                        "name": "sc_q5"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
@@ -1669,7 +1694,8 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q6",
-	                        "name": "Question_sc_q6"
+	                        "id": "Question_sc_q6",
+	                        "name": "sc_q6"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
@@ -1726,7 +1752,8 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q7",
-	                        "name": "Question_sc_q7"
+	                        "id": "Question_sc_q7",
+	                        "name": "sc_q7"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
@@ -1746,22 +1773,24 @@
 	                    }
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_16",
             "id": "Questionnaire_DSQ_q16",
             "name": "Daily Questionnaire 16",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_16",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q16",
+	                        "id": "Question_DSQ_q16",
 	                        "name": "DSQ_q16"
 	                    },
 	                    "question_gravity": {
@@ -1816,22 +1845,24 @@
 	                    ]
 	                }
 	            ]
-            }
+            }]
         },
         {
     		"type": "uri",
     		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_FatigueSeverityScale",
     		"id": "Questionnaire_FatigueSeverityScale",
             "name": "Fatigue Severity Scale",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "Answer with 1-5 (Disagree - Agree) , a low value (e.g., 1) indicates strong disagreement with the statement, whereas a high value (e.g., 5) indicates strong agreement. During the past week, I have found that:",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_FatiqueSeverityScale",
 	        	"questions": [
 	        	    {
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q1",
+	        	    		"id": "Question_FSS_q1",
 	        	    		"name": "FSS_q1"
 	        	    	},
 	        	    	"question_gravity": {
@@ -1937,6 +1968,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q2",
+	        	    		"id": "Question_FSS_q2",
 	        	    		"name": "FSS_q2"
 	        	    	},
 	        	    	"question_gravity": {
@@ -2042,6 +2074,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q3",
+	        	    		"id": "Question_FSS_q3",
 	        	    		"name": "FSS_q3"
 	        	    	},
 	        	    	"question_gravity": {
@@ -2147,6 +2180,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q4",
+	        	    		"id": "Question_FSS_q4",
 	        	    		"name": "FSS_q4"
 	        	    	},
 	        	    	"question_gravity": {
@@ -2252,6 +2286,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q5",
+	        	    		"id": "Question_FSS_q5",
 	        	    		"name": "FSS_q5"
 	        	    	},
 	        	    	"question_gravity": {
@@ -2357,6 +2392,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q6",
+	        	    		"id": "Question_FSS_q6",
 	        	    		"name": "FSS_q6"
 	        	    	},
 	        	    	"question_gravity": {
@@ -2462,6 +2498,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q7",
+	        	    		"id": "Question_FSS_q7",
 	        	    		"name": "FSS_q7"
 	        	    	},
 	        	    	"question_gravity": {
@@ -2567,6 +2604,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q8",
+	        	    		"id": "Question_FSS_q8",
 	        	    		"name": "FSS_q8"
 	        	    	},
 	        	    	"question_gravity": {
@@ -2672,6 +2710,7 @@
 	        	    	"question": {
 	        	    		"type": "uri",
 	        	    		"value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FSS_q9",
+	        	    		"id": "Question_FSS_q9",
 	        	    		"name": "FSS_q9"
 	        	    	},
 	        	    	"question_gravity": {
@@ -2774,22 +2813,24 @@
 	        	    	]
 	        	    }
 	        	]
-            }
+            }]
         },  
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_13",
             "id": "Questionnaire_DSQ_q13",
             "name": "Daily Questionnaire 13",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_13",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q13",
+	                        "id": "Question_DSQ_q13",
 	                        "name": "DSQ_q13"
 	                    },
 	                    "question_gravity": {
@@ -2860,22 +2901,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_9",
             "id": "Questionnaire_DSQ_q9",
             "name": "Daily Questionnaire 9",
-             "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_9",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
-	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q13",
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q9",
+	                        "id": "Question_DSQ_q9",
 	                        "name": "DSQ_q9"
 	                    },
 	                    "question_gravity": {
@@ -2946,22 +2989,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_11",
             "id": "Questionnaire_DSQ_q11",
             "name": "Daily Questionnaire 11",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_11",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q11",
+	                        "id": "Question_DSQ_q11",
 	                        "name": "DSQ_q11"
 	                    },
 	                    "question_gravity": {
@@ -3032,22 +3077,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_7",
             "id": "Questionnaire_DSQ_q7",
             "name": "Daily Questionnaire 7",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_17",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q7",
+	                        "id": "Question_DSQ_q7",
 	                        "name": "DSQ_q7"
 	                    },
 	                    "question_gravity": {
@@ -3118,22 +3165,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_4",
             "id": "Questionnaire_DSQ_q4",
             "name": "Daily Questionnaire 4",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_4",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q4",
+	                        "id": "Question_DSQ_q4",
 	                        "name": "DSQ_q4"
 	                    },
 	                    "question_gravity": {
@@ -3204,22 +3253,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_2",
             "id": "Questionnaire_DSQ_q2",
             "name": "Daily Questionnaire 2",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_2",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q2",
+	                        "id": "Question_DSQ_q2",
 	                        "name": "DSQ_q2"
 	                    },
 	                    "question_gravity": {
@@ -3290,22 +3341,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_14",
             "id": "Questionnaire_DSQ_q14",
             "name": "Daily Questionnaire 14",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_14",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q14",
+	                        "id": "Question_DSQ_q14",
 	                        "name": "DSQ_q14"
 	                    },
 	                    "question_gravity": {
@@ -3326,22 +3379,24 @@
 	                    }
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_12",
             "id": "Questionnaire_DSQ_q12",
             "name": "Daily Questionnaire 12",
-             "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_12",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q12",
+	                        "id": "Question_DSQ_q12",
 	                        "name": "DSQ_q12"
 	                    },
 	                    "question_gravity": {
@@ -3412,22 +3467,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_5",
             "id": "Questionnaire_DSQ_q5",
             "name": "Daily Questionnaire 5",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_5",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q5",
+	                        "id": "Question_DSQ_q5",
 	                        "name": "DSQ_q5"
 	                    },
 	                    "question_gravity": {
@@ -3498,22 +3555,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_HospitalAnxietyAndDepressionScale",
             "id": "Questionnaire_HospitalAnxietyAndDepressionScale",
             "name": "Hospital Anxiety And Depression Scale",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "Anxiety related questions",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_HospitalAnxietyAndDepressionScale",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q1",
+	                        "id": "Question_HADS_q1",
 	                        "name": "HADS_q1"
 	                    },
 	                    "question_gravity": {
@@ -3623,6 +3682,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q2",
+	                        "id": "Question_HADS_q2",
 	                        "name": "HADS_q2"
 	                    },
 	                    "question_gravity": {
@@ -3732,6 +3792,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q3",
+	                        "id": "Question_HADS_q3",
 	                        "name": "HADS_q3"
 	                    },
 	                    "question_gravity": {
@@ -3841,6 +3902,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q4",
+	                        "id": "Question_HADS_q4",
 	                        "name": "HADS_q4"
 	                    },
 	                    "question_gravity": {
@@ -3950,6 +4012,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q5",
+	                        "id": "Question_HADS_q5",
 	                        "name": "HADS_q5"
 	                    },
 	                    "question_gravity": {
@@ -4059,6 +4122,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q6",
+	                        "id": "Question_HADS_q6",
 	                        "name": "HADS_q6"
 	                    },
 	                    "question_gravity": {
@@ -4168,7 +4232,9 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q7",
-	                        "name": "HADS_q6"
+	                        "id": "Question_HADS_q7",
+	                        "id": "Question_HADS_q7",
+	                        "name": "HADS_q7"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
@@ -4276,13 +4342,14 @@
 	                {
 	                    "question": {
 	                        "type": "uri",
-	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q7",
-	                        "name": "HADS_q7"
+	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q8",
+	                        "id": "Question_HADS_q8",
+	                        "name": "HADS_q8"
 	                    },
 	                    "question_gravity": {
 	                        "datatype": "http://www.w3.org/2001/XMLSchema#int",
 	                        "type": "typed-literal",
-	                        "value": "7"
+	                        "value": "8"
 	                    },
 	                    "question_text": {
 	                        "type": "literal",
@@ -4299,7 +4366,7 @@
 	                        {
 	                            "option": {
 	                                "type": "uri",
-	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o1"
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q8_o1"
 	                            },
 	                            "option_display": {
 	                                "type": "literal",
@@ -4320,7 +4387,7 @@
 	                        {
 	                            "option": {
 	                                "type": "uri",
-	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o2"
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q8_o2"
 	                            },
 	                            "option_display": {
 	                                "type": "literal",
@@ -4341,7 +4408,7 @@
 	                        {
 	                            "option": {
 	                                "type": "uri",
-	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o3"
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q8_o3"
 	                            },
 	                            "option_display": {
 	                                "type": "literal",
@@ -4362,7 +4429,7 @@
 	                        {
 	                            "option": {
 	                                "type": "uri",
-	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q7_o4"
+	                                "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#QuestionOption_HADS_q8_o4"
 	                            },
 	                            "option_display": {
 	                                "type": "literal",
@@ -4386,6 +4453,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q9",
+	                        "id": "Question_HADS_q9",
 	                        "name": "HADS_q9"
 	                    },
 	                    "question_gravity": {
@@ -4495,6 +4563,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q10",
+	                        "id": "Question_HADS_q10",
 	                        "name": "HADS_q10"
 	                    },
 	                    "question_gravity": {
@@ -4604,6 +4673,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q11",
+	                        "id": "Question_HADS_q11",
 	                        "name": "HADS_q11"
 	                    },
 	                    "question_gravity": {
@@ -4713,6 +4783,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q12",
+	                        "id": "Question_HADS_q12",
 	                        "name": "HADS_q12"
 	                    },
 	                    "question_gravity": {
@@ -4822,6 +4893,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q13",
+	                        "id": "Question_HADS_q13",
 	                        "name": "HADS_q13"
 	                    },
 	                    "question_gravity": {
@@ -4931,6 +5003,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q14",
+	                        "id": "Question_HADS_q14",
 	                        "name": "HADS_q14"
 	                    },
 	                    "question_gravity": {
@@ -5037,22 +5110,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
-        {    	
+        {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_FagerstromToleranceQuestionnaire",
             "id": "Questionnaire_FagerstromToleranceQuestionnaire",
             "name": "Fagerstrom Tolerance",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_FagerstromToleranceQuestionnaire",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q1",
+	                        "id": "Question_FTQ_q1",
 	                        "name": "FTQ_q1"
 	                    },
 	                    "question_gravity": {
@@ -5162,6 +5237,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q2",
+	                        "id": "Question_FTQ_q2",
 	                        "name": "FTQ_q2"
 	                    },
 	                    "question_gravity": {
@@ -5271,6 +5347,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q3",
+	                        "id": "Question_FTQ_q3",
 	                        "name": "FTQ_q3"
 	                    },
 	                    "question_gravity": {
@@ -5328,6 +5405,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q4",
+	                        "id": "Question_FTQ_q4",
 	                        "name": "FTQ_q4"
 	                    },
 	                    "question_gravity": {
@@ -5385,6 +5463,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q5",
+	                        "id": "Question_FTQ_q5",
 	                        "name": "FTQ_q5"
 	                    },
 	                    "question_gravity": {
@@ -5452,6 +5531,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_FTQ_q6",
+	                        "id": "Question_FTQ_q6",
 	                        "name": "FTQ_q6"
 	                    },
 	                    "question_gravity": {
@@ -5506,22 +5586,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_MMRC",
             "id": "Questionnaire_MMRC",
             "name": "MMRC",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_MMRC",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MMRC_q1",
+	                        "id": "Question_MMRC_q1",
 	                        "name": "MMRC_q1"
 	                    },
 	                    "question_gravity": {
@@ -5649,22 +5731,24 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_3",
             "id": "Questionnaire_DSQ_q3",
             "name": "Daily Questionnaire 3",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_13",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q3",
+	                        "id": "Question_DSQ_q3",
 	                        "name": "DSQ_q3"
 	                    },
 	                    "question_gravity": {
@@ -5735,22 +5819,24 @@
 	                    ]
 	                }
 	            ]
-            }
+            }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_10",
             "id": "Questionnaire_DSQ_q10",
             "name": "Daily Questionnaire 10",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_10",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q10",
+	                        "id": "Question_DSQ_q10",
 	                        "name": "DSQ_q10"
 	                    },
 	                    "question_gravity": {
@@ -5771,22 +5857,24 @@
 	                    }
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_15",
             "id": "Questionnaire_DSQ_q15",
             "name": "Daily Questionnaire 15",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_DSQ_15",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_DSQ_q15",
+	                        "id": "Question_DSQ_q15",
 	                        "name": "DSQ_q15"
 	                    },
 	                    "question_gravity": {
@@ -5807,22 +5895,24 @@
 	                    }
 	                }
 	            ]
-	        }
+	        }]
         },
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_MalnutritionUniversalScreeningTool",
             "id": "Questionnaire_MalnutritionUniversalScreeningTool",
             "name": "Malnutrition Universal Screening Tool",
-            "group": {
+            "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
 	        	"xml:lang": "en",
+	        	"id": "QuestionsGroup_MalnutritionUniversalScreeningTool",
 	            "questions": [
 	                {
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q1",
+	                        "id": "Question_MUST_q1",
 	                        "name": "MUST_q1"
 	                    },
 	                    "question_gravity": {
@@ -5846,6 +5936,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q2",
+	                        "id": "Question_MUST_q2",
 	                        "name": "MUST_q2"
 	                    },
 	                    "question_gravity": {
@@ -5869,6 +5960,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q3",
+	                        "id": "Question_MUST_q3",
 	                        "name": "MUST_q3"
 	                    },
 	                    "question_gravity": {
@@ -5942,6 +6034,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q4",
+	                        "id": "Question_MUST_q4",
 	                        "name": "MUST_q4"
 	                    },
 	                    "question_gravity": {
@@ -5999,6 +6092,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_MUST_q5",
+	                        "id": "Question_MUST_q5",
 	                        "name": "MUST_q5"
 	                    },
 	                    "question_gravity": {
@@ -6053,7 +6147,7 @@
 	                    ]
 	                }
 	            ]
-	        }
+	        }]
         }
     ]	
 }

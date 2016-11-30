@@ -216,9 +216,19 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $http, $base64
 	    	return $scope.postQuestionnaireAnswers(response, postData);
 	    })
 	    .then(function(response) {
+	    	console.log(response.headers().location);
 	    	$scope.loading = false;
 	    	bootbox.alert("<div class='text-info'>Questionnaire submitted successfully.</div>");
-	    });
+	    	var index = $scope.assignedQuestionnaires.indexOf($scope.selectedQuestionnaire);
+	        $scope.assignedQuestionnaires.splice(index, 1);
+	     
+	        if($scope.assignedQuestionnaires[index-1])
+	        	$scope.setSelectedQuestionnaire($scope.assignedQuestionnaires[index-1]);
+	        else if($scope.assignedQuestionnaires[index])
+	        	$scope.setSelectedQuestionnaire($scope.assignedQuestionnaires[index]);
+	        else 
+	        	$scope.setSelectedQuestionnaire(null);
+		    });
 	}
 
 	$scope.refresh = function() {

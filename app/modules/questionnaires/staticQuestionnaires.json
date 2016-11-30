@@ -881,7 +881,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_8",
-            "id": "Questionnaire_DSQ_q8",
+            "id": "Questionnaire_DSQ_8",
             "name": "Daily Questionnaire 8",
             "questionGroups": [{
 	    		"type": "literal",
@@ -969,7 +969,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_1",
-            "id": "Questionnaire_DSQ_q1",
+            "id": "Questionnaire_DSQ_1",
             "name": "Daily Questionnaire 1",
             "questionGroups": [{
 	    		"type": "literal",
@@ -1057,7 +1057,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_6",
-            "id": "Questionnaire_DSQ_q6",
+            "id": "Questionnaire_DSQ_6",
             "name": "Daily Questionnaire 6",
             "questionGroups": [{
 	    		"type": "literal",
@@ -1497,7 +1497,7 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_sc_q2",
-	                        "id": "Question_sc_q1",
+	                        "id": "Question_sc_q2",
 	                        "name": "sc_q2"
 	                    },
 	                    "question_gravity": {
@@ -1778,7 +1778,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_16",
-            "id": "Questionnaire_DSQ_q16",
+            "id": "Questionnaire_DSQ_16",
             "name": "Daily Questionnaire 16",
             "questionGroups": [{
 	    		"type": "literal",
@@ -2818,7 +2818,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_13",
-            "id": "Questionnaire_DSQ_q13",
+            "id": "Questionnaire_DSQ_13",
             "name": "Daily Questionnaire 13",
             "questionGroups": [{
 	    		"type": "literal",
@@ -2906,7 +2906,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_9",
-            "id": "Questionnaire_DSQ_q9",
+            "id": "Questionnaire_DSQ_9",
             "name": "Daily Questionnaire 9",
             "questionGroups": [{
 	    		"type": "literal",
@@ -2994,7 +2994,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_11",
-            "id": "Questionnaire_DSQ_q11",
+            "id": "Questionnaire_DSQ_11",
             "name": "Daily Questionnaire 11",
             "questionGroups": [{
 	    		"type": "literal",
@@ -3082,7 +3082,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_7",
-            "id": "Questionnaire_DSQ_q7",
+            "id": "Questionnaire_DSQ_7",
             "name": "Daily Questionnaire 7",
             "questionGroups": [{
 	    		"type": "literal",
@@ -3170,7 +3170,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_4",
-            "id": "Questionnaire_DSQ_q4",
+            "id": "Questionnaire_DSQ_4",
             "name": "Daily Questionnaire 4",
             "questionGroups": [{
 	    		"type": "literal",
@@ -3258,7 +3258,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_2",
-            "id": "Questionnaire_DSQ_q2",
+            "id": "Questionnaire_DSQ_2",
             "name": "Daily Questionnaire 2",
             "questionGroups": [{
 	    		"type": "literal",
@@ -3346,7 +3346,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_14",
-            "id": "Questionnaire_DSQ_q14",
+            "id": "Questionnaire_DSQ_14",
             "name": "Daily Questionnaire 14",
             "questionGroups": [{
 	    		"type": "literal",
@@ -3384,7 +3384,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_12",
-            "id": "Questionnaire_DSQ_q12",
+            "id": "Questionnaire_DSQ_12",
             "name": "Daily Questionnaire 12",
             "questionGroups": [{
 	    		"type": "literal",
@@ -3472,7 +3472,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_5",
-            "id": "Questionnaire_DSQ_q5",
+            "id": "Questionnaire_DSQ_5",
             "name": "Daily Questionnaire 5",
             "questionGroups": [{
 	    		"type": "literal",
@@ -5736,7 +5736,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_3",
-            "id": "Questionnaire_DSQ_q3",
+            "id": "Questionnaire_DSQ_3",
             "name": "Daily Questionnaire 3",
             "questionGroups": [{
 	    		"type": "literal",
@@ -5824,7 +5824,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_10",
-            "id": "Questionnaire_DSQ_q10",
+            "id": "Questionnaire_DSQ_10",
             "name": "Daily Questionnaire 10",
             "questionGroups": [{
 	    		"type": "literal",
@@ -5862,7 +5862,7 @@
         {
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_15",
-            "id": "Questionnaire_DSQ_q15",
+            "id": "Questionnaire_DSQ_15",
             "name": "Daily Questionnaire 15",
             "questionGroups": [{
 	    		"type": "literal",

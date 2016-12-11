@@ -27,6 +27,11 @@ function formatDateTimeForUser(dateTime) {
     return moment(dateTime).format("ll HH:mm");
 }
 
+function notify(message, mode) {
+    $.notify(message, mode);
+    $.notify(message, { position: "top center", className: mode })
+}
+
 function initCharts($scope) {
     $scope.BPchartOptions = {
         chart: {

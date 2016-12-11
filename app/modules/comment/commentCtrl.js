@@ -12,7 +12,7 @@ app.controller('commentCtrl', function($scope, commentRepository) {
 		})
 		.error(function() {
 			$scope.loading = false;
-			bootbox.alert("<div class='text-danger'>Failed loading comments.</div>"); 
+			notify("Failed loading comments", "error"); 
 		});
 	}
 
@@ -61,11 +61,11 @@ app.controller('commentCtrl', function($scope, commentRepository) {
 
 	$scope.submitNewComment = function() {
 		if(!$scope.myComment || !$scope.myComment.length) {
-			bootbox.alert("<div class='text-danger'>Please type your comment!</div>");
+			notify("Please type your comment", "warn"); 
 			return false;
 		} else {
 			setTimeout(function() {
-				bootbox.alert("<div class='text-info'>Your comment has been submitted successfully!");
+				notify("Your comment has been submitted successfully!", "success");
 				$scope.loadComments();
 			}, 1000);
 		}

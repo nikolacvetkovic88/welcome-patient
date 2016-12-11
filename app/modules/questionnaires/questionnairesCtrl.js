@@ -1,4 +1,4 @@
-app.controller('questionnairesCtrl', function($scope, $rootScope, questionnairesRepository, $q) {
+app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionnairesRepository) {
 	$scope.$emit('body:class:add', "transparent");
 	$scope.patientId = $rootScope.Patient ? $rootScope.Patient.cloudRef : null;
 
@@ -206,13 +206,13 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, questionnaires
 		if(!$scope.selectedQuestionnaire)
 			return;
 		if(!$scope.patientId) {
-			bootbox.alert("<div class='text-danger'>No patient ID defined!</div>");
+			notify("No patient ID defined!", "warn");
 			return;
 		}
 
 		var answers = $scope.selectedQuestionnaire.answers;
 		if(answers.length != $scope.getNumberOfQuestions()) {
-			bootbox.alert("<div class='text-danger'>Please give answers to all the questions!</div>");
+			notify("Please give answers to all the questions!", "warn");
 			return;
 		}
 
@@ -229,7 +229,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, questionnaires
 		.then(function(response) {
 			console.log(response.headers().location);
 			$scope.loading = false;
-			bootbox.alert("<div class='text-info'>Questionnaire submitted successfully.</div>");
+			notify("Questionnaire submitted successfully", "success");
 			$scope.afterSubmit();
 		});
 	}

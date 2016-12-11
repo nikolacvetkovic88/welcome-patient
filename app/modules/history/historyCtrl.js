@@ -15,7 +15,7 @@ app.controller('historyCtrl', function($scope, $timeout, historyRepository) {
          })
         .error(function() {
             $scope.loading = false;
-            bootbox.alert("<div class='text-danger'>Failed loading history data.</div>");
+            notify("Failed loading history data", "error");
         });
     }
 

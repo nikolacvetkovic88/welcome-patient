@@ -28,7 +28,6 @@ function formatDateTimeForUser(dateTime) {
 }
 
 function notify(message, mode) {
-    $.notify(message, mode);
     $.notify(message, { position: "top center", className: mode })
 }
 

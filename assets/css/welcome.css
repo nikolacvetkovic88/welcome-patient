@@ -125,9 +125,10 @@ button.fc-state-active, button.fc-state-hover  {
 .loader {
   background: rgba(0, 0, 0, 0.8) url("images/loading.gif") no-repeat center center;
   z-index: 999;
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
+  height: 100%;
   width: 100%;
 }
 
@@ -146,10 +147,3 @@ button.fc-state-active, button.fc-state-hover  {
 .refresh {
   margin-bottom: 10px;
 }
-
-@media (min-width:320px) { .loader { height: 400px; } }
-@media (min-width:480px) { .loader { height: 540px; } }
-@media (min-width:600px) { .loader { height: 700px; } }
-@media (min-width:801px) { .loader { height: 923px; } }
-@media (min-width:1025px) { .loader { hegiht: 1157px; } }
-@media (min-width:1281px) { .loader { hegiht: 1400px; } }

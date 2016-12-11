@@ -3,7 +3,7 @@ app.controller('loginCtrl', function ($scope, $rootScope, $location, $timeout, A
     AuthService.clearCredentials();
 
     $scope.login = function () {
-        $scope.dataLoading = true;
+        $scope.loading = true;
 
         AuthService.login({ username: $scope.username, password: $scope.password })
         .success(function(data) {   
@@ -15,12 +15,12 @@ app.controller('loginCtrl', function ($scope, $rootScope, $location, $timeout, A
                 ReminderService.getReminders($rootScope.reminderInterval);
             })
             .error(function(data, status) {
-                $scope.error = (data || "Retrieving patient account failed") + " :" + status; 
+                $scope.error = data.error_description || "Retrieving patient account failed"; 
             });
         })
         .error(function(data, status) {
-            $scope.error = (data || "Login request failed") + " :" + status; 
-            $scope.dataLoading = false;
+            $scope.error = data.error_description || "Login request failed";
+            $scope.loading = false;
         });
     }
 });

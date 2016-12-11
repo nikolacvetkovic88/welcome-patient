@@ -58,7 +58,7 @@
     <script src="assets/js/helperFunctions.js"></script>
 </head>
 <body id="weather-background" body>
-    <div ng-Show="showMainContent">
+    <div ng-Show="isHomePage">
 		<canvas id="rain-canvas" class="canvas"></canvas>
 	    <canvas id="cloud-canvas" class="canvas"> </canvas>
 	    <canvas id="weather-canvas" class="canvas"></canvas>
@@ -67,7 +67,7 @@
     </div>
 
 	<div id="wrapper" class="container">
-		<div class="well main-content" ng-Show="showMainContent">
+		<div class="well main-content ng-hide" ng-show="showMainContent">
 			<div class="row">
 				<div class="col-sm-6">
 					<div>
@@ -105,9 +105,9 @@
 							    </button>
 							    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 							      <li class="dropdown-header">Set Reminders</li>
-							      <li role="presentation" ng-click="setInterval(3600000)" ng-class="{'selected-item': reminderInterval == 3600000}"><a role="menuitem" tabindex="-1" href="">Every hour</a></li>
-							      <li role="presentation" ng-click="setInterval(900000)" ng-class="{'selected-item': reminderInterval == 900000}"><a role="menuitem" tabindex="-1" href="">Every 15 minutes</a></li>		
-							      <li role="presentation"  ng-click="clearInterval()" ng-class="{'selected-item': reminderInterval == -1}"><a role="menuitem" tabindex="-1" href="">Disable(d)</a></li>
+							      <li role="presentation" ng-click="setReminders(3600000)" ng-class="{'selected-item': reminderInterval == 3600000}"><a role="menuitem" tabindex="-1" href="">Every hour</a></li>
+							      <li role="presentation" ng-click="setReminders(900000)" ng-class="{'selected-item': reminderInterval == 900000}"><a role="menuitem" tabindex="-1" href="">Every 15 minutes</a></li>		
+							      <li role="presentation"  ng-click="clearReminders()" ng-class="{'selected-item': reminderInterval == -1}"><a role="menuitem" tabindex="-1" href="">Disable(d)</a></li>
 							      <li class="divider"></li>
 							    </ul>
 	                        </div>
@@ -141,10 +141,19 @@
 			</div>
 		</div>
 
+		<nav class="nav navbar-inverse navigation-bar ng-hide" ng-show="showMainContent && !isHomePage">
+		  <ul class="nav navbar-nav">
+		    <li><a href="#home" data-icon="home"><span class="glyphicon glyphicon-home" ng-click="$route.reload()"></span>Home</a></li>    
+		    <li><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurement</a></li>   
+		    <li><a href="#questionnaires" data-icon="edit"><span class="glyphicon glyphicon-pencil"></span>Questionnaires</a></li>    
+		    <li><a href="#education" data-icon="info"><span class="glyphicon glyphicon-info-sign"></span>Education</a></li>    
+		    <li><a href="#comment" data-icon="comment"><span class="glyphicon glyphicon-blackboard"></span>Comments</a></li>     
+		    <li><a href="#diary" data-icon="calendar"><span class="glyphicon glyphicon-calendar"></span>Diary</a></li>   
+		    <li><a href="#history" data-icon="heart"><span class="glyphicon glyphicon-heart"></span>History</a></li>   
+		    <li><a href="#medication" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medication</a></li>   
+		  </ul>
+		</nav>
 		<div ng-view></div>
-	</div>
-	<div id="warning-message" class="text-danger">
-		This application is only viewable in landscape mode.
 	</div>
 
     <script src="app/shared/reminderCtrl.js"></script>

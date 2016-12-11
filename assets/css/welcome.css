@@ -131,19 +131,12 @@ button.fc-state-active, button.fc-state-hover  {
   width: 100%;
 }
 
-#warning-message { 
-    display: none; 
-    margin-top: 50%;
-    text-align: center;
-    font-size: 40px;
-}
-
 .st-sort-ascent:before{
-   content: '\25B2';
+ content: '\25B2';
 }
 
 .st-sort-descent:before{
-   content: '\25BC';
+ content: '\25BC';
 }
 
 .transparent {
@@ -160,12 +153,3 @@ button.fc-state-active, button.fc-state-hover  {
 @media (min-width:801px) { .loader { height: 923px; } }
 @media (min-width:1025px) { .loader { hegiht: 1157px; } }
 @media (min-width:1281px) { .loader { hegiht: 1400px; } }
-
-@media only screen and (orientation:portrait){
-  #wrapper { display:none; }
-  #warning-message { display:block; }
-}
-
-@media only screen and (orientation:landscape){
-  #warning-message { display:none; }
-}

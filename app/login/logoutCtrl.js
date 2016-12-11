@@ -1,4 +1,4 @@
-app.controller('logoutCtrl', function ($scope, $rootScope, $location, $timeout, AuthService, ReminderService) {
+app.controller('logoutCtrl', function ($scope, $rootScope, $location, $timeout, AuthService) {
     $scope.$emit('body:class:add', "transparent");
     $scope.logout = function() {
         AuthService.logout();

@@ -26,11 +26,6 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
         	$scope.loading = false;
         });
 	}
-
-    $scope.refresh = function() {
-        $scope.filter = '';
-        $scope.getMedications();
-    }
     
 	$scope.getMedicationPrescriptionOrMedicationUriPromises = function(refs) {	
         var promises = [];
@@ -49,6 +44,11 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
 
         return $q.all(promises);
 	}
+
+    $scope.refresh = function() {
+        $scope.filter = '';
+        $scope.getMedications();
+    }
 
 	$scope.getAllMedications = function(medications) {
 		var promises = [];

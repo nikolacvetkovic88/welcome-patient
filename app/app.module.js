@@ -8,7 +8,7 @@ var app = angular.module("welcomeApp", ['ngRoute', 'ngCookies', 'highcharts-ng',
 
         if(!$rootScope.reminderInterval)
             $rootScope.reminderInterval = 3600000;
-        if($rootScope.globals && $rootScope.globals.currentUser && $rootScope.reminderInterval && $rootScope.reminderInterval > 0) { // this means that the user is already logged in
+        if($rootScope.globals && $rootScope.globals.currentUser) { // this means that the user is already logged in
             ReminderService.getReminders($rootScope.reminderInterval);
         }
 

@@ -142,12 +142,9 @@ var QuestionnairesRepository = {},
                               rdf:value "' + score + '"^^xsd:decimal ;\
                             ] ;';
   
-
-
 	    angular.forEach(questionAnswers, function(questionAnswer) {
 	    	regBody = regBody + 'FHIRResourcesExtensions:questionAnswer <' + questionAnswer + '>;'
 	    });
-
 	    regBody = regBody + 'FHIRResourcesExtensions:questionsGroup WELCOME_entities:' + questionGroupId + ';.';
 
         var url = baseUrl + 'QuestionsGroupAnswers';

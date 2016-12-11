@@ -781,13 +781,7 @@ CanvasBackground = {
             draw();
     }
 
-
 };
-
-
-
-
-
 
 $(function() {
     GLoc.init();

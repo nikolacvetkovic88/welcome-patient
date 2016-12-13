@@ -5,7 +5,6 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.diaryToday = [];
   $scope.diaryTomorrow = [];
 
-  vm = $scope;
   $scope.getQuestionnaireDiaryEntries = function(_callback1, _callback2) {
     $scope.loading = true;
 

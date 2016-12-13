@@ -6,16 +6,13 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.appointments = [];
     this.measurements = [];
 
-    this.getReminders = function(duration) {
-        if(!duration || duration < 1)
-            return;
+    this.getReminders = function() {;
+        self.clearInterval();
+        self.initRemindersInterval();
 
-        self.clearData();
-        self.clearReminderInterval();
-
-        return diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.Patient.cloudRef)
+        return diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.patient.cloudRef)
         .then(function(response) {
-            return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.Patient.cloudRef); 
+            return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.patient.cloudRef); 
         })
         .then(function(questionnaireDiaryRefs) {
             return self.getQuestionnaireDiaryEntryUriPromises(questionnaireDiaryRefs); 
@@ -32,7 +29,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
                 .then(function() {
                     self.measurements = self.parseData(deviceResults, "m");
                     self.checkReminders();
-                    self.registerReminders(duration);
+                    self.setReminders($rootScope.reminderInterval);
                 });
             });
         });
@@ -57,9 +54,9 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     }
 
     this.getAppointments = function() {
-        return diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $rootScope.Patient.cloudRef)
+        return diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $rootScope.patient.cloudRef)
         .then(function(response) {
-          return diaryRepository.decodeAppointmentDiaryEntries(response.data, $rootScope.Patient.cloudRef); 
+          return diaryRepository.decodeAppointmentDiaryEntries(response.data, $rootScope.patient.cloudRef); 
         })
         .then(function(appointmentDiaryRefs) {
           return self.getAppointmentDiaryEntryUriPromises(appointmentDiaryRefs); 
@@ -88,9 +85,9 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     }
 
     this.getDevices = function() {
-        return diaryRepository.getDevices('welk', 'welk', $rootScope.Patient.cloudRef)
+        return diaryRepository.getDevices('welk', 'welk', $rootScope.patient.cloudRef)
         .then(function(response) {
-            return diaryRepository.decodeDevices(response.data, $rootScope.Patient.cloudRef)
+            return diaryRepository.decodeDevices(response.data, $rootScope.patient.cloudRef)
         })
         .then(function(deviceRefs) {
             return self.getDeviceUriPromises(deviceRefs);
@@ -149,27 +146,43 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         return $q.all(promises);
     }
 
-    this.registerReminders = function(duration) {
-        if(!duration || duration < 1)
+    this.initRemindersInterval = function() {
+        var interval = $rootScope.currentUser ? $cookieStore.get('reminders-' + $rootScope.currentUser.username) : null;
+
+        $rootScope.reminderInterval = interval || 3600000;
+    }
+
+    this.setReminders = function(interval) {
+        if(!interval || interval < 1)
             return;
 
-        self.clearReminderInterval();
-        self.interval = setInterval(function () {
-            self.checkReminders();
-        }, duration); 
-        $rootScope.reminderInterval = duration;
-        $cookieStore.put('reminderInterval', $rootScope.reminderInterval);
+        self.clearInterval();
+        self.setInterval(interval);
+        $rootScope.reminderInterval = interval;
+        $cookieStore.put('reminders-' + $rootScope.currentUser.username, $rootScope.reminderInterval);
     }
 
-    this.unregisterReminders = function() {
-        self.clearReminderInterval();
+    this.removeReminders = function() {
+        self.clearInterval();
+        $rootScope.reminderInterval = null;
+        $cookieStore.remove('reminders-' + $rootScope.currentUser.username);
+    }
+
+    this.disableReminders = function() {
+        self.clearInterval();
         $rootScope.reminderInterval = -1;
-        $cookieStore.put('reminderInterval', $rootScope.reminderInterval);
+        $cookieStore.put('reminders-' + $rootScope.currentUser.username, $rootScope.reminderInterval);
     }
 
-    this.clearReminderInterval = function() {
+    this.clearInterval = function() {
         clearInterval(self.interval);
         self.interval = null;
+    }
+
+    this.setInterval = function(interval) {
+        self.interval = setInterval(function () {
+            self.checkReminders();
+        }, interval); 
     }
 
     this.clearData = function() {
@@ -296,14 +309,14 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     }
 
     return {
-        getReminders: function(duration) {
-            return self.getReminders(duration);
+        getReminders: function() {
+            return self.getReminders();
         },
-        registerReminders: function(duration) {
-            return self.registerReminders(duration);
+        setReminders: function(interval) {
+            return self.setReminders(interval);
         },
-        unregisterReminders: function() {
-            return self.unregisterReminders();
+        disableReminders: function() {
+            return self.disableReminders();
         }
     };
 });

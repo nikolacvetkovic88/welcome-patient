@@ -12,7 +12,7 @@ app.controller('loginCtrl', function ($scope, $rootScope, $location, $timeout, A
             .success(function(data) {
                 AccountService.storePatient(data);
                 $location.path('/');
-                ReminderService.getReminders($rootScope.reminderInterval);
+                ReminderService.getReminders();
             })
             .error(function(data, status) {
                 $scope.error = data.error_description || "Retrieving patient account failed"; 

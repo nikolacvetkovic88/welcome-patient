@@ -1,6 +1,6 @@
 app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionnairesRepository) {
 	$scope.$emit('body:class:add', "transparent");
-	$scope.patientId = $rootScope.Patient ? $rootScope.Patient.cloudRef : null;
+	$scope.patientId = $rootScope.patient ? $rootScope.patient.cloudRef : null;
 
 	$scope.getAllStaticQuestionnaires = function(_callback) {
 		$scope.loading = true;

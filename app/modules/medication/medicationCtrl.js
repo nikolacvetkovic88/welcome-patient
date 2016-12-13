@@ -1,6 +1,6 @@
 app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepository) {
 	$scope.$emit('body:class:add', "transparent");
-	$scope.patientId = $rootScope.Patient ? $rootScope.Patient.cloudRef : null;
+	$scope.patientId = $rootScope.patient ? $rootScope.patient.cloudRef : null;
 
 	$scope.getMedications = function() {
         $scope.loading = true;

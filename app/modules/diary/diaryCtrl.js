@@ -1,10 +1,11 @@
 app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepository) {
   $scope.$emit('body:class:add', "transparent");
-  $scope.patientId = $rootScope.Patient ? $rootScope.Patient.cloudRef : null;
+  $scope.patientId = $rootScope.patient ? $rootScope.patient.cloudRef : null;
   $scope.eventSources = [];
   $scope.diaryToday = [];
   $scope.diaryTomorrow = [];
 
+  vm = $scope;
   $scope.getQuestionnaireDiaryEntries = function(_callback1, _callback2) {
     $scope.loading = true;
 

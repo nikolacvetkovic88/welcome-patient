@@ -1,9 +1,9 @@
 app.controller('reminderCtrl', function ($scope, $rootScope, ReminderService) {
     $scope.setReminders = function(duration) {
-    	ReminderService.registerReminders(duration);
+    	ReminderService.setReminders(duration);
     }
 
-    $scope.clearReminders = function() {
-    	ReminderService.unregisterReminders();
+    $scope.disableReminders = function() {
+    	ReminderService.disableReminders();
     }
 });

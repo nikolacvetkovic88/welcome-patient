@@ -1,4 +1,4 @@
-app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $base64, ReminderService) {
+app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $base64) {
         return {
             login: function(credentials) {
                 var data = "username=" +  encodeURIComponent(credentials.username) + "&password="
@@ -25,21 +25,19 @@ app.factory('AuthService', function loginService($rootScope, $http, $cookieStore
                 expiredAt.setSeconds(expiredAt.getSeconds() + response.expires_in);
                 response.expires_at = expiredAt.getTime();
 
-                $rootScope.globals = {
-                    currentUser: {
-                        username: username,
-                        authdata: authdata,
-                        token: response
-                    }
+                $rootScope.currentUser = {
+                    username: username,
+                    authdata: authdata,
+                    token: response
                 };
-                $cookieStore.put('globals', $rootScope.globals);
+                $cookieStore.put('currentUser', $rootScope.currentUser);
             },
             clearCredentials: function() {
-                $rootScope.globals = {};
-                $cookieStore.remove('globals');
+                $rootScope.currentUser = null;
+                $cookieStore.remove("currentUser");
             },
             getCredentials: function () {
-                return $cookieStore.get('globals');
+                return $cookieStore.get('currentUser');
             },
             hasValidToken: function () {
                 var credentials = this.getCredentials(),
@@ -61,8 +59,12 @@ app.factory('AuthService', function loginService($rootScope, $http, $cookieStore
             }) 
         },
         storePatient: function(patient) {
-            $rootScope.Patient = patient;
+            $rootScope.patient = patient;
             $cookieStore.put('patient', patient);
+        },
+        removePatient: function() {
+            $rootScope.patient = null;
+            $cookieStore.remove('patient');
         },
         retrievePatient: function() {
             return $cookieStore.get('patient');

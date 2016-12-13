@@ -1,28 +1,57 @@
-app.controller('educationCtrl', function($scope, $sce, educationRepository) {
+app.controller('educationCtrl', function($scope, $rootScope, $sce, $q, educationRepository) {
   $scope.$emit('body:class:add', "transparent");
-
+  $scope.patientId = $rootScope.patient ? $rootScope.patient.cloudRef : null;
+  
   $scope.getEducationMaterial = function() {
     $scope.loading = true;
 
-    educationRepository.getAllEducationTopics()
-    .success(function(data) {
-      $scope.topics = data.topics;
-      if($scope.topics && $scope.topics[0].subTopics && $scope.topics[0].subTopics[0])
-        $scope.selectedSubTopic = $scope.topics[0].subTopics[0];
-        $scope.loading = false;
+    educationRepository.getEducationMaterial('welk', 'welk', $scope.patientId)
+    .then(function(response) {
+        return educationRepository.decodeEducationMaterial(response.data, $scope.patientId);
       })
-    .error(function() {
-      $scope.loading = false;
-      bootbox.alert("<div class='text-danger'>Failed loading education material</div>");
+      .then(function(educationMaterialRefs) {
+        return $scope.getEducationMaterialUriPromises(educationMaterialRefs);
+      })
+      .then(function(educationMaterial) {
+        return $scope.getAllEducationContent(educationMaterial);
+      })
+      .then(function(educationContents) {
+        $scope.parseData(educationContents);
+        $scope.loading = false;
       });
     }
 
-  $scope.setSelectedSubTopic = function(subTopic) {
-    $scope.selectedSubTopic = subTopic;
+  $scope.refresh = function() {
+    $scope.getEducationMaterial();
   }
 
-  $scope.collapse = function(index) {
-  	return index == 0 ? "collapse in" : "collapse out";
+  $scope.getEducationMaterialUriPromises = function(refs) {
+    var promises = [];
+    angular.forEach(refs, function(ref) {
+      promises.push(educationRepository.getEducationContentByRef('welk', 'welk', ref));
+    });
+
+    return $q.all(promises);
+  }
+
+  $scope.getAllEducationContent = function(educationMaterial) {
+        var promises = [];
+        angular.forEach(educationMaterial, function(educationContent) {
+            promises.push(educationRepository.decodeEducationContent(educationContent.data));
+        });
+
+        return $q.all(promises);
+  }
+
+  $scope.parseData = function(educationMaterial) {
+    var programs = [];
+    angular.forEach(educationMaterial, function(material) {
+      angular.forEach(material.programs, function(program) {
+        programs.push(program.replace("PhaProgram", "").replace(/_/g, " ").replace(/"/g, ""));
+      });
+    });
+
+    $scope.programs = programs;
   }
   
   $scope.getEducationMaterial(); 

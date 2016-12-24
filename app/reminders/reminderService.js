@@ -7,7 +7,6 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.measurements = [];
 
     this.getReminders = function() {;
-        self.clearInterval();
         self.initRemindersInterval();
         if($rootScope.reminderInterval < 0)
             return;
@@ -31,7 +30,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
                 .then(function() {
                     self.measurements = self.parseData(deviceResults, "m");
                     self.checkReminders();
-                    self.setInterval(i$rootScope.reminderInterval);
+                    self.setInterval($rootScope.reminderInterval);
                 });
             });
         });
@@ -149,6 +148,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     }
 
     this.initRemindersInterval = function() {
+        self.clearReminders();
         var interval = $rootScope.currentUser ? $cookieStore.get('reminders-' + $rootScope.currentUser.username) : null;
         $rootScope.reminderInterval = interval || 3600000;
     }
@@ -157,20 +157,24 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         if(!interval || interval < 1)
             return;
 
-        self.clearInterval();
+        self.clearReminders();
         self.setInterval(interval);
         $rootScope.reminderInterval = interval;
         $cookieStore.put('reminders-' + $rootScope.currentUser.username, $rootScope.reminderInterval);
     }
 
-    this.removeReminders = function() {
+    this.clearReminders = function() {
         self.clearInterval();
+    }
+
+    this.removeReminders = function() {
+        self.clearReminders();
         $rootScope.reminderInterval = null;
         $cookieStore.remove('reminders-' + $rootScope.currentUser.username);
     }
 
     this.disableReminders = function() {
-        self.clearInterval();
+        self.clearReminders();
         $rootScope.reminderInterval = -1;
         $cookieStore.put('reminders-' + $rootScope.currentUser.username, $rootScope.reminderInterval);
     }
@@ -314,6 +318,9 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         },
         setReminders: function(interval) {
             return self.setReminders(interval);
+        },
+        clearReminders: function() {
+            return self.clearReminders();
         },
         disableReminders: function() {
             return self.disableReminders();

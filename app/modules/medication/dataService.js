@@ -2,7 +2,7 @@ app.factory('medicationRepository', function($base64, $http, $q) {
 	var MedicationRepository = {},
 	baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
 
-	MedicationRepository.getMedicationPrescriptions= function(username, password, patientId) {
+	MedicationRepository.getMedicationPrescriptions = function(username, password, patientId) {
 		var url =  baseUrl + 'Patient/' + patientId + '/MedicationPrescription';
 		var encodedCred = $base64.encode(username + ':' + password);
 		return  $http({
@@ -30,11 +30,9 @@ app.factory('medicationRepository', function($base64, $http, $q) {
                     prescriptionRefs.push(triple.object);
                 } 
             }else if (error) {
-            // Check for errors here and possibly reject the promise
+                console.log(error);
             } else {
-                    // When the function execution reaches this, it signals that all triples are successfully parsed
-                    // and you can resolve the promise here/
-                    defer.resolve(prescriptionRefs);
+                defer.resolve(prescriptionRefs);
             }
         });
 		
@@ -73,7 +71,7 @@ app.factory('medicationRepository', function($base64, $http, $q) {
                         return;
                     }*/
                 } else if (error) {
-
+                    console.log(error);
                 } else {
                     defer.resolve(medicationRefs);
                 }

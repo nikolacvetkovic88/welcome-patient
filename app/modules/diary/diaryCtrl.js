@@ -8,7 +8,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getQuestionnaireDiaryEntries = function(_callback1, _callback2) {
     $scope.loading = true;
 
-    diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $scope.patientId)
+    diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
     .then(function(response) {
       return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $scope.patientId); 
     })
@@ -48,7 +48,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getAppointmentDiaryEntries = function(_callback) {
     $scope.loading = true;
 
-    diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $scope.patientId)
+    diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
     .then(function(response) {
       return diaryRepository.decodeAppointmentDiaryEntries(response.data, $scope.patientId); 
     })
@@ -88,7 +88,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getDevices = function() {
     $scope.loading = true;
 
-    diaryRepository.getDevices('welk', 'welk', $scope.patientId)
+    diaryRepository.getDevices('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
     .then(function(response) {
       return diaryRepository.decodeDevices(response.data, $scope.patientId)
     })
@@ -116,6 +116,9 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       $scope.addEvents($scope.devices);
       $scope.diaryEntriesTodayAndTomorrow($scope.devices);
       $scope.loading = false;
+
+      $scope.startLoaded = $scope.start;
+      $scope.endLoaded = $scope.end;
     });
   }
 
@@ -274,6 +277,13 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       eventClick: $scope.onClick,
       eventRender: function (event, element, view) {
         $(element).css("margin-bottom", "8px");
+      },
+      viewRender: function(view, element) {
+        $scope.start = view.start;
+        $scope.end = view.end;
+
+        if($scope.canLoad())
+          $scope.getDiaryEntries();
       }
     }    
   };
@@ -284,14 +294,20 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     $scope.diaryTomorrow.length = 0;
   }
 
+  $scope.canLoad = function() {
+    if(!$scope.startLoaded || !$scope.endLoaded)
+      return true;
+
+    return $scope.start >= $scope.startLoaded && $scope.end <= $scope.endLoaded ? false : true;
+  }
+
   $scope.refresh = function() {
     $scope.getDiaryEntries();
   }
  
   $scope.getDiaryEntries = function() {
     $scope.resetData();
-    $scope.getQuestionnaireDiaryEntries($scope.getAppointmentDiaryEntries, $scope.getDevices);
+    $scope.getQuestionnaireDiaryEntries($scope.getAppointmentDiaryEntries, $scope.getDevices)
   }
 
-  $scope.getDiaryEntries();
 });

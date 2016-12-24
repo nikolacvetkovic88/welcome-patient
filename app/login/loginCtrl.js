@@ -15,11 +15,11 @@ app.controller('loginCtrl', function ($scope, $rootScope, $location, $timeout, A
                 ReminderService.getReminders();
             })
             .error(function(data, status) {
-                $scope.error = data.error_description || "Retrieving patient account failed"; 
+               notify(data.error_description || 'Retrieving patient account failed', 'error'); 
             });
         })
         .error(function(data, status) {
-            $scope.error = data.error_description || "Login request failed";
+            notify(data.error_description || 'Login request failed', 'error'); 
             $scope.loading = false;
         });
     }

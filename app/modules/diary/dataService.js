@@ -1,6 +1,6 @@
 app.factory('diaryRepository', function($base64, $http, $q) {
 	var DiaryRepository = {},
-	baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
+	    baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
 
     DiaryRepository.getQuestionnaireDiaryEntries = function(username, password, patientId) {
     	var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder';
@@ -30,11 +30,9 @@ app.factory('diaryRepository', function($base64, $http, $q) {
                     diaryQuestionnaireRefs.push(triple.object);
                 } 
             }else if (error) {
-            // Check for errors here and possibly reject the promise
+                console.log(error);
             } else {
-                    // When the function execution reaches this, it signals that all triples are successfully parsed
-                    // and you can resolve the promise here/
-                    defer.resolve(diaryQuestionnaireRefs);
+                defer.resolve(diaryQuestionnaireRefs);
             }
         });
 		
@@ -84,7 +82,7 @@ app.factory('diaryRepository', function($base64, $http, $q) {
                     }
 
                 }else if (error) {
-                // Check for errors here and possibly reject the promise 
+                    console.log(error);
                 }else {
                     defer.resolve(questionnaireDiaryObj);
                 }
@@ -321,7 +319,7 @@ app.factory('diaryRepository', function($base64, $http, $q) {
     }
 
     var getDatePerSubject = function(dates, searchValue){
-        for(var i = 0; i<dates.length; i++){
+        for(var i = 0; i< dates.length; i++){
             if(dates[i].subject === searchValue) {
                 return dates[i].value;
             }

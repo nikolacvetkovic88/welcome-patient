@@ -1,7 +1,7 @@
 app.factory('questionnairesRepository', function($base64, $http, $q) {
-var QuestionnairesRepository = {},
-    staticQuestionnairesUrl = 'app/modules/questionnaires/staticQuestionnaires.json',
-    baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
+    var QuestionnairesRepository = {},
+        staticQuestionnairesUrl = 'app/modules/questionnaires/staticQuestionnaires.json',
+        baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
 
     QuestionnairesRepository.getAllStaticQuestionnaires =  function() {
         return $http( {
@@ -37,12 +37,10 @@ var QuestionnairesRepository = {},
                 if (triple && triple.subject === subject && triple.predicate != predicate) {
                     diaryQuestionnaireRefs.push(triple.object);
                 } 
-            }else if (error) {
-            // Check for errors here and possibly reject the promise
+            } else if (error) {
+                console.log(error);
             } else {
-                    // When the function execution reaches this, it signals that all triples are successfully parsed
-                    // and you can resolve the promise here/
-                    defer.resolve(diaryQuestionnaireRefs);
+                defer.resolve(diaryQuestionnaireRefs);
             }
         });
         
@@ -65,20 +63,19 @@ var QuestionnairesRepository = {},
     QuestionnairesRepository.decodeQuestionnaireOrder = function(data) {
         var parser = N3.Parser({ format: 'application/turtle' });
         var N3Util = N3.Util;
+        var dates = [];
         var questionnaireObj = {
             eventDates: []
         };
         var defer = $q.defer();
-        var isFirst = true;
 
         parser.parse(data,
             function (error, triple) {
                 if (triple) {
                     if(N3Util.isBlank(triple.subject) && triple.predicate === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#value' && N3Util.isLiteral(triple.object) ) {
                         if(N3Util.getLiteralType(triple.object) === "http://www.w3.org/2001/XMLSchema#dateTime") {
-                            if(!isFirst)
-                                questionnaireObj.eventDates.push(N3Util.getLiteralValue(triple.object));
-                            isFirst = false;
+                            dates.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
+                            return;
                         }
                     }
 
@@ -87,8 +84,13 @@ var QuestionnairesRepository = {},
                         return;
                     }
 
+                    if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.event" ) {
+                        questionnaireObj.eventDates.push(getDatePerSubject(dates, triple.object));
+                        return;
+                    }
+
                 }else if (error) {
-                // Check for errors here and possibly reject the promise 
+                    console.log(error);
                 }else {
                     defer.resolve(questionnaireObj);
                 }
@@ -205,6 +207,14 @@ var QuestionnairesRepository = {},
             }
         });
     }
+
+    var getDatePerSubject = function(dates, searchValue){
+        for(var i = 0; i< dates.length; i++){
+            if(dates[i].subject === searchValue) {
+                return dates[i].value;
+            }
+        }
+    };
      
     return QuestionnairesRepository;
 });

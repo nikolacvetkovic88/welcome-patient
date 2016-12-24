@@ -5,6 +5,6 @@ app.controller('logoutCtrl', function ($scope, $rootScope, $location, $timeout, 
         AccountService.removePatient();
         $timeout(function() {
         	$location.path("/login");
-        }, 200);
+        }, 50);
     }
 });

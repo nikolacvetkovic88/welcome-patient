@@ -51,14 +51,20 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.parseData = function(questionnaires) {
-		var activeAssignedQuestionnaires = [];
+		var activeAssignedQuestionnaires = [],
+		    start = moment().startOf('day'),
+		    end = moment().add(1,'days').startOf('day');
+
 		angular.forEach(questionnaires, function(questionnaire) {
 			if(activeAssignedQuestionnaires.indexOf(questionnaire.title) == -1) {
-				var activeDates = $.grep(questionnaire.eventDates, function(eventDate) { return moment(eventDate, "YYYY-MM-DD HH:mm").diff(moment()) > 0; });
+				var activeDates = $.grep(questionnaire.eventDates, function(eventDate) { return 
+					moment(eventDate, "YYYY-MM-DD HH:mm") > start && moment(eventDate, "YYYY-MM-DD HH:mm") <= end});
+
 				if(activeDates && activeDates.length)
 					activeAssignedQuestionnaires.push(questionnaire.title); 
 			}
 		});
+
 		$scope.mergeData(activeAssignedQuestionnaires);
 	}
 
@@ -191,9 +197,9 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
     $scope.afterSubmit = function() {
-    	var index = $scope.assignedQuestionnaires.indexOf($scope.selectedQuestionnaire);
-			$scope.assignedQuestionnaires.splice(index, 1);
-
+    	var index = $scope.assignedQuestionnaires.indexOf($scope.selectedQuestionnaire);	
+		$scope.assignedQuestionnaires.splice(index, 1);
+		
 		if($scope.assignedQuestionnaires[index-1])
 			$scope.setSelectedQuestionnaire($scope.assignedQuestionnaires[index-1]);
 		else if($scope.assignedQuestionnaires[index])
@@ -206,13 +212,13 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		if(!$scope.selectedQuestionnaire)
 			return;
 		if(!$scope.patientId) {
-			notify("No patient ID defined!", "warn");
+			notify('No patient ID defined!', 'warn');
 			return;
 		}
 
 		var answers = $scope.selectedQuestionnaire.answers;
 		if(answers.length != $scope.getNumberOfQuestions()) {
-			notify("Please give answers to all the questions!", "warn");
+			notify('Please give answers to all the questions!', 'warn');
 			return;
 		}
 
@@ -227,9 +233,8 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 			return $scope.postQuestionnaireAnswers(response, postData);
 		})
 		.then(function(response) {
-			console.log(response.headers().location);
 			$scope.loading = false;
-			notify("Questionnaire submitted successfully", "success");
+			notify('Questionnaire submitted successfully', 'success');
 			$scope.afterSubmit();
 		});
 	}

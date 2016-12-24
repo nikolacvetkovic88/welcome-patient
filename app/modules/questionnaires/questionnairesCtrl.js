@@ -52,16 +52,17 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 
 	$scope.parseData = function(questionnaires) {
 		var activeAssignedQuestionnaires = [],
-		    start = moment().startOf('day'),
+		    start = moment(),
 		    end = moment().add(1,'days').startOf('day');
 
 		angular.forEach(questionnaires, function(questionnaire) {
 			if(activeAssignedQuestionnaires.indexOf(questionnaire.title) == -1) {
-				var activeDates = $.grep(questionnaire.eventDates, function(eventDate) { return 
-					moment(eventDate, "YYYY-MM-DD HH:mm") > start && moment(eventDate, "YYYY-MM-DD HH:mm") <= end});
+				var activeDates = $.grep(questionnaire.eventDates, function(eventDate) {
+					return moment(eventDate, "YYYY-MM-DD HH:mm") > start && moment(eventDate, "YYYY-MM-DD HH:mm") <= end;
+				});
 
 				if(activeDates && activeDates.length)
-					activeAssignedQuestionnaires.push(questionnaire.title); 
+					activeAssignedQuestionnaires.push(questionnaire); 
 			}
 		});
 
@@ -69,12 +70,14 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.mergeData = function(questionnaires) {
-		$scope.assignedQuestionnaires = $.grep($scope.staticQuestionnaires, function(questionnaire) { return questionnaires.indexOf(questionnaire.id) != -1; });
+		var questionnaireIds = $.map(questionnaires, function(questionnaire) { return questionnaire.id; });
+		$scope.assignedQuestionnaires = $.grep($scope.staticQuestionnaires, function(questionnaire) { return questionnaireIds.indexOf(questionnaire.id) != -1 });
 	}
 
 	$scope.setSelectedQuestionnaire = function(questionnaire) {
 		$scope.selectedQuestionnaire = questionnaire;
-		$scope.selectedQuestionnaire.answers = [];
+		if(questionnaire)
+			$scope.selectedQuestionnaire.answers = [];
 	}
 
 	$scope.calculateQuestionnaireScore = function() {

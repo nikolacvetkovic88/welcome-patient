@@ -9,7 +9,9 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.getReminders = function() {;
         self.clearInterval();
         self.initRemindersInterval();
-
+        if($rootScope.reminderInterval < 0)
+            return;
+       
         return diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.patient.cloudRef)
         .then(function(response) {
             return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.patient.cloudRef); 
@@ -29,7 +31,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
                 .then(function() {
                     self.measurements = self.parseData(deviceResults, "m");
                     self.checkReminders();
-                    self.setReminders($rootScope.reminderInterval);
+                    self.setInterval(i$rootScope.reminderInterval);
                 });
             });
         });
@@ -148,7 +150,6 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
 
     this.initRemindersInterval = function() {
         var interval = $rootScope.currentUser ? $cookieStore.get('reminders-' + $rootScope.currentUser.username) : null;
-
         $rootScope.reminderInterval = interval || 3600000;
     }
 

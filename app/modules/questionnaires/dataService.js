@@ -80,6 +80,7 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
                     }
 
                     if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#detail" && N3.Util.isIRI(triple.object)) {
+                        questionnaireObj.id =  triple.object.split('#')[1];
                         questionnaireObj.title = triple.object.split('#')[1].split('_')[1];
                         return;
                     }

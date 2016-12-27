@@ -83,12 +83,6 @@ button.fc-state-active, button.fc-state-hover  {
   position: fixed;
 }
 
-.history-item {
-  width: 100%;
-  display: block;
-  border: 1px solid #ddd;
-}
-
 .education-content{
   margin-left: 10px;
 }

@@ -81,9 +81,9 @@ app.factory('diaryRepository', function($base64, $http, $q) {
                         return;
                     }
 
-                }else if (error) {
+                } else if (error) {
                     console.log(error);
-                }else {
+                } else {
                     defer.resolve(questionnaireDiaryObj);
                 }
             });
@@ -119,11 +119,9 @@ app.factory('diaryRepository', function($base64, $http, $q) {
                     deviceRefs.push(triple.object);
                 } 
             }else if (error) {
-            // Check for errors here and possibly reject the promise
+                console.log(error);
             } else {
-                    // When the function execution reaches this, it signals that all triples are successfully parsed
-                    // and you can resolve the promise here/
-                    defer.resolve(deviceRefs);
+                defer.resolve(deviceRefs);
             }
         });
         
@@ -154,14 +152,12 @@ app.factory('diaryRepository', function($base64, $http, $q) {
         parser.parse(data, function(error, triple) {
             if(triple) {              
                 if (!N3.Util.isBlank(triple.subject) && triple.subject.indexOf(partSubject) != -1 && triple.subject.indexOf("/DeviceUseRequest") != -1 && triple.predicate != predicate) {
-                     deviceEntryRefs.push(triple.object);
+                    deviceEntryRefs.push(triple.object);
                 }
             }else if (error) {
-            // Check for errors here and possibly reject the promise
+                console.log(error);
             } else {
-                    // When the function execution reaches this, it signals that all triples are successfully parsed
-                    // and you can resolve the promise here/
-                    defer.resolve(deviceEntryRefs);
+                defer.resolve(deviceEntryRefs);
             }
         });
         
@@ -184,6 +180,7 @@ app.factory('diaryRepository', function($base64, $http, $q) {
     DiaryRepository.decodeDeviceDiaryEntry = function(data) {
         var parser = N3.Parser({ format: 'application/turtle' });
         var N3Util = N3.Util;
+        var dates = [];
         var deviceDiaryObj = {
             eventDates: []
         };
@@ -194,15 +191,24 @@ app.factory('diaryRepository', function($base64, $http, $q) {
                 if (triple) {
                     if(N3Util.isBlank(triple.subject) && triple.predicate === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#value' && N3Util.isLiteral(triple.object) ) {
                         if(N3Util.getLiteralType(triple.object) === "http://www.w3.org/2001/XMLSchema#dateTime") {                     
-                            deviceDiaryObj.eventDates.push(N3Util.getLiteralValue(triple.object));
+                            dates.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
+                            return;
                         }
-                        if(N3Util.getLiteralType(triple.object) === "http://www.w3.org/2001/XMLSchema#string") {
+
+                        if(N3Util.getLiteralType(triple.object) === "http://www.w3.org/2001/XMLSchema#string") { // check out
                             deviceDiaryObj.title = N3Util.getLiteralValue(triple.object);
-                        }
+                        return;
                     }
-                }else if (error) {
-                // Check for errors here and possibly reject the promise 
-                }else {
+                    }
+
+                    if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.event" ) { // check out
+                        deviceDiaryObj.eventDates.push(getDatePerSubject(dates, triple.object));
+                        return;
+                    }
+
+                } else if (error) {
+                    console.log(error); 
+                } else {
                     deviceDiaryObj.eventDates.splice(0, 1);
                     defer.resolve(deviceDiaryObj);
                 }
@@ -238,12 +244,10 @@ app.factory('diaryRepository', function($base64, $http, $q) {
                 if (triple && triple.subject === subject && triple.predicate != predicate) {
                     diaryAppointmentRefs.push(triple.object);
                 } 
-            }else if (error) {
-            // Check for errors here and possibly reject the promise
+            } else if (error) {
+                console.log(error);
             } else {
-                    // When the function execution reaches this, it signals that all triples are successfully parsed
-                    // and you can resolve the promise here/
-                    defer.resolve(diaryAppointmentRefs);
+                defer.resolve(diaryAppointmentRefs);
             }
         });
         
@@ -266,9 +270,7 @@ app.factory('diaryRepository', function($base64, $http, $q) {
     DiaryRepository.decodeAppointmentDiaryEntry = function(data) {
         var parser = N3.Parser({ format: 'application/turtle' });
         var N3Util = N3.Util;
-        var appointmentDiaryObj = {
-            eventDates: []
-        };
+        var appointmentDiaryObj = {};
         var dates = [];
         var defer = $q.defer();
 
@@ -286,29 +288,30 @@ app.factory('diaryRepository', function($base64, $http, $q) {
                         }
                     }
 
-                    if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.start" ) {
-                        appointmentDiaryObj.eventDates.push(getDatePerSubject(dates, triple.object));
-                        return;
+                    if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject)) {
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.start") {
+                            appointmentDiaryObj.start = getDatePerSubject(dates, triple.object);
+                            return;
+                        }
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.end") {
+                            appointmentDiaryObj.end = getDatePerSubject(dates, triple.object);
+                            return;
+                        }
                     }
 
                     if(N3Util.isIRI(triple.object)) {
-                        if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#Encounter.class") {
-                            appointmentDiaryObj.appointmentClass = triple.object.split('#')[1];
-                            return;
-                        }
-
                         if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#Encounter.participant") {
                             appointmentDiaryObj.hcp = triple.object;
                             return;
                         }
 
                         if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#Encounter.status") {
-                            appointmentDiaryObj.appointmentStatus = triple.object.split('#')[1];
+                            appointmentDiaryObj.status = triple.object.split('#')[1].split('_')[1];
                             return;
                         }
                     }
-                }else if (error) {
-                // Check for errors here and possibly reject the promise 
+                } else if (error) {
+                    console.log(error);
                 } else {
                     defer.resolve(appointmentDiaryObj);
                 }

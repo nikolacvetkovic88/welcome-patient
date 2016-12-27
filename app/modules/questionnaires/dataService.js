@@ -90,9 +90,9 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
                         return;
                     }
 
-                }else if (error) {
+                } else if (error) {
                     console.log(error);
-                }else {
+                } else {
                     defer.resolve(questionnaireObj);
                 }
             });

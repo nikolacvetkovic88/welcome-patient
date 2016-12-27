@@ -19,7 +19,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       return $scope.getAllQuestionnaireDiaryEntries(questionnaireDiaries);
     })
     .then(function(results) {
-      $scope.questionnaires = $scope.parseData(results, "q");
+      $scope.questionnaires = $scope.parseQuestionnaires(results);
       $scope.addEvents($scope.questionnaires);
       $scope.diaryEntriesTodayAndTomorrow($scope.questionnaires);
       $scope.loading = false;
@@ -59,7 +59,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       return $scope.getAllAppointmentDiaryEntries(appointmentDiaries);
     })
     .then(function(results) {
-      $scope.appointments = $scope.parseData(results, "a", "#00AEEF");
+      $scope.appointments = $scope.parseAppointments(results);
       $scope.addEvents($scope.appointments);
       $scope.diaryEntriesTodayAndTomorrow($scope.appointments);
       $scope.loading = false;
@@ -112,7 +112,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       return $scope.getAllDeviceDiaryEntries(deviceDiaries);
     })
     .then(function(results) {
-      $scope.devices = $scope.parseData(results, "m", "#043248");
+      $scope.devices = $scope.parseDevices(results);
       $scope.addEvents($scope.devices);
       $scope.diaryEntriesTodayAndTomorrow($scope.devices);
       $scope.loading = false;
@@ -158,25 +158,59 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     return $q.all(promises);
   }
 
-  $scope.parseData = function(data, mode, color) {
+  $scope.parseQuestionnaires = function(data) {
     var parsedData = [];
 
     angular.forEach(data, function(value) {
       angular.forEach(value.eventDates, function(date) {
         var parsedObject = {};
         parsedObject.title = value.title;
+        parsedObject.fullTitle = "Questionnaire " + value.title;
         parsedObject.start = moment(date, "YYYY-MM-DD HH:mm");
-        parsedObject.mode = mode;
-        if(color)
-          parsedObject.color = color;
-
+        parsedObject.color = "#3A87AD";
+        parsedObject.mode = "q";
         parsedData.push(parsedObject);
       });
     });
 
     return parsedData;
-  }
+  } 
 
+  $scope.parseDevices = function(data) {
+    var parsedData = [];
+
+    angular.forEach(data, function(value) {
+      angular.forEach(value.eventDates, function(date) {
+        var parsedObject = {};
+        parsedObject.title = value.title;
+        parsedObject.fullTitle = "Measurement " + value.title;
+        parsedObject.start = moment(date, "YYYY-MM-DD HH:mm");
+        parsedObject.color = "#043248";
+        parsedObject.mode = "m";
+        parsedData.push(parsedObject);
+      });
+    });
+
+    return parsedData;
+  } 
+
+  $scope.parseAppointments = function(data) {
+    var parsedData = [];
+
+    angular.forEach(data, function(value) {
+        var parsedObject = {};
+        parsedObject.title = value.title;
+        parsedObject.fullTitle = value.title + " - " + value.status;
+        parsedObject.start = moment(value.start, "YYYY-MM-DD HH:mm");
+        parsedObject.end = moment(value.end, "YYYY-MM-DD HH:mm");
+        parsedObject.color = "#00AEEF";
+        parsedObject.mode = "a";
+        parsedData.push(parsedObject);
+    });
+
+    return parsedData;
+  }
+   
   $scope.diaryEntriesTodayAndTomorrow = function(data) {
     $scope.diaryEntriesForDay($scope.diaryToday, data, moment());
     $scope.diaryEntriesForDay($scope.diaryTomorrow, data, moment().add(1, 'days'));
@@ -197,21 +231,15 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
 
   $scope.onClick = function(date, jsEvent, view) {
     var mode = date.mode,
-        location = null,
-        title = "";
+        location = null;
 
     switch (mode) {
       case "m":
         location = "patienthub://app";
-        title = "Measurement ";
       break;
       case "q":
         location = "#questionnaires";
-        title = "Questionnaire "
       break;
-      case "a":
-        title = "Appointment ";
-        break;
       default:
         break;
     }
@@ -219,7 +247,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     if(mode == "m" || mode == "q") {
       var dialog = bootbox.dialog({
         message: mode == "m" ? "Go to Measurement" : "Go to Questionnaires",
-        title: "<div class='text-info'>" + title + date.title + "</div>",
+        title: "<div class='text-info'>" + date.fullTitle + "</div>",
         closeButton: false,
         buttons: {
           main: {
@@ -241,7 +269,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     } else if (mode == "a") {
       var dialog = bootbox.dialog({
         message: " ",
-        title: "<div class='text-info'>" + title + date.title + "</div>",
+        title: "<div class='text-info'>" + date.fullTitle + "</div>",
         closeButton: false,
         buttons: {
           main: {
@@ -256,7 +284,6 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     }
   }
 
-  /* calendar config object */
   $scope.uiConfig = {
     calendar:{
       height: "auto",

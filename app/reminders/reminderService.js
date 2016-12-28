@@ -7,13 +7,16 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.measurements = [];
 
     this.getReminders = function() {;
+        if(!$rootScope.patient)
+            return;
+        
         self.initRemindersInterval();
         if($rootScope.reminderInterval < 0)
             return;
        
-        return diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.patient.cloudRef)
+        return diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.patient && $rootScope.patient.cloudRef)
         .then(function(response) {
-            return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.patient.cloudRef); 
+            return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.patient && $rootScope.patient.cloudRef); 
         })
         .then(function(questionnaireDiaryRefs) {
             return self.getQuestionnaireDiaryEntryUriPromises(questionnaireDiaryRefs); 
@@ -26,8 +29,14 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
             self.getAppointments()
             .then(function(deviceResults) {
                 self.appointments = self.parseData(results, "a");
+                if(!$rootScope.patient)
+                    return;
+
                 self.getDevices()
                 .then(function() {
+                    if(!$rootScope.patient)
+                        return;
+
                     self.measurements = self.parseData(deviceResults, "m");
                     self.checkReminders();
                     self.setInterval($rootScope.reminderInterval);
@@ -55,9 +64,9 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     }
 
     this.getAppointments = function() {
-        return diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $rootScope.patient.cloudRef)
+        return diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $rootScope.patient && $rootScope.patient.cloudRef)
         .then(function(response) {
-          return diaryRepository.decodeAppointmentDiaryEntries(response.data, $rootScope.patient.cloudRef); 
+          return diaryRepository.decodeAppointmentDiaryEntries(response.data, $rootScope.patient && $rootScope.patient.cloudRef); 
         })
         .then(function(appointmentDiaryRefs) {
           return self.getAppointmentDiaryEntryUriPromises(appointmentDiaryRefs); 
@@ -86,9 +95,9 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     }
 
     this.getDevices = function() {
-        return diaryRepository.getDevices('welk', 'welk', $rootScope.patient.cloudRef)
+        return diaryRepository.getDevices('welk', 'welk', $rootScope.patient && $rootScope.patient.cloudRef)
         .then(function(response) {
-            return diaryRepository.decodeDevices(response.data, $rootScope.patient.cloudRef)
+            return diaryRepository.decodeDevices(response.data, $rootScope.patient && $rootScope.patient.cloudRef)
         })
         .then(function(deviceRefs) {
             return self.getDeviceUriPromises(deviceRefs);

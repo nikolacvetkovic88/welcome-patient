@@ -1,10 +1,13 @@
-app.factory('diaryRepository', function($base64, $http, $q) {
+app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
 	var DiaryRepository = {},
 	    baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
 
-    DiaryRepository.getQuestionnaireDiaryEntries = function(username, password, patientId) {
-    	var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder';
+    DiaryRepository.getQuestionnaireDiaryEntries = function(username, password, patientId, start, end) {
+    	var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder?q=Period.Timing.Repeat.Bounds.Period.Start,afterEq,' + formatDateForServer(start);        
 		var encodedCred = $base64.encode(username + ':' + password);
+        if(end)
+            url += '&q=Period.Timing.Repeat.Bounds.Period.End,beforeEq,' + formatDateForServer(end);
+
 		return $http({
 			url: url,
 			method: 'GET',
@@ -94,6 +97,7 @@ app.factory('diaryRepository', function($base64, $http, $q) {
     DiaryRepository.getDevices = function(username, password, patientId) {
         var url =  baseUrl + 'Patient/' + patientId + '/PortableBiomedicalSensorDevice';
         var encodedCred = $base64.encode(username + ':' + password);
+
         return $http({
             url: url,
             method: 'GET',
@@ -128,10 +132,14 @@ app.factory('diaryRepository', function($base64, $http, $q) {
         return defer.promise;
     }
 
-    DiaryRepository.getDeviceByRef = function(username, password, url) {
+    DiaryRepository.getDeviceByRef = function(username, password, url, start, end) {
         var encodedCred = $base64.encode(username + ':' + password);
+        url += '/DeviceUseRequest?q=Period.Timing.Repeat.Bounds.Period.Start,afterEq,' + formatDateForServer(start);
+        if(end)
+            url += '&q=Period.Timing.Repeat.Bounds.Period.End,beforeEq,' + formatDateForServer(end);
+
         return  $http({
-            url: url + "/DeviceUseRequest",
+            url: url,
             method: 'GET',
             headers: {
                 'Authorization' : 'Basic ' + encodedCred,
@@ -217,9 +225,12 @@ app.factory('diaryRepository', function($base64, $http, $q) {
         return defer.promise;
     }
 
-    DiaryRepository.getAppointmentDiaryEntries = function(username, password, patientId) {
-        var url =  baseUrl + 'Patient/' + patientId + '/Encounter';
+    DiaryRepository.getAppointmentDiaryEntries = function(username, password, patientId, start, end) {
+        var url =  baseUrl + 'Patient/' + patientId + '/Encounter?q=Period.start,afterEq,' + formatDateForServer(start);
         var encodedCred = $base64.encode(username + ':' + password);
+        if(end)
+            url += '&q=Period.End,beforeEq,' + formatDateForServer(end);
+
         return $http({
             url: url,
             method: 'GET',
@@ -301,7 +312,8 @@ app.factory('diaryRepository', function($base64, $http, $q) {
 
                     if(N3Util.isIRI(triple.object)) {
                         if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#Encounter.participant") {
-                            appointmentDiaryObj.hcp = triple.object;
+                            var hcpRefs = triple.object.split('/');
+                            appointmentDiaryObj.hcpRef = hcpRefs[hcpRefs.length - 1];
                             return;
                         }
 
@@ -319,6 +331,17 @@ app.factory('diaryRepository', function($base64, $http, $q) {
 
 
         return defer.promise;
+    }
+
+    DiaryRepository.getHCPByRef = function(cloudRef) {
+        var token = AccountService.getToken();
+        var url = 'http://welcome-test.exodussa.com/api/doctors/search/' + cloudRef;
+
+        return $http.get(url, {
+            headers: {
+                "Authorization": "Bearer" + token
+            }
+        });
     }
 
     var getDatePerSubject = function(dates, searchValue){

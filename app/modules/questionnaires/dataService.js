@@ -11,7 +11,7 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
     }
 
     QuestionnairesRepository.getAllAssignedQuestionnaires = function(username, password, patientId) {
-        var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder';
+        var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder?q=Period.Timing.Repeat.Bounds.Period.Start,afterEq,' + formatDateForServer(moment());
         var encodedCred = $base64.encode(username + ':' + password);
         return $http({
             url: url,

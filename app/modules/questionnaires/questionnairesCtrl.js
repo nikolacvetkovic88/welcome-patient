@@ -1,6 +1,6 @@
 app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionnairesRepository) {
 	$scope.$emit('body:class:add', "transparent");
-	$scope.patientId = $rootScope.patient ? $rootScope.patient.cloudRef : null;
+	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
 
 	$scope.getAllStaticQuestionnaires = function(_callback) {
 		$scope.loading = true;
@@ -51,19 +51,11 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.parseData = function(questionnaires) {
-		var activeAssignedQuestionnaires = [],
-		    start = moment(),
-		    end = moment().add(1,'days').startOf('day');
+		var activeAssignedQuestionnaires = [];
 
 		angular.forEach(questionnaires, function(questionnaire) {
-			if(activeAssignedQuestionnaires.indexOf(questionnaire.title) == -1) {
-				var activeDates = $.grep(questionnaire.eventDates, function(eventDate) {
-					return moment(eventDate, "YYYY-MM-DD HH:mm") > start && moment(eventDate, "YYYY-MM-DD HH:mm") <= end;
-				});
-
-				if(activeDates && activeDates.length)
-					activeAssignedQuestionnaires.push(questionnaire); 
-			}
+			if(activeAssignedQuestionnaires.indexOf(questionnaire.title) == -1)
+				activeAssignedQuestionnaires.push(questionnaire); 
 		});
 
 		$scope.mergeData(activeAssignedQuestionnaires);

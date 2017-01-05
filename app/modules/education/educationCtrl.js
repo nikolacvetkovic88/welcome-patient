@@ -1,6 +1,6 @@
 app.controller('educationCtrl', function($scope, $rootScope, $sce, $q, educationRepository) {
   $scope.$emit('body:class:add', "transparent");
-  $scope.patientId = $rootScope.patient ? $rootScope.patient.cloudRef : null;
+  $scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
   
   $scope.getEducationMaterial = function() {
     $scope.loading = true;

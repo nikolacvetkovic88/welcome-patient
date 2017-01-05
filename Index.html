@@ -41,7 +41,6 @@
 	<script src="assets/libs/angular-base64.js"></script>
 	<script src="assets/libs/bootbox.min.js"></script>
 	<script src="assets/libs/eModal.js"></script>
-	<script src="assets/libs/notify.min.js"></script>
 	<script src="assets/libs/select2.js"></script>
 	<script src="assets/libs/moment.min.js"></script>
 	<script src="assets/libs/calendar.js"></script>
@@ -57,6 +56,12 @@
     <script src="app/shared/directives.js"></script>
     <script src="app/shared/filters.js"></script>
     <script src="assets/js/helperFunctions.js"></script>
+	<!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
+	<script type="text/javascript">
+	    window.cookieconsent_options = {"message":"This application uses cookies","dismiss":"Got it!","learnMore":"More info","link":null,"theme":"dark-bottom"};
+	</script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>
+	<!-- End Cookie Consent plugin -->
 </head>
 <body id="weather-background" body>
     <div ng-Show="isHomePage">
@@ -76,16 +81,10 @@
 			        </div>
 					<div>
 						<img ng-src="assets/img/avatar.png" class="avatar" alt="avatar"/>
-						<div class="patient-name">Hello <span ng-bind="Patient.firstName"></span></div>
+						<div class="patient-name">Hello <span ng-bind="patient.firstName"></span></div>
 						<div ng-controller="logoutCtrl">
-						    <div class="logout" ng-click="logout()">Logout</div>
+						    <div class="logout" style="width: 48px;" ng-click="logout()">Logout</div>
 						</div>
-						<!--<div class="pull-left">
-							<audio controls style="width: 45px;">
-							    <source src="assets/audio/test.mp3" type="audio/mpeg">
-							    <p class="text-info">Your browser does not support the audio element.</p>
-						    </audio>
-					    </div>-->
 					</div>
 				</div>
 				<div class="col-sm-6">
@@ -173,7 +172,6 @@
 	<script src="app/modules/education/educationCtrl.js"></script>
 	<script src="app/modules/questionnaires/dataService.js"></script>
 	<script src="app/modules/questionnaires/questionnairesCtrl.js"></script>
-	<script src="assets/libs/weather.js"></script>
-	
+	<script src="assets/libs/weather.js"></script>	
 </body>
 </html>

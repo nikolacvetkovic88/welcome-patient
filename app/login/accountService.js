@@ -1,13 +1,24 @@
 app.factory('AccountService', function ($rootScope, $http, $cookieStore) {
     return {
-        getPatient: function(token) {
-        var url = 'http://welcome-test.exodussa.com/api/account';
+        getAccount: function() {
+            var url = 'http://welcome-test.exodussa.com/api/account';
+            var token = this.getToken();
 
-        return $http.get(url, {
+            return $http.get(url, {
                 headers: {
                     "Authorization": "Bearer" + token
                 }
-            }) 
+            });
+        },
+        getPatient: function(cloudRef) {
+            var url = 'http://welcome-test.exodussa.com/api/patients/search/' + cloudRef;
+            var token = this.getToken();
+            
+            return $http.get(url, {
+                headers: {
+                    "Authorization": "Bearer" + token
+                }
+            });
         },
         storePatient: function(patient) {
             $rootScope.patient = patient;
@@ -19,6 +30,15 @@ app.factory('AccountService', function ($rootScope, $http, $cookieStore) {
         },
         retrievePatient: function() {
             return $cookieStore.get('patient');
+        },
+        getToken: function() {
+            return $cookieStore.get('account-token');
+        },
+        storeToken: function(token) {
+            $cookieStore.put('account-token', token);
+        },
+        removeToken: function() {
+            $cookieStore.remove('account-token');
         }
     };
 });

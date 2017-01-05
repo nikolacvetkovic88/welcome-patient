@@ -2,46 +2,28 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     var self = this;
 
     this.interval = null;
+    this.appointmentsData = null;
     this.questionnaires = [];
     this.appointments = [];
     this.measurements = [];
 
-    this.getReminders = function() {;
+    this.getQuestionnaireReminders = function() {
         if(!$rootScope.patient)
-            return;
+            return; 
         
         self.initRemindersInterval();
         if($rootScope.reminderInterval < 0)
             return;
-       
-        return diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.patient && $rootScope.patient.cloudRef)
+
+        return diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $rootScope.patient && $rootScope.patient.user.cloudRef, formatDateForServer(moment()))
         .then(function(response) {
-            return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.patient && $rootScope.patient.cloudRef); 
+          return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
         .then(function(questionnaireDiaryRefs) {
-            return self.getQuestionnaireDiaryEntryUriPromises(questionnaireDiaryRefs); 
+          return self.getQuestionnaireDiaryEntryUriPromises(questionnaireDiaryRefs); 
         })
         .then(function(questionnaireDiaries) {
-            return self.getAllQuestionnaireDiaryEntries(questionnaireDiaries);
-        })
-        .then(function(results) {
-            self.questionnaires = self.parseData(results, "q");
-            self.getAppointments()
-            .then(function(deviceResults) {
-                self.appointments = self.parseData(results, "a");
-                if(!$rootScope.patient)
-                    return;
-
-                self.getDevices()
-                .then(function() {
-                    if(!$rootScope.patient)
-                        return;
-
-                    self.measurements = self.parseData(deviceResults, "m");
-                    self.checkReminders();
-                    self.setInterval($rootScope.reminderInterval);
-                });
-            });
+          return self.getAllQuestionnaireDiaryEntries(questionnaireDiaries);
         });
     }
 
@@ -63,17 +45,45 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         return $q.all(promises);
     }
 
-    this.getAppointments = function() {
-        return diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $rootScope.patient && $rootScope.patient.cloudRef)
+    this.getAppointmentReminders = function() {
+        if(!$rootScope.patient)
+            return; 
+
+        return diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $rootScope.patient && $rootScope.patient.user.cloudRef, formatDateForServer(moment()))
         .then(function(response) {
-          return diaryRepository.decodeAppointmentDiaryEntries(response.data, $rootScope.patient && $rootScope.patient.cloudRef); 
+          return diaryRepository.decodeAppointmentDiaryEntries(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
         .then(function(appointmentDiaryRefs) {
           return self.getAppointmentDiaryEntryUriPromises(appointmentDiaryRefs); 
         })
         .then(function(appointmentDiaries) {
           return self.getAllAppointmentDiaryEntries(appointmentDiaries);
+        })
+        .then(function(appointments) {
+          self.appointmentsData = appointments;
+          return self.getAppointmentHCPData(appointments);
+        })
+        .then(function(hcpRefs) {
+          return self.getAppointmentHCPs(hcpRefs);
         });
+    }
+
+    this.getAppointmentHCPData = function(appointments) {
+        var promises = [];
+        angular.forEach(appointments, function(appointment) {
+          promises.push(diaryRepository.getHCPByRef(appointment.hcpRef));
+        });
+
+        return $q.all(promises);
+    }
+
+    this.getAppointmentHCPs = function(appointments) {
+        var promises = [];
+        angular.forEach(appointments, function(appointment) {
+          promises.push(appointment.data);
+        });
+
+        return $q.all(promises);
     }
 
     this.getAppointmentDiaryEntryUriPromises = function(refs) {
@@ -94,10 +104,13 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         return $q.all(promises);
     }
 
-    this.getDevices = function() {
-        return diaryRepository.getDevices('welk', 'welk', $rootScope.patient && $rootScope.patient.cloudRef)
+    this.getDeviceReminders = function() {
+        if(!$rootScope.patient)
+            return; 
+
+        return diaryRepository.getDevices('welk', 'welk', $rootScope.patient && $rootScope.patient.user.cloudRef, formatDateForServer(moment()))
         .then(function(response) {
-            return diaryRepository.decodeDevices(response.data, $rootScope.patient && $rootScope.patient.cloudRef)
+            return diaryRepository.decodeDevices(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef)
         })
         .then(function(deviceRefs) {
             return self.getDeviceUriPromises(deviceRefs);
@@ -107,23 +120,23 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         })
         .then(function(deviceEntryRefs) {
             var nonEmptyRefs = [];
-                angular.forEach(deviceEntryRefs, function(refArray) {
-                    angular.forEach(refArray, function(ref) {
-                        nonEmptyRefs.push(ref);
-                    });
-                })
+            angular.forEach(deviceEntryRefs, function(refArray) {
+                angular.forEach(refArray, function(ref) {
+                    nonEmptyRefs.push(ref);
+                });
+            })
 
             return self.getDeviceEntryUriPromises(nonEmptyRefs);
         })
         .then(function(deviceDiaries) {
             return self.getAllDeviceDiaryEntries(deviceDiaries);
-        })
+        });
     }
 
     this.getDeviceUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getDeviceByRef('welk', 'welk', ref));
+            promises.push(diaryRepository.getDeviceByRef('welk', 'welk', ref, formatDateForServer(moment())));
         });
 
         return $q.all(promises);
@@ -214,10 +227,10 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         angular.forEach(self.questionnaires, function(reminder, i) {
             var questionnaireReminder = self.checkReminder(reminder.start);
             if(questionnaireReminder.isToday) {
-                todayReminders.push("Questionnaire " + reminder.title + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
+                todayReminders.push(reminder.fullTitle + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
             if(questionnaireReminder.isTomorrow) {
-                tomorrowReminders.push("Questionnaire " + reminder.title + " is due tomorrow");
+                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow");
             }
         });
 
@@ -235,10 +248,10 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         angular.forEach(self.appointments, function(reminder, i) {
             var measurementReminder = self.checkReminder(reminder.start);
             if(measurementReminder.isToday) {
-                todayReminders.push("Appointment " + reminder.title + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
+                todayReminders.push(reminder.fullTitle + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
             if(measurementReminder.isTomorrow) {
-                tomorrowReminders.push("Appointment " + reminder.title + " is due tomorrow");
+                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow");
             }
         });
 
@@ -256,10 +269,10 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         angular.forEach(self.measurements, function(reminder, i) {
             var measurementReminder = self.checkReminder(reminder.start);
             if(measurementReminder.isToday) {
-                todayReminders.push("Measurement " + reminder.title + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
+                todayReminders.push(reminder.fullTitle + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
             if(measurementReminder.isTomorrow) {
-                tomorrowReminders.push("Measurement " + reminder.title + " is due tomorrow");
+                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow");
             }
         });
 
@@ -305,20 +318,68 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         };
     }
 
-    this.parseData = function(data, mode) {
+    this.parseQuestionnaires = function(data) {
         var parsedData = [];
 
         angular.forEach(data, function(value) {
           angular.forEach(value.eventDates, function(date) {
             var parsedObject = {};
-            parsedObject.title = value.title;
+            parsedObject.fullTitle = "Questionnaire " + value.title;
             parsedObject.start = moment(date, "YYYY-MM-DD HH:mm");
-            parsedObject.mode = mode;
             parsedData.push(parsedObject);
           });
         });
 
         return parsedData;
+    } 
+
+    this.parseDevices = function(data) {
+        var parsedData = [];
+
+        angular.forEach(data, function(value) {
+          angular.forEach(value.eventDates, function(date) {
+            var parsedObject = {};
+            parsedObject.fullTitle = "Measurement " + value.title;
+            parsedObject.start = moment(date, "YYYY-MM-DD HH:mm");
+            parsedData.push(parsedObject);
+          });
+        });
+
+        return parsedData;
+    } 
+
+    this.parseAppointments = function(data, hcpData) {
+        var parsedData = [];
+
+        angular.forEach(data, function(value, key) {
+            var parsedObject = {};
+            parsedObject.fullTitle = "Appointment " + value.title + " with " + hcpData[key].specialty + " " + hcpData[key].user.firstName + " " + hcpData[key].user.lastName + " - " + value.status;
+            parsedObject.start = moment(value.start, "YYYY-MM-DD HH:mm");
+            parsedObject.end = moment(value.end, "YYYY-MM-DD HH:mm");
+            parsedData.push(parsedObject);
+        });
+
+        return parsedData;
+    }
+
+    this.getReminders = function() {
+        return self.getQuestionnaireReminders()
+        .then(function(results) {
+            self.questionnaires = self.parseQuestionnaires(results);
+
+            return self.getAppointmentReminders()
+            .then(function(results) {
+                self.appointments = self.parseAppointments(self.appointmentsData, results);
+
+                return self.getDeviceReminders()
+                .then(function(results) {
+                    self.measurements = self.parseDevices(results);
+
+                    self.checkReminders();
+                    self.setInterval($rootScope.reminderInterval);
+                });
+            });
+        });
     }
 
     return {

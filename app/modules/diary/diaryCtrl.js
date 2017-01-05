@@ -1,6 +1,6 @@
 app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepository) {
   $scope.$emit('body:class:add', "transparent");
-  $scope.patientId = $rootScope.patient ? $rootScope.patient.cloudRef : null;
+  $scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
   $scope.eventSources = [];
   $scope.diaryToday = [];
   $scope.diaryTomorrow = [];
@@ -58,13 +58,39 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     .then(function(appointmentDiaries) {
       return $scope.getAllAppointmentDiaryEntries(appointmentDiaries);
     })
-    .then(function(results) {
-      $scope.appointments = $scope.parseAppointments(results);
+    .then(function(appointments) {
+      $scope.appointmentsData = appointments;
+      
+      return $scope.getAppointmentHCPData(appointments);
+    })
+    .then(function(hcpRefs) {
+      return $scope.getAppointmentHCPs(hcpRefs);
+    })
+    .then(function(hcps) {
+      $scope.appointments = $scope.parseAppointments($scope.appointmentsData, hcps);
       $scope.addEvents($scope.appointments);
       $scope.diaryEntriesTodayAndTomorrow($scope.appointments);
       $scope.loading = false;
       _callback();
     });
+  }
+
+  $scope.getAppointmentHCPData = function(appointments) {
+    var promises = [];
+    angular.forEach(appointments, function(appointment) {
+      promises.push(diaryRepository.getHCPByRef(appointment.hcpRef));
+    });
+
+    return $q.all(promises);
+  }
+
+  $scope.getAppointmentHCPs = function(appointments) {
+    var promises = [];
+    angular.forEach(appointments, function(appointment) {
+      promises.push(appointment.data);
+    });
+
+    return $q.all(promises);
   }
 
   $scope.getAppointmentDiaryEntryUriPromises = function(refs) {
@@ -125,7 +151,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getDeviceUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(diaryRepository.getDeviceByRef('welk', 'welk', ref));
+        promises.push(diaryRepository.getDeviceByRef('welk', 'welk', ref, $scope.start, $scope.end));
     });
 
     return $q.all(promises);
@@ -194,13 +220,13 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     return parsedData;
   } 
 
-  $scope.parseAppointments = function(data) {
+  $scope.parseAppointments = function(data, hcpData) {
     var parsedData = [];
 
-    angular.forEach(data, function(value) {
+    angular.forEach(data, function(value, key) {
         var parsedObject = {};
         parsedObject.title = value.title;
-        parsedObject.fullTitle = value.title + " - " + value.status;
+        parsedObject.fullTitle = "Appointment " + value.title + " with " + hcpData[key].specialty + " " + hcpData[key].user.firstName + " " + hcpData[key].user.lastName + " - " + value.status;
         parsedObject.start = moment(value.start, "YYYY-MM-DD HH:mm");
         parsedObject.end = moment(value.end, "YYYY-MM-DD HH:mm");
         parsedObject.color = "#00AEEF";

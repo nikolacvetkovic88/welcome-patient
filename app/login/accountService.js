@@ -27,6 +27,7 @@ app.factory('AccountService', function ($rootScope, $http, $cookieStore) {
         removePatient: function() {
             $rootScope.patient = null;
             $cookieStore.remove('patient');
+            this.removeToken();
         },
         retrievePatient: function() {
             return $cookieStore.get('patient');

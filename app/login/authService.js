@@ -1,4 +1,4 @@
-app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $base64) {
+app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $location, $base64, AccountService, ReminderService) {
     return {
         login: function(credentials) {
             var data = "username=" +  encodeURIComponent(credentials.username) + "&password="
@@ -17,6 +17,9 @@ app.factory('AuthService', function loginService($rootScope, $http, $cookieStore
             var self = this;
             $http.post('http://welcome-test.exodussa.com/api/logout').then(function() {
                 self.clearCredentials();
+                $location.path("/login");
+                ReminderService.clearReminders();
+                AccountService.removePatient();
             });
         },
         setCredentials: function(username, password, response) {

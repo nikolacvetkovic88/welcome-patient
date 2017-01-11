@@ -3,15 +3,15 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
         staticQuestionnairesUrl = 'app/modules/questionnaires/staticQuestionnaires.json',
         baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
 
-    QuestionnairesRepository.getAllStaticQuestionnaires =  function() {
+    QuestionnairesRepository.getStaticQuestionnaires =  function() {
         return $http( {
                 method: 'GET',
                 url: staticQuestionnairesUrl
             });
     }
 
-    QuestionnairesRepository.getAllAssignedQuestionnaires = function(username, password, patientId) {
-        var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder?q=Period.Timing.Repeat.Bounds.Period.Start,afterEq,' + formatDateForServer(moment());
+    QuestionnairesRepository.getQuestionnaires = function(username, password, patientId) {
+        var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + formatDateForServer(moment());
         var encodedCred = $base64.encode(username + ':' + password);
         return $http({
             url: url,
@@ -24,30 +24,30 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
         });
     }
 
-    QuestionnairesRepository.decodeQuestionnaireOrders = function(data, patientId) {
+    QuestionnairesRepository.decodeQuestionnaires = function(data, patientId) {
         var subject = "http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/" + patientId + "/QuestionnaireOrder";
         var predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
         var parser = N3.Parser();
         var N3Util = N3.Util;
-        var diaryQuestionnaireRefs = [];
+        var questionnaireRefs = [];
         var defer = $q.defer();
 
         parser.parse(data, function(error, triple) {
             if(triple) {
                 if (triple && triple.subject === subject && triple.predicate != predicate) {
-                    diaryQuestionnaireRefs.push(triple.object);
+                    questionnaireRefs.push(triple.object);
                 } 
             } else if (error) {
                 console.log(error);
             } else {
-                defer.resolve(diaryQuestionnaireRefs);
+                defer.resolve(questionnaireRefs);
             }
         });
         
         return defer.promise;
     }
 
-    QuestionnairesRepository.getQuestionnaireOrderByRef = function(username, password, url) {
+    QuestionnairesRepository.getQuestionnaireByRef = function(username, password, url) {
         var encodedCred = $base64.encode(username + ':' + password);
         return  $http({
             url: url,
@@ -60,37 +60,50 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
         });
     }
 
-    QuestionnairesRepository.decodeQuestionnaireOrder = function(data) {
-        var parser = N3.Parser({ format: 'application/turtle' });
+    QuestionnairesRepository.decodeQuestionnaire = function(data) {
         var N3Util = N3.Util;
+        var questionnaireObj = {};
         var dates = [];
-        var questionnaireObj = {
-            eventDates: []
-        };
+        var stringValues = [];
+        var numbers = [];
         var defer = $q.defer();
 
         parser.parse(data,
             function (error, triple) {
                 if (triple) {
-                    if(N3Util.isBlank(triple.subject) && triple.predicate === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#value' && N3Util.isLiteral(triple.object) ) {
-                        if(N3Util.getLiteralType(triple.object) === "http://www.w3.org/2001/XMLSchema#dateTime") {
-                            dates.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
+                    if(N3Util.isIRI(triple.subject) && triple.subject.indexOf('QuestionnaireOrder') != -1) {
+                        var cloudRefArray = triple.subject.split('/');
+                        questionnaireObj.cloudRef = cloudRefArray[cloudRefArray.length-1];
+
+                        /*if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#detail" && N3.Util.isIRI(triple.object)) {
+                            questionnaireObj.id =  triple.object.split('#')[1];
+                            questionnaireObj.title = triple.object.split('#')[1].split('_')[1];
+                            return;
+                        }*/
+                    }
+
+                    if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) &&
+                        (triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.start" ||
+                        triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.end")) {
+
+                        if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.start") {
+                            questionnaireObj.periodStart = getItemPerSubject(dates, triple.object);
+                            return;
+                        }
+
+                        if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.end") {
+                            questionnaireObj.periodEnd = getItemPerSubject(dates, triple.object);
                             return;
                         }
                     }
 
-                    if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#detail" && N3.Util.isIRI(triple.object)) {
-                        questionnaireObj.id =  triple.object.split('#')[1];
-                        questionnaireObj.title = triple.object.split('#')[1].split('_')[1];
-                        return;
-                    }
+                    if (N3Util.isBlank(triple.subject) && triple.predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value" &&
+                        N3Util.isLiteral(triple.object) && (N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#date" ||
+                        N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#dateTime")) {
 
-                    if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.event" ) {
-                        questionnaireObj.eventDates.push(getDatePerSubject(dates, triple.object));
-                        return;
+                        dates.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
                     }
-
-                } else if (error) {
+                } else if(error){
                     console.log(error);
                 } else {
                     defer.resolve(questionnaireObj);
@@ -117,6 +130,7 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
 
         var url = baseUrl + 'QuestionAnswer';
         var encodedCred = $base64.encode(username + ':' + password);
+
         return  $http({
             url: url,
             method: 'POST',
@@ -152,6 +166,7 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
 
         var url = baseUrl + 'QuestionsGroupAnswers';
         var encodedCred = $base64.encode(username + ':' + password);
+
         return  $http({
             url: url,
             method: 'POST',
@@ -197,6 +212,7 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
 
         var url = baseUrl + 'QuestionnaireAnswers';
         var encodedCred = $base64.encode(username + ':' + password);
+
         return  $http({
             url: url,
             method: 'POST',
@@ -209,10 +225,10 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
         });
     }
 
-    var getDatePerSubject = function(dates, searchValue){
-        for(var i = 0; i< dates.length; i++){
-            if(dates[i].subject === searchValue) {
-                return dates[i].value;
+    var getItemPerSubject = function(items, searchValue){
+        for(var i = 0; i < items.length; i++){
+            if(items[i].subject === searchValue) {
+                return items[i].value;
             }
         }
     };

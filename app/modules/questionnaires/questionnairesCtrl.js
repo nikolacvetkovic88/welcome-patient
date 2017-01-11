@@ -3,48 +3,41 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
 
 	$scope.getAllStaticQuestionnaires = function(_callback) {
-		$scope.loading = true;
-
-		return questionnairesRepository.getAllStaticQuestionnaires()
+		return questionnairesRepository.getStaticQuestionnaires()
 		.success(function(data) {
 			$scope.staticQuestionnaires = data.questionnaires;
-			$scope.loading = false;
-			_callback();
 		});
 	}
 
 	$scope.getAllAssignedQuestionnaires = function() {
-		$scope.loading = true;
-
-		return questionnairesRepository.getAllAssignedQuestionnaires('welk', 'welk', $scope.patientId)
+		return questionnairesRepository.getQuestionnaires('welk', 'welk', $scope.patientId)
 		.then(function(response) {
-			return questionnairesRepository.decodeQuestionnaireOrders(response.data, $scope.patientId); 
+			return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
 		})
-		.then(function(questionnaireOrderRefs) {
-			return $scope.getQuestionnaireOrderUriPromises(questionnaireOrderRefs); 
+		.then(function(questionnaireRefs) {
+			return $scope.getQuestionnaireUriPromises(questionnaireRefs); 
 		})
-		.then(function(questionnaireOrders) {
-			return $scope.getAllQuestionnaireOrders(questionnaireOrders);
+		.then(function(questionnaires) {
+			return $scope.getQuestionnaires(questionnaires);
 		})
 		.then(function(results) {
 			$scope.parseData(results);
-			$scope.loading = false;
 		});
 	}
 
-	$scope.getQuestionnaireOrderUriPromises = function(refs) {
+	$scope.getQuestionnaireUriPromises = function(refs) {
 		var promises = [];
 		angular.forEach(refs, function(ref) {
-			promises.push(questionnairesRepository.getQuestionnaireOrderByRef('welk', 'welk', ref));
+			promises.push(questionnairesRepository.getQuestionnaireByRef('welk', 'welk', ref));
 		});
 
 		return $q.all(promises);
 	}
 
-	$scope.getAllQuestionnaireOrders = function(questionnaireOrders) {
+	$scope.getQuestionnaires = function(questionnaires) {
 		var promises = [];
-		angular.forEach(questionnaireOrders, function(questionnaireOrder) {
-			promises.push(questionnairesRepository.decodeQuestionnaireOrder(questionnaireOrder.data));
+		angular.forEach(questionnaires, function(questionnaire) {
+			promises.push(questionnairesRepository.decodeQuestionnaire(questionnaire.data));
 		});
 
 		return $q.all(promises);
@@ -54,7 +47,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		var activeAssignedQuestionnaires = [];
 
 		angular.forEach(questionnaires, function(questionnaire) {
-			if(activeAssignedQuestionnaires.indexOf(questionnaire.title) == -1)
+			if(activeAssignedQuestionnaires.indexOf(questionnaire) == -1)
 				activeAssignedQuestionnaires.push(questionnaire); 
 		});
 
@@ -131,7 +124,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 			return; 
 
 		var questionnaire = $scope.selectedQuestionnaire,
-		answers = questionnaire.answers;
+		    answers = questionnaire.answers;
 
 		return {
 			id: questionnaire.id,
@@ -235,12 +228,17 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.refresh = function() {
-		$scope.getQuestionnaires();
+		$scope.getAllQuestionnaires();
 	}
 
-	$scope.getQuestionnaires = function() {
-		$scope.getAllStaticQuestionnaires($scope.getAllAssignedQuestionnaires);
+	$scope.getAllQuestionnaires = function() {
+		$scope.loading = true;
+		
+		return $q.all([$scope.getAllStaticQuestionnaires(), $scope.getAllAssignedQuestionnaires()])
+		.then(function() {
+			$scope.loading = false;
+		});
 	}
 
-    $scope.getQuestionnaires();
+    $scope.getAllQuestionnaires();
 });

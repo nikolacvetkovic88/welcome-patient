@@ -10,9 +10,15 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
             });
     }
 
-    QuestionnairesRepository.getQuestionnaires = function(username, password, patientId) {
-        var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + formatDateForServer(moment());
+    QuestionnairesRepository.getQuestionnaires = function(username, password, patientId, start, end) {
+        var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder';       
         var encodedCred = $base64.encode(username + ':' + password);
+
+        if(start)
+            url += '?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + formatDateForServer(start); 
+        if(end)
+            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + formatDateForServer(end);
+
         return $http({
             url: url,
             method: 'GET',

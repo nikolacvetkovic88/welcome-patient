@@ -3,10 +3,6 @@ body {
 }
 
 /* overriding calendar */
-.fc-today {
-  background-color: #00AEEF !important;
-}
-
 .fc-toolbar h2 {
   color: #F07822;
 }

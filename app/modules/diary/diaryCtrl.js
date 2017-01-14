@@ -1,78 +1,84 @@
-app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepository) {
+app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepository, questionnairesRepository, medicationRepository) {
   $scope.$emit('body:class:add', "transparent");
   $scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
   $scope.eventSources = [];
   $scope.diaryToday = [];
   $scope.diaryTomorrow = [];
 
-  $scope.getQuestionnaireDiaryEntries = function(_callback1, _callback2) {
-    $scope.loading = true;
-
-    diaryRepository.getQuestionnaireDiaryEntries('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
+  $scope.getDiaryQuestionnaires = function() {
+    return questionnairesRepository.getQuestionnaires('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
     .then(function(response) {
-      return diaryRepository.decodeQuestionnaireDiaryEntries(response.data, $scope.patientId); 
+      return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
     })
-    .then(function(questionnaireDiaryRefs) {
-      return $scope.getQuestionnaireDiaryEntryUriPromises(questionnaireDiaryRefs); 
+    .then(function(questionnaireRefs) {
+      return $scope.getQuestionnaireUriPromises(questionnaireRefs); 
     })
-    .then(function(questionnaireDiaries) {
-      return $scope.getAllQuestionnaireDiaryEntries(questionnaireDiaries);
+    .then(function(questionnaires) {
+      return $scope.getQuestionnaires(questionnaires);
     })
     .then(function(results) {
       $scope.questionnaires = $scope.parseQuestionnaires(results);
-      $scope.addEvents($scope.questionnaires);
-      $scope.diaryEntriesTodayAndTomorrow($scope.questionnaires);
-      $scope.loading = false;
-      _callback1(_callback2);
     });
   }
 
-  $scope.getQuestionnaireDiaryEntryUriPromises = function(refs) {
+  $scope.getQuestionnaireUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-      promises.push(diaryRepository.getQuestionnaireDiaryEntryByRef('welk', 'welk', ref));
+      promises.push(questionnairesRepository.getQuestionnaireByRef('welk', 'welk', ref));
     });
 
     return $q.all(promises);
   }
 
-  $scope.getAllQuestionnaireDiaryEntries = function(questionnaireDiaries) {
+  $scope.getQuestionnaires = function(questionnaireDiaries) {
     var promises = [];
     angular.forEach(questionnaireDiaries, function(questionnaireDiary) {
-      promises.push(diaryRepository.decodeQuestionnaireDiaryEntry(questionnaireDiary.data));
+      promises.push(questionnairesRepository.decodeQuestionnaire(questionnaireDiary.data));
     });
 
     return $q.all(promises);
   }
 
-  $scope.getAppointmentDiaryEntries = function(_callback) {
-    $scope.loading = true;
-
-    diaryRepository.getAppointmentDiaryEntries('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
+  $scope.getDiaryAppointments = function() {
+    return diaryRepository.getAppointments('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
     .then(function(response) {
-      return diaryRepository.decodeAppointmentDiaryEntries(response.data, $scope.patientId); 
+      return diaryRepository.decodeAppointments(response.data, $scope.patientId); 
     })
-    .then(function(appointmentDiaryRefs) {
-      return $scope.getAppointmentDiaryEntryUriPromises(appointmentDiaryRefs); 
-    })
-    .then(function(appointmentDiaries) {
-      return $scope.getAllAppointmentDiaryEntries(appointmentDiaries);
+    .then(function(appointmentRefs) {
+      return $scope.getAppointmentUriPromises(appointmentRefs); 
     })
     .then(function(appointments) {
-      $scope.appointmentsData = appointments;
+      return $scope.getAppointments(appointments);
+    })
+    .then(function(results) {
+      $scope.appointmentsData = results;
       
-      return $scope.getAppointmentHCPData(appointments);
+      return $scope.getAppointmentHCPData(results);
     })
     .then(function(hcpRefs) {
       return $scope.getAppointmentHCPs(hcpRefs);
     })
     .then(function(hcps) {
       $scope.appointments = $scope.parseAppointments($scope.appointmentsData, hcps);
-      $scope.addEvents($scope.appointments);
-      $scope.diaryEntriesTodayAndTomorrow($scope.appointments);
-      $scope.loading = false;
-      _callback();
     });
+  }
+
+  $scope.getAppointmentUriPromises = function(refs) {
+    var promises = [];
+    angular.forEach(refs, function(ref) {
+        promises.push(diaryRepository.getAppointmentByRef('welk', 'welk', ref));
+    });
+
+    return $q.all(promises);
+  }
+
+  $scope.getAppointments = function(appointmentDiaries) {
+    var promises = [];
+    angular.forEach(appointmentDiaries, function(appointmentDiary) {
+        promises.push(diaryRepository.decodeAppointment(appointmentDiary.data));
+    });
+
+    return $q.all(promises);
   }
 
   $scope.getAppointmentHCPData = function(appointments) {
@@ -93,28 +99,42 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     return $q.all(promises);
   }
 
-  $scope.getAppointmentDiaryEntryUriPromises = function(refs) {
+  $scope.getDiaryMedications = function() {
+      return medicationRepository.getMedications('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
+      .then(function(response) {
+        return medicationRepository.decodeMedications(response.data, $scope.patientId);
+      })
+      .then(function(prescriptionRefs) {
+        return $scope.getMedicationUriPromises(prescriptionRefs);
+      })
+      .then(function(prescriptions) {
+        return $scope.getMedications(prescriptions);
+      })
+      .then(function(results) {
+        $scope.medications = $scope.parseMedications(results);
+      });
+  }
+    
+  $scope.getMedicationUriPromises = function(refs) {  
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(diaryRepository.getAppointmentDiaryEntryByRef('welk', 'welk', ref));
+        promises.push(medicationRepository.getMedicationByRef('welk', 'welk', ref));
     });
 
     return $q.all(promises);
   }
 
-  $scope.getAllAppointmentDiaryEntries = function(appointmentDiaries) {
+  $scope.getMedications = function(medications) {
     var promises = [];
-    angular.forEach(appointmentDiaries, function(appointmentDiary) {
-        promises.push(diaryRepository.decodeAppointmentDiaryEntry(appointmentDiary.data));
+    angular.forEach(medications, function(medication) {
+        promises.push(medicationRepository.decodeMedication(medication.data));
     });
 
     return $q.all(promises);
   }
 
-  $scope.getDevices = function() {
-    $scope.loading = true;
-
-    diaryRepository.getDevices('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
+  $scope.getDiaryDevices = function() {
+    return diaryRepository.getDevices('welk', 'welk', $scope.patientId)
     .then(function(response) {
       return diaryRepository.decodeDevices(response.data, $scope.patientId)
     })
@@ -122,29 +142,23 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       return $scope.getDeviceUriPromises(deviceRefs);
     })
     .then(function(response) {
-      return $scope.decodeDeviceEntries(response);
+      return $scope.decodeDevices(response);
     })
-    .then(function(deviceEntryRefs) {
+    .then(function(deviceRequestRefs) {
       var nonEmptyRefs = [];
-      angular.forEach(deviceEntryRefs, function(refArray) {
+      angular.forEach(deviceRequstRefs, function(refArray) {
         angular.forEach(refArray, function(ref) {
           nonEmptyRefs.push(ref);
         });
       })
 
-      return $scope.getDeviceEntryUriPromises(nonEmptyRefs);
+      return $scope.getDeviceRequestUriPromises(nonEmptyRefs);
     })
-    .then(function(deviceDiaries) {
-      return $scope.getAllDeviceDiaryEntries(deviceDiaries);
+    .then(function(devices) {
+      return $scope.getDeviceRequests(devices);
     })
     .then(function(results) {
-      $scope.devices = $scope.parseDevices(results);
-      $scope.addEvents($scope.devices);
-      $scope.diaryEntriesTodayAndTomorrow($scope.devices);
-      $scope.loading = false;
-
-      $scope.startLoaded = $scope.start;
-      $scope.endLoaded = $scope.end;
+      $scope.measurements = $scope.parseDevices(results);
     });
   }
 
@@ -157,28 +171,28 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     return $q.all(promises);
   }
 
-  $scope.decodeDeviceEntries = function(deviceRefs) {
+  $scope.decodeDevices = function(deviceRefs) {
     var promises = [];
     angular.forEach(deviceRefs, function(ref) {
-      promises.push(diaryRepository.decodeDeviceEntry(ref.data));
+      promises.push(diaryRepository.decodeDevice(ref.data));
     });
 
     return $q.all(promises);
   }
 
-  $scope.getDeviceEntryUriPromises = function(refs) {
+  $scope.getDeviceRequestUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-      promises.push(diaryRepository.getDeviceDiaryEntryByRef('welk', 'welk', ref));
+      promises.push(diaryRepository.getDeviceRequestByRef ('welk', 'welk', ref, moment()));
     });
 
     return $q.all(promises);
   }
 
-  $scope.getAllDeviceDiaryEntries = function(deviceDiaries) {
+  $scope.getDeviceRequests = function(deviceDiaries) {
     var promises = [];
     angular.forEach(deviceDiaries, function(deviceDiary) {
-      promises.push(diaryRepository.decodeDeviceDiaryEntry(deviceDiary.data));
+      promises.push(diaryRepository.decodeDeviceRequest(deviceDiary.data));
     });
 
     return $q.all(promises);
@@ -187,35 +201,17 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.parseQuestionnaires = function(data) {
     var parsedData = [];
 
-    angular.forEach(data, function(value) {
+    /*angular.forEach(data, function(value) {
       angular.forEach(value.eventDates, function(date) {
         var parsedObject = {};
-        parsedObject.title = value.title;
-        parsedObject.fullTitle = "Questionnaire " + value.title;
-        parsedObject.start = moment(date, "YYYY-MM-DD HH:mm");
+        parsedObject.title = value.questionnaire;
+        parsedObject.fullTitle = formatDateTimeForUser(value.periodStart) + " Questionnaire " + value.questionnaire;
+        parsedObject.start = moment(date);
         parsedObject.color = "#3A87AD";
         parsedObject.mode = "q";
         parsedData.push(parsedObject);
       });
-    });
-
-    return parsedData;
-  } 
-
-  $scope.parseDevices = function(data) {
-    var parsedData = [];
-
-    angular.forEach(data, function(value) {
-      angular.forEach(value.eventDates, function(date) {
-        var parsedObject = {};
-        parsedObject.title = value.title;
-        parsedObject.fullTitle = "Measurement " + value.title;
-        parsedObject.start = moment(date, "YYYY-MM-DD HH:mm");
-        parsedObject.color = "#043248";
-        parsedObject.mode = "m";
-        parsedData.push(parsedObject);
-      });
-    });
+    });*/
 
     return parsedData;
   } 
@@ -224,18 +220,53 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     var parsedData = [];
 
     angular.forEach(data, function(value, key) {
-        var parsedObject = {};
-        parsedObject.title = value.title;
-        parsedObject.fullTitle = "Appointment " + value.title + " with " + hcpData[key].specialty + " " + hcpData[key].user.firstName + " " + hcpData[key].user.lastName + " - " + value.status;
-        parsedObject.start = moment(value.start, "YYYY-MM-DD HH:mm");
-        parsedObject.end = moment(value.end, "YYYY-MM-DD HH:mm");
-        parsedObject.color = "#00AEEF";
-        parsedObject.mode = "a";
-        parsedData.push(parsedObject);
+      var parsedObject = {};
+      parsedObject.title = value.comment;
+      parsedObject.fullTitle = formatDateTimeForUser(value.periodStart) + " Appointment " + value.comment + " with " + hcpData[key].specialty + " " + hcpData[key].user.firstName + " " + hcpData[key].user.lastName + " - " + value.status;
+      parsedObject.start = moment(value.periodStart);
+      parsedObject.end = moment(value.periodEnd);
+      parsedObject.color = "#00AEEF";
+      parsedObject.mode = "appointment";
+      parsedData.push(parsedObject);
     });
 
     return parsedData;
   }
+
+  $scope.parseMedications = function(data) {
+    var parsedData = [];
+
+    angular.forEach(data, function(value, key) {
+      angular.forEach(value.timingEvents, function(timingEvent) {
+        var parsedObject = {};
+        parsedObject.title = value.medication,
+        parsedObject.fullTitle = formatDateTimeForUser(timingEvent) + " Medication " + value.medication + " - " + value.note;
+        parsedObject.start = moment(timingEvent);
+        parsedObject.color = "#00AEEF";
+        parsedObject.mode = "medication";
+        parsedData.push(parsedObject);
+      });
+    });
+
+    return parsedData;
+  }
+
+  $scope.parseDevices = function(data) {
+    var parsedData = [];
+
+    angular.forEach(data, function(value) {
+      var parsedObject = {};
+      parsedObject.title = value.device;
+      parsedObject.fullTitle = formatDateTimeForUser(value.periodStart) + " Measurement " + value.device;
+      parsedObject.start = moment(value.periodStart);
+      parsedObject.end = moment(value.periodEnd);
+      parsedObject.color = "#043248";
+      parsedObject.mode = "measurement";
+      parsedData.push(parsedObject);
+    });
+
+    return parsedData;
+  } 
    
   $scope.diaryEntriesTodayAndTomorrow = function(data) {
     $scope.diaryEntriesForDay($scope.diaryToday, data, moment());
@@ -257,22 +288,43 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
 
   $scope.onClick = function(date, jsEvent, view) {
     var mode = date.mode,
-        location = null;
+        location = null,
+        message = "";
 
     switch (mode) {
-      case "m":
+      case "measurement":
         location = "patienthub://app";
+        message = "Go to Measurements";
       break;
-      case "q":
-        location = "#questionnaires";
+      case "questionnaire":
+        location = "#questionnaire";
+        message = "Go to Questionnaires"
       break;
+      case "medication":
+        location = "#medication";
+        message = "Go to Medications";
       default:
         break;
     }
 
-    if(mode == "m" || mode == "q") {
+    if(mode == "appointment") {
       var dialog = bootbox.dialog({
-        message: mode == "m" ? "Go to Measurement" : "Go to Questionnaires",
+        message: " ",
+        title: "<div class='text-info'>" + date.fullTitle + "</div>",
+        closeButton: false,
+        buttons: {
+          main: {
+            label: "Go back",
+            className: "btn-default",
+            callback: function() {
+              dialog.modal("hide");
+            }
+          }
+        }
+      });
+    } else {
+      var dialog = bootbox.dialog({
+        message: message,
         title: "<div class='text-info'>" + date.fullTitle + "</div>",
         closeButton: false,
         buttons: {
@@ -288,21 +340,6 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
             className: "btn-primary",
             callback: function() {
               $window.location.href = location;
-            }
-          }
-        }
-      });
-    } else if (mode == "a") {
-      var dialog = bootbox.dialog({
-        message: " ",
-        title: "<div class='text-info'>" + date.fullTitle + "</div>",
-        closeButton: false,
-        buttons: {
-          main: {
-            label: "Go back",
-            className: "btn-default",
-            callback: function() {
-              dialog.modal("hide");
             }
           }
         }
@@ -360,7 +397,23 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
  
   $scope.getDiaryEntries = function() {
     $scope.resetData();
-    $scope.getQuestionnaireDiaryEntries($scope.getAppointmentDiaryEntries, $scope.getDevices)
+    $scope.loading = true;
+
+    return $q.all([$scope.getDiaryQuestionnaires(),$scope.getDiaryAppointments(), $scope.getDiaryMedications(), $scope.getDiaryDevices()])
+    .then(function() {
+      $scope.addEvents($scope.questionnaires);
+      $scope.diaryEntriesTodayAndTomorrow($scope.questionnaires);
+      $scope.addEvents($scope.appointments);
+      $scope.diaryEntriesTodayAndTomorrow($scope.appointments);
+      $scope.addEvents($scope.medications);
+      $scope.diaryEntriesTodayAndTomorrow($scope.medications);
+      $scope.addEvents($scope.measurements);
+      $scope.diaryEntriesTodayAndTomorrow($scope.measurements);
+
+      $scope.startLoaded = $scope.start;
+      $scope.endLoaded = $scope.end;
+      $scope.loading = false;
+    });
   }
 
 });

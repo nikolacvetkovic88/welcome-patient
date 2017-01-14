@@ -28,10 +28,11 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
 	<link rel="stylesheet" href="assets/css/welcome.css" />
-	<link rel="stylesheet" href='assets/css/fullcalendar.min.css' rel='stylesheet' />
+	<link rel="stylesheet" href='assets/css/fullcalendar.min.css' />
+	<link rel="stylesheet" href="assets/css/bootstrap-notify.css" />
 	<link rel="stylesheet" href="assets/css/select2.css" />
 	<link rel="stylesheet" href="assets/css/select2-bootstrap.css" />
-	<link rel="stylesheet" type="text/css" href="assets/css/weather.css">
+	<link rel="stylesheet" href="assets/css/weather.css">
 
 	<script src="assets/libs/jquery-3.1.0.min.js"></script>
 	<script src="assets/libs/bootstrap.min.js"></script>
@@ -40,6 +41,7 @@
 	<script src="assets/libs/angular-cookies.min.js"></script>
 	<script src="assets/libs/angular-base64.js"></script>
 	<script src="assets/libs/bootbox.min.js"></script>
+	<script src="assets/libs/bootstrap-notify.js"></script>
 	<script src="assets/libs/eModal.js"></script>
 	<script src="assets/libs/select2.js"></script>
 	<script src="assets/libs/moment.min.js"></script>
@@ -81,7 +83,7 @@
 			        </div>
 					<div>
 						<img ng-src="assets/img/avatar.png" class="avatar" alt="avatar"/>
-						<div class="patient-name">Hello <span ng-bind="patient.firstName"></span></div>
+						<div class="patient-name">Hello <span ng-bind="patient.user.firstName"></span></div>
 						<div ng-controller="logoutCtrl">
 						    <div class="logout" style="width: 48px;" ng-click="logout()">Logout</div>
 						</div>
@@ -141,6 +143,8 @@
 			</div>
 		</div>
 
+		<div id="notification" class='notifications top-left'></div>
+
 		<nav class="nav navbar-inverse navigation-bar ng-hide" ng-show="showMainContent && !isHomePage">
 		  <ul class="nav navbar-nav">
 		    <li><a href="#home" data-icon="home"><span class="glyphicon glyphicon-home" ng-click="$route.reload()"></span>Home</a></li>    
@@ -157,6 +161,7 @@
 
     <script src="app/reminders/reminderCtrl.js"></script>
 	<script src="app/reminders/reminderService.js"></script>
+	<script src="app/shared/logService.js"></script>
 	<script src="app/login/authService.js"></script>
 	<script src="app/login/accountService.js"></script>
 	<script src="app/login/logoutCtrl.js"></script>

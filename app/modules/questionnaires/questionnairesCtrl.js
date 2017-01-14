@@ -10,7 +10,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.getAllAssignedQuestionnaires = function() {
-		return questionnairesRepository.getQuestionnaires('welk', 'welk', $scope.patientId)
+		return questionnairesRepository.getQuestionnaires('welk', 'welk', $scope.patientId, moment())
 		.then(function(response) {
 			return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
 		})
@@ -165,7 +165,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 			var questionAnswers = [];
 			angular.forEach(ref, function(qa) {
 				questionAnswers.push(qa.headers().location);
-				console.log(qa.headers().location);
+				//LogService.log(qa.headers().location, "Question group answer created");
 			});
 
 			promises.push(questionnairesRepository.postQuestionGroup('welk', 'welk', questionGroups[i].id, questionGroups[i].score, questionAnswers));
@@ -178,7 +178,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		var questionGroupAnswers = [];
 		angular.forEach(refs, function(ref, i) {
 			questionGroupAnswers.push(ref.headers().location);
-			console.log(ref.headers().location);
+			//LogService.log(ref.headers().location, "Questionnaire answer created");
 		});
 
 		return questionnairesRepository.postQuestionnaire('welk', 'welk', $scope.patientId, questionnaire.id, questionnaire.score, questionGroupAnswers);
@@ -200,13 +200,13 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		if(!$scope.selectedQuestionnaire)
 			return;
 		if(!$scope.patientId) {
-			notify('No patient ID defined!', 'warn');
+			notify('No patient ID defined!', 'warning');
 			return;
 		}
 
 		var answers = $scope.selectedQuestionnaire.answers;
 		if(answers.length != $scope.getNumberOfQuestions()) {
-			notify('Please give answers to all the questions!', 'warn');
+			notify('Please give answers to all the questions!', 'warning');
 			return;
 		}
 

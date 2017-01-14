@@ -1,6 +1,8 @@
-<button class="btn btn-info pull-right btn-sm refresh" ng-click="refresh()">
-  <span class="glyphicon glyphicon-refresh"></span>
-</button>
+<div class="row">
+	<button class="btn btn-info pull-right btn-sm refresh" ng-click="refresh()">
+	  <span class="glyphicon glyphicon-refresh"></span>
+	</button>
+</div>
 
 <div class="row">
 	<div class="col-sm-12">
@@ -10,19 +12,40 @@
     </div>
 </div>
 <div class="row">
-	<div class="col-sm-8">
+	<div class="col-sm-10">
 		<div class="form-group">
 			<label for="search">Search:</label>
 		    <input type="search" name="name" id="search" value="" placeholder="Search for medication" class="form-control" ng-model="filter" />
 		</div>
 		<div class="btn-group-vertical" style="width: 100%" ng-repeat="medication in medications | filter: filter">
-			<button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#{{medication.medicationId}}">{{medication.medication}}</button>
-			<!--<div id="{{medication.medicationId}}" class="collapse in">
-				<p>{{medication.medicationDescription}}</p>
-			</div>-->
+			<button type="button" class="btn btn-info text-left" data-toggle="collapse" data-target="#{{medication.cloudRef}}"><span class="glyphicon glyphicon-sort"></span>&nbsp{{medication.medication}}</button>
+			<div id="{{medication.cloudRef}}" class="collapse in">
+				<table class="table table-condensed">
+				    <thead>
+				        <tr>
+				            <th>Code</th>
+				            <th>Quantity</th>
+				            <th>Note</th>
+				            <th>Frequency</th>
+				            <th>Period</th>
+				            <th>Period Unit</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <tr>
+				            <td>{{medication.code}}></td>
+				            <td>{{medication.quantity}}</td>
+				            <td>{{medication.note}}</td>
+				            <td>{{medication.frequency}}</td>
+				            <td>{{medication.period}}</td>
+				            <td>{{medication.periodUnit}}</td>
+				        </tr>
+				    </tbody>
+				</table>
+			</div>
 		</div>
 	</div>
-	<div class="col-sm-4"></div>
+	<div class="col-sm-2"></div>
 </div>
 
 <div class="loader" ng-show="loading"></div>

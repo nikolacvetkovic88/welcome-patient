@@ -12,7 +12,7 @@ app.controller('commentCtrl', function($scope, commentRepository) {
 		})
 		.error(function() {
 			$scope.loading = false;
-			notify("Failed loading comments", "error"); 
+			notify('Failed loading comments', 'danger'); 
 		});
 	}
 
@@ -61,11 +61,11 @@ app.controller('commentCtrl', function($scope, commentRepository) {
 
 	$scope.submitNewComment = function() {
 		if(!$scope.myComment || !$scope.myComment.length) {
-			notify("Please type your comment", "warn"); 
+			notify('Please type your comment', 'warning'); 
 			return false;
 		} else {
 			setTimeout(function() {
-				notify("Your comment has been submitted successfully!", "success");
+				notify('Your comment has been submitted successfully!', 'success');
 				$scope.loadComments();
 			}, 1000);
 		}

@@ -18,17 +18,17 @@ app.controller('loginCtrl', function ($scope, $rootScope, $location, AuthService
                     $location.path("/");
                 })
                 .error(function(data, status) {
-                    notify(data && data.error_description || data.description || 'Retrieving patient failed', 'error'); 
+                    notify(data && data.error_description || data.description || 'Retrieving patient failed', 'danger'); 
                     $scope.loading = false;
                 });
             })
             .error(function(data, status) {
-               notify(data && data.error_description || data.description || 'Retrieving patient account failed', 'error'); 
+               notify(data && data.error_description || data.description || 'Retrieving patient account failed', 'danger'); 
                $scope.loading = false;
             });
         })
         .error(function(data, status) {
-            notify(data && data.error_description || data.description || 'Login request failed', 'error'); 
+            notify(data && data.error_description || data.description || 'Login request failed', 'danger'); 
             $scope.loading = false;
         });
     }

@@ -76,7 +76,9 @@ app.factory('medicationRepository', function($base64, $http, $q) {
                         medicationObj.cloudRef = cloudRefArray[cloudRefArray.length-1];
                     }
 
-                    if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject)) {
+                    if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) &&
+                        (triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.start" ||
+                        triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.end")) {
 
                         if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Period.start") {
                             medicationObj.periodStart = getItemPerSubject(dates, triple.object);
@@ -170,7 +172,6 @@ app.factory('medicationRepository', function($base64, $http, $q) {
                         N3Util.isLiteral(triple.object) && N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#boolean") {
                         medicationObj.asNeeded = N3Util.getLiteralValue(triple.object);
                     }
-
 
                     if(N3Util.isIRI(triple.object) && triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#MedicationPrescription.status") {
                         medicationObj.status = triple.object.split('#')[1].split('_')[1];

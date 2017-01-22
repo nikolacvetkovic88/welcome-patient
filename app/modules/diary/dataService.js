@@ -42,9 +42,9 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
 
     DiaryRepository.getDeviceByRef = function(username, password, url, start, end) {
         var encodedCred = $base64.encode(username + ':' + password);
-        //url += '/DeviceUseRequest?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + formatDateForServer(start);
-        //if(end)
-            //url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + formatDateForServer(end);
+        url += '/DeviceUseRequest?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + formatDateForServer(start);
+        if(end)
+            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + formatDateForServer(end);
 
         return  $http({
             url: url,
@@ -106,15 +106,7 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
             function (error, triple) {
                 if (triple) {
 
-                    /*console.log("triple has been found: ");
-                    console.log("Subject: ", triple.subject, '.',"Blank? ", N3Util.isBlank(triple.subject),
-                    "IRI? ", N3Util.isIRI(triple.subject),"Literal? ", N3Util.isLiteral(triple.subject));
-                    console.log("Predicate: ", triple.predicate);
-                    console.log("Object", triple.object, '.',"Blank? ", N3Util.isBlank(triple.object),
-                    "IRI? ", N3Util.isIRI(triple.object),"Literal? ", N3Util.isLiteral(triple.object));
-                    console.log("*****************************************************************");*/
-
-                    if(N3Util.isIRI(triple.subject) && triple.subject.search("DeviceUseRequest") != -1) {
+                    if(N3Util.isIRI(triple.subject) && triple.subject.indexOf("DeviceUseRequest") != -1) {
                         var cloudRefArray = triple.subject.split('/');
                         deviceRequestObj.cloudRef = cloudRefArray[cloudRefArray.length-1];
                     }
@@ -134,44 +126,67 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
                         }
                     }
 
-                    //TO DO
-                    /*if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) && 
-                        (triple.predicate === CloudCommons.predicateDeviceUseRequestDurationUnit ||
-                        triple.predicate === CloudCommons.predicateDeviceUseRequestPeriodUnit )) {
+                    if(N3Util.isBlank(triple.object) && triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.event") {
+                        if(deviceRequestObj.timingEvents == null || deviceRequestObj.timingEvents.length == 0) {
+                            deviceRequestObj.timingEvents = [];
+                        }
 
-                        if(triple.predicate === CloudCommons.predicateDeviceUseRequestDurationUnit ) {
+                        deviceRequestObj.timingEvents.push(getItemPerSubject(dates, triple.object));
+                        return;
+                    }
+
+                    if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) &&
+                        (triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.durationUnits" ||
+                        triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.periodUnits")) {
+
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.durationUnits") {
                             deviceRequestObj.durationUnit = getItemPerSubject(stringValues, triple.object);
                             return;
                         }
 
-                        if(triple.predicate === CloudCommons.predicateDeviceUseRequestPeriodUnit ) {
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.periodUnits") {
                             deviceRequestObj.periodUnit = getItemPerSubject(stringValues, triple.object);
                             return;
                         }
                     }
 
-                   if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) &&
-                        (triple.predicate === CloudCommons.predicateDeviceUseRequestDuration ||
-                        triple.predicate === CloudCommons.predicateDeviceUseRequestFrequency ||
-                        triple.predicate === CloudCommons.predicateDeviceUseRequestPeriod)) {
+                    if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRResources#DeviceUseRequest.notes") {
+                        deviceRequestObj.note = getItemPerSubject(stringValues, triple.object);
+                        return;
+                    }
+              
+                    if(N3Util.isIRI(triple.object) && triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#device") {
+                        var deviceArray = triple.object.split('/');
+                        deviceRequestObj.device = deviceArray[deviceArray.length-1];
+                        return;
+                    }
 
-                        if(triple.predicate === CloudCommons.predicateDeviceUseRequestDuration ) {
+                    if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) &&
+                        (triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.duration" ||
+                        triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.frequency" ||
+                        triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.period")) {
+
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.duration") {
                             deviceRequestObj.duration = getItemPerSubject(numbers, triple.object);
                             return;
                         }
 
-                        if(triple.predicate === CloudCommons.predicateDeviceUseRequestFrequency ) {
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.frequency") {
                             deviceRequestObj.frequency = getItemPerSubject(numbers, triple.object);
                             return;
                         }
 
-                        if(triple.predicate === CloudCommons.predicateDeviceUseRequestPeriod ) {
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.period") {
                             deviceRequestObj.period = getItemPerSubject(numbers, triple.object);
                             return;
                         }
-                    }*/
+                    }
 
-                    //Parse the device use request dates
+                    if(N3Util.isBlank(triple.object) && triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRResources#DeviceUseRequest.orderedOn") {
+                        deviceRequestObj.orderedOn = getItemPerSubject(dates, triple.object);
+                        return;
+                    } 
+                    
                     if (N3Util.isBlank(triple.subject) && triple.predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value" &&
                         N3Util.isLiteral(triple.object) && (N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#integer" ||
                         N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#int")) {
@@ -192,12 +207,6 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
                         N3Util.isLiteral(triple.object) && (N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#string")) {
 
                         stringValues.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
-                    }
-
-                    if(N3Util.isIRI(triple.object) && triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#device") {
-                        var deviceArray = triple.object.split('/');
-                        deviceRequestObj.device = deviceArray[deviceArray.length-1];
-                        return;
                     }
                 } else if(error) {
                     console.log(error);
@@ -323,7 +332,6 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
                     defer.resolve(appointmentObj);
                 }
             });
-
 
         return defer.promise;
     }

@@ -67,6 +67,7 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
     }
 
     QuestionnairesRepository.decodeQuestionnaire = function(data) {
+        var parser = N3.Parser({ format: 'application/turtle' });
         var N3Util = N3.Util;
         var questionnaireObj = {};
         var dates = [];
@@ -77,15 +78,10 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
         parser.parse(data,
             function (error, triple) {
                 if (triple) {
+
                     if(N3Util.isIRI(triple.subject) && triple.subject.indexOf('QuestionnaireOrder') != -1) {
                         var cloudRefArray = triple.subject.split('/');
                         questionnaireObj.cloudRef = cloudRefArray[cloudRefArray.length-1];
-
-                        /*if(triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#detail" && N3.Util.isIRI(triple.object)) {
-                            questionnaireObj.id =  triple.object.split('#')[1];
-                            questionnaireObj.title = triple.object.split('#')[1].split('_')[1];
-                            return;
-                        }*/
                     }
 
                     if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) &&
@@ -103,11 +99,49 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
                         }
                     }
 
+                    if(N3Util.isBlank(triple.object) && triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.event") {
+                        if(questionnaireObj.timingEvents == null || questionnaireObj.timingEvents.length == 0) {
+                            questionnaireObj.timingEvents = [];
+                        }
+
+                        questionnaireObj.timingEvents.push(getItemPerSubject(dates, triple.object));
+                        return;
+                    }
+
                     if (N3Util.isBlank(triple.subject) && triple.predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value" &&
                         N3Util.isLiteral(triple.object) && (N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#date" ||
                         N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#dateTime")) {
 
                         dates.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
+                    }
+
+                    if(N3Util.isIRI(triple.object) && triple.predicate == "http://lomi.med.auth.gr/ontologies/FHIRResources#detail") {
+                        questionnaireObj.id =  triple.object.split('#')[1]; // this is used to merge static questionnaires that display the data to the user
+                        questionnaireObj.questionnaire = triple.object.split('#')[1].split('_')[1];                        
+                        return;
+                    }
+
+
+                    if (N3Util.isBlank(triple.subject) && triple.predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value" &&
+                        N3Util.isLiteral(triple.object) && (N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#integer" ||
+                        N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#int")) {
+
+                        numbers.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
+                    }
+
+                    if (N3Util.isBlank(triple.subject) &&
+                        triple.predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value" &&
+                        N3Util.isLiteral(triple.object) && (N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#date" ||
+                        N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#dateTime")) {
+
+                        dates.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
+                    }
+
+                    if (N3Util.isBlank(triple.subject) &&
+                        triple.predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value" &&
+                        N3Util.isLiteral(triple.object) && (N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#string")) {
+
+                        stringValues.push({subject: triple.subject, value: N3Util.getLiteralValue(triple.object)});
                     }
                 } else if(error){
                     console.log(error);

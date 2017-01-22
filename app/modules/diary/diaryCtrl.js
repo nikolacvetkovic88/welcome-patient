@@ -146,7 +146,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     })
     .then(function(deviceRequestRefs) {
       var nonEmptyRefs = [];
-      angular.forEach(deviceRequstRefs, function(refArray) {
+      angular.forEach(deviceRequestRefs, function(refArray) {
         angular.forEach(refArray, function(ref) {
           nonEmptyRefs.push(ref);
         });
@@ -201,17 +201,17 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.parseQuestionnaires = function(data) {
     var parsedData = [];
 
-    /*angular.forEach(data, function(value) {
-      angular.forEach(value.eventDates, function(date) {
+    angular.forEach(data, function(value, key) {
+      angular.forEach(value.timingEvents, function(timingEvent) {
         var parsedObject = {};
         parsedObject.title = value.questionnaire;
-        parsedObject.fullTitle = formatDateTimeForUser(value.periodStart) + " Questionnaire " + value.questionnaire;
-        parsedObject.start = moment(date);
+        parsedObject.fullTitle = formatDateTimeForUser(timingEvent) + " Questionnaire " + value.questionnaire;
+        parsedObject.start = moment(timingEvent);
         parsedObject.color = "#3A87AD";
         parsedObject.mode = "q";
         parsedData.push(parsedObject);
       });
-    });*/
+    });
 
     return parsedData;
   } 
@@ -254,15 +254,16 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.parseDevices = function(data) {
     var parsedData = [];
 
-    angular.forEach(data, function(value) {
-      var parsedObject = {};
-      parsedObject.title = value.device;
-      parsedObject.fullTitle = formatDateTimeForUser(value.periodStart) + " Measurement " + value.device;
-      parsedObject.start = moment(value.periodStart);
-      parsedObject.end = moment(value.periodEnd);
-      parsedObject.color = "#043248";
-      parsedObject.mode = "measurement";
-      parsedData.push(parsedObject);
+    angular.forEach(data, function(value, key) {
+      angular.forEach(value.timingEvents, function(timingEvent) {
+        var parsedObject = {};
+        parsedObject.title = value.device;
+        parsedObject.fullTitle = formatDateTimeForUser(timingEvent) + " Measurement " + value.device;
+        parsedObject.start = moment(timingEvent);
+        parsedObject.color = "#043248";
+        parsedObject.mode = "measurement";
+        parsedData.push(parsedObject);
+      });
     });
 
     return parsedData;

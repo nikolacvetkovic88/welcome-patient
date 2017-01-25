@@ -242,7 +242,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
         parsedObject.title = value.medication,
         parsedObject.fullTitle = formatDateTimeForUser(timingEvent) + " Medication " + value.medication + " - " + value.note;
         parsedObject.start = moment(timingEvent);
-        parsedObject.color = "#00AEEF";
+        parsedObject.color = "#00384D";
         parsedObject.mode = "medication";
         parsedData.push(parsedObject);
       });

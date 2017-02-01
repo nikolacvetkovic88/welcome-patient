@@ -1,24 +1,16 @@
-app.factory('AccountService', function ($rootScope, $http, $cookieStore) {
+app.factory('AccountService', function ($rootScope, $http, $cookieStore, helper) {
     return {
         getAccount: function() {
-            var url = 'http://welcome-test.exodussa.com/api/account';
+            var url = helper.hubUrl + '/api/account';
             var token = this.getToken();
 
-            return $http.get(url, {
-                headers: {
-                    "Authorization": "Bearer" + token
-                }
-            });
+            return helper.getHubData(url, token);
         },
         getPatient: function(cloudRef) {
-            var url = 'http://welcome-test.exodussa.com/api/patients/search/' + cloudRef;
+            var url = helper.hubUrl + '/api/patients/search/' + cloudRef;
             var token = this.getToken();
             
-            return $http.get(url, {
-                headers: {
-                    "Authorization": "Bearer" + token
-                }
-            });
+            return helper.getHubData(url, token);
         },
         storePatient: function(patient) {
             $rootScope.patient = patient;

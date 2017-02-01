@@ -5,7 +5,7 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
 	$scope.getAllMedications = function() {
         $scope.loading = true;
         
-        medicationRepository.getMedications('welk', 'welk', $scope.patientId, moment())
+        medicationRepository.getMedications($scope.patientId, moment())
         .then(function(response) {
         	return medicationRepository.decodeMedications(response.data, $scope.patientId);
         })
@@ -24,7 +24,7 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
 	$scope.getMedicationUriPromises = function(refs) {	
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(medicationRepository.getMedicationByRef('welk', 'welk', ref));
+            promises.push(medicationRepository.getMedicationByRef(ref));
         });
 
         return $q.all(promises);

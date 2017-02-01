@@ -1,25 +1,16 @@
-app.factory('medicationRepository', function($base64, $http, $q) {
-	var MedicationRepository = {},
-	baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
+app.factory('medicationRepository', function($http, $q, helper, AccountService) {
+	var MedicationRepository = {};
+    var token = AccountService.getToken();
 
-	MedicationRepository.getMedications = function(username, password, patientId, start, end) {
-		var url =  baseUrl + 'Patient/' + patientId + '/MedicationPrescription';
-		var encodedCred = $base64.encode(username + ':' + password);
+	MedicationRepository.getMedications = function(patientId, start, end) {
+		var url =  helper.baseUrl + '/Patient/' + patientId + '/MedicationPrescription';
 
         if(start)
-            url += '?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + formatDateForServer(start);
+            url += '?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
         if(end)
-            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + formatDateForServer(end);
+            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
 
-		return  $http({
-			url: url,
-			method: 'GET',
-			headers: {
-				'Authorization' : 'Basic ' + encodedCred,
-				'Accept' : 'text/turtle',
-				'Content-Type' : 'text/turtle'
-			}
-		});
+		return helper.getCloudData(url, token);
     }
 
     MedicationRepository.decodeMedications = function(data, patientId) {
@@ -45,17 +36,8 @@ app.factory('medicationRepository', function($base64, $http, $q) {
 		return defer.promise;
     }
 
-    MedicationRepository.getMedicationByRef = function(username, password, url) {
-        var encodedCred = $base64.encode(username + ':' + password);
-        return  $http({
-            url: url,
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+    MedicationRepository.getMedicationByRef = function(url) {
+        return helper.getCloudData(url, token);
     }
 
     MedicationRepository.decodeMedication = function(data) {
@@ -108,7 +90,7 @@ app.factory('medicationRepository', function($base64, $http, $q) {
 
                     if(N3Util.isBlank(triple.object) &&
                         triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#CodeableConcept.text") {
-                        medicationObj.code = getItemPerSubject(stringValues, triple.object); // check out
+                        medicationObj.code = getItemPerSubject(stringValues, triple.object);
                         return;
                     }
 

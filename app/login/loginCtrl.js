@@ -1,4 +1,4 @@
-app.controller('loginCtrl', function ($scope, $rootScope, $location, AuthService, AccountService, ReminderService) {
+app.controller('loginCtrl', function ($scope, $location, helper, AuthService, AccountService, ReminderService) {
     $scope.$emit('body:class:add', "transparent");
     AuthService.clearCredentials();
 
@@ -18,17 +18,17 @@ app.controller('loginCtrl', function ($scope, $rootScope, $location, AuthService
                     $location.path("/");
                 })
                 .error(function(data, status) {
-                    notify(data && data.error_description || data.description || 'Retrieving patient failed', 'danger'); 
+                    helper.notify(data && data.error_description || data.description || 'Retrieving patient failed', 'danger'); 
                     $scope.loading = false;
                 });
             })
             .error(function(data, status) {
-               notify(data && data.error_description || data.description || 'Retrieving patient account failed', 'danger'); 
+               helper.notify(data && data.error_description || data.description || 'Retrieving patient account failed', 'danger'); 
                $scope.loading = false;
             });
         })
         .error(function(data, status) {
-            notify(data && data.error_description || data.description || 'Login request failed', 'danger'); 
+            helper.notify(data && data.error_description || data.description || 'Login request failed', 'danger'); 
             $scope.loading = false;
         });
     }

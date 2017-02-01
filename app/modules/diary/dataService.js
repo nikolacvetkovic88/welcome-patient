@@ -1,20 +1,11 @@
-app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
-	var DiaryRepository = {},
-	    baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
+app.factory('diaryRepository', function($http, $q, helper, AccountService) {
+	var DiaryRepository = {};
+    var token = AccountService.getToken();
 
-    DiaryRepository.getDevices = function(username, password, patientId) {
-        var url =  baseUrl + 'Patient/' + patientId + '/PortableBiomedicalSensorDevice';
-        var encodedCred = $base64.encode(username + ':' + password);
+    DiaryRepository.getDevices = function(patientId) {
+        var url =  helper.baseUrl + '/Patient/' + patientId + '/PortableBiomedicalSensorDevice'; 
 
-        return $http({
-            url: url,
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+        return helper.getCloudData(url, token);
     }
 
     DiaryRepository.decodeDevices  = function(data, patientId) {
@@ -40,21 +31,12 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getDeviceByRef = function(username, password, url, start, end) {
-        var encodedCred = $base64.encode(username + ':' + password);
-        url += '/DeviceUseRequest?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + formatDateForServer(start);
+    DiaryRepository.getDeviceByRef = function(url, start, end) {
+        url += '/DeviceUseRequest?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
         if(end)
-            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + formatDateForServer(end);
+            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
 
-        return  $http({
-            url: url,
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+        return helper.getCloudData(url, token);
     }
 
     DiaryRepository.decodeDevice = function(data) {
@@ -80,17 +62,8 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getDeviceRequestByRef  = function(username, password, url) {
-        var encodedCred = $base64.encode(username + ':' + password);
-        return  $http({
-            url: url + "?depth=2&version=v2",
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+    DiaryRepository.getDeviceRequestByRef  = function(url) {
+        return helper.getCloudData(url + "?depth=2&version=v2", token);
     }
 
     DiaryRepository.decodeDeviceRequest = function(data) {
@@ -218,21 +191,12 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getAppointments = function(username, password, patientId, start, end) {
-        var url =  baseUrl + 'Patient/' + patientId + '/Encounter?q=Period.start,afterEq,' + formatDateForServer(start);
-        var encodedCred = $base64.encode(username + ':' + password);
+    DiaryRepository.getAppointments = function(patientId, start, end) {
+        var url =  helper.baseUrl + '/Patient/' + patientId + '/Encounter?q=Period.start,afterEq,' + helper.formatDateForServer(start);
         if(end)
-            url += '&q=Period.End,beforeEq,' + formatDateForServer(end);
+            url += '&q=Period.End,beforeEq,' + helper.formatDateForServer(end);
 
-        return $http({
-            url: url,
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+        return helper.getCloudData(url, token);
     }
 
     DiaryRepository.decodeAppointments = function(data, patientId) {
@@ -258,17 +222,8 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getAppointmentByRef = function(username, password, url) {
-        var encodedCred = $base64.encode(username + ':' + password);
-        return  $http({
-            url: url,
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+    DiaryRepository.getAppointmentByRef = function(url) {
+        return helper.getCloudData(url, token);
     }
 
     DiaryRepository.decodeAppointment = function(data) {
@@ -337,14 +292,9 @@ app.factory('diaryRepository', function($base64, $http, $q, AccountService) {
     }
 
     DiaryRepository.getHCPByRef = function(cloudRef) {
-        var token = AccountService.getToken();
-        var url = 'http://welcome-test.exodussa.com/api/doctors/search/' + cloudRef;
+        var url = helper.hubUrl + '/api/doctors/search/' + cloudRef;
 
-        return $http.get(url, {
-            headers: {
-                "Authorization": "Bearer" + token
-            }
-        });
+        return helper.getHubData(url, token);
     }
 
     var getItemPerSubject = function(items, searchValue){

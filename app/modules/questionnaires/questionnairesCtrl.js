@@ -10,7 +10,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.getAllAssignedQuestionnaires = function() {
-		return questionnairesRepository.getQuestionnaires('welk', 'welk', $scope.patientId, moment())
+		return questionnairesRepository.getQuestionnaires($scope.patientId, moment())
 		.then(function(response) {
 			return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
 		})
@@ -28,7 +28,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	$scope.getQuestionnaireUriPromises = function(refs) {
 		var promises = [];
 		angular.forEach(refs, function(ref) {
-			promises.push(questionnairesRepository.getQuestionnaireByRef('welk', 'welk', ref));
+			promises.push(questionnairesRepository.getQuestionnaireByRef(ref));
 		});
 
 		return $q.all(promises);
@@ -153,7 +153,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	$scope.postQuestionAnswers = function(questionAnswers) {
 		var promises = [];
 		angular.forEach(questionAnswers, function(questionAnswer) {
-			promises.push(questionnairesRepository.postQuestion('welk', 'welk', questionAnswer.questionId, questionAnswer.answer));
+			promises.push(questionnairesRepository.postQuestion(questionAnswer.questionId, questionAnswer.answer));
 		});
 
 		return $q.all(promises);
@@ -165,10 +165,10 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 			var questionAnswers = [];
 			angular.forEach(ref, function(qa) {
 				questionAnswers.push(qa.headers().location);
-				//LogService.log(qa.headers().location, "Question group answer created");
+				console.log(qa.headers().location, "Question group answer created");
 			});
 
-			promises.push(questionnairesRepository.postQuestionGroup('welk', 'welk', questionGroups[i].id, questionGroups[i].score, questionAnswers));
+			promises.push(questionnairesRepository.postQuestionGroup(questionGroups[i].id, questionGroups[i].score, questionAnswers));
 		});
 
 		return $q.all(promises);
@@ -178,10 +178,10 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		var questionGroupAnswers = [];
 		angular.forEach(refs, function(ref, i) {
 			questionGroupAnswers.push(ref.headers().location);
-			//LogService.log(ref.headers().location, "Questionnaire answer created");
+			console.log(ref.headers().location, "Questionnaire answer created");
 		});
 
-		return questionnairesRepository.postQuestionnaire('welk', 'welk', $scope.patientId, questionnaire.id, questionnaire.score, questionGroupAnswers);
+		return questionnairesRepository.postQuestionnaire($scope.patientId, questionnaire.id, questionnaire.score, questionGroupAnswers);
 	}
 
     $scope.afterSubmit = function() {
@@ -200,13 +200,13 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		if(!$scope.selectedQuestionnaire)
 			return;
 		if(!$scope.patientId) {
-			notify('No patient ID defined!', 'warning');
+			helper.notify('No patient ID defined!', 'warning');
 			return;
 		}
 
 		var answers = $scope.selectedQuestionnaire.answers;
 		if(answers.length != $scope.getNumberOfQuestions()) {
-			notify('Please give answers to all the questions!', 'warning');
+			helper.notify('Please give answers to all the questions!', 'warning');
 			return;
 		}
 
@@ -222,7 +222,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		})
 		.then(function(response) {
 			$scope.loading = false;
-			notify('Questionnaire submitted successfully', 'success');
+			helper.notify('Questionnaire submitted successfully', 'success');
 			$scope.afterSubmit();
 		});
 	}

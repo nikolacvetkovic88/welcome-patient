@@ -6,7 +6,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.diaryTomorrow = [];
 
   $scope.getDiaryQuestionnaires = function() {
-    return questionnairesRepository.getQuestionnaires('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
+    return questionnairesRepository.getQuestionnaires($scope.patientId, $scope.start, $scope.end)
     .then(function(response) {
       return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
     })
@@ -24,7 +24,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getQuestionnaireUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-      promises.push(questionnairesRepository.getQuestionnaireByRef('welk', 'welk', ref));
+      promises.push(questionnairesRepository.getQuestionnaireByRef(ref));
     });
 
     return $q.all(promises);
@@ -40,7 +40,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryAppointments = function() {
-    return diaryRepository.getAppointments('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
+    return diaryRepository.getAppointments($scope.patientId, $scope.start, $scope.end)
     .then(function(response) {
       return diaryRepository.decodeAppointments(response.data, $scope.patientId); 
     })
@@ -66,7 +66,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getAppointmentUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(diaryRepository.getAppointmentByRef('welk', 'welk', ref));
+        promises.push(diaryRepository.getAppointmentByRef(ref));
     });
 
     return $q.all(promises);
@@ -100,7 +100,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryMedications = function() {
-      return medicationRepository.getMedications('welk', 'welk', $scope.patientId, $scope.start, $scope.end)
+      return medicationRepository.getMedications($scope.patientId, $scope.start, $scope.end)
       .then(function(response) {
         return medicationRepository.decodeMedications(response.data, $scope.patientId);
       })
@@ -118,7 +118,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getMedicationUriPromises = function(refs) {  
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(medicationRepository.getMedicationByRef('welk', 'welk', ref));
+        promises.push(medicationRepository.getMedicationByRef(ref));
     });
 
     return $q.all(promises);
@@ -134,7 +134,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryDevices = function() {
-    return diaryRepository.getDevices('welk', 'welk', $scope.patientId)
+    return diaryRepository.getDevices($scope.patientId)
     .then(function(response) {
       return diaryRepository.decodeDevices(response.data, $scope.patientId)
     })
@@ -165,7 +165,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getDeviceUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(diaryRepository.getDeviceByRef('welk', 'welk', ref, $scope.start, $scope.end));
+        promises.push(diaryRepository.getDeviceByRef(ref, $scope.start, $scope.end));
     });
 
     return $q.all(promises);
@@ -183,7 +183,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getDeviceRequestUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-      promises.push(diaryRepository.getDeviceRequestByRef ('welk', 'welk', ref, moment()));
+      promises.push(diaryRepository.getDeviceRequestByRef(ref, moment()));
     });
 
     return $q.all(promises);
@@ -203,10 +203,17 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
 
     angular.forEach(data, function(value, key) {
       angular.forEach(value.timingEvents, function(timingEvent) {
-        var parsedObject = {};
+        var parsedObject = {},
+            date = moment(value.periodStart),
+            dateTime = date.set({
+              'hour': moment(timingEvent).get('hour'),
+              'minute': moment(timingEvent).get('minute'),
+              'second': moment(timingEvent).get('second')
+            });
+
         parsedObject.title = value.questionnaire;
-        parsedObject.fullTitle = formatDateTimeForUser(timingEvent) + " Questionnaire " + value.questionnaire;
-        parsedObject.start = moment(timingEvent);
+        parsedObject.fullTitle = helper.formatDateTimeForUser(dateTime) + " Questionnaire " + value.questionnaire;
+        parsedObject.start = dateTime;
         parsedObject.color = "#3A87AD";
         parsedObject.mode = "q";
         parsedData.push(parsedObject);
@@ -222,7 +229,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     angular.forEach(data, function(value, key) {
       var parsedObject = {};
       parsedObject.title = value.comment;
-      parsedObject.fullTitle = formatDateTimeForUser(value.periodStart) + " Appointment " + value.comment + " with " + hcpData[key].specialty + " " + hcpData[key].user.firstName + " " + hcpData[key].user.lastName + " - " + value.status;
+      parsedObject.fullTitle = helper.formatDateTimeForUser(value.periodStart) + " Appointment " + value.comment + " with " + hcpData[key].specialty + " " + hcpData[key].user.firstName + " " + hcpData[key].user.lastName + " - " + value.status;
       parsedObject.start = moment(value.periodStart);
       parsedObject.end = moment(value.periodEnd);
       parsedObject.color = "#00AEEF";
@@ -238,10 +245,17 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
 
     angular.forEach(data, function(value, key) {
       angular.forEach(value.timingEvents, function(timingEvent) {
-        var parsedObject = {};
+        var parsedObject = {},
+            date = moment(value.periodStart),
+            dateTime = date.set({
+              'hour': moment(timingEvent).get('hour'),
+              'minute': moment(timingEvent).get('minute'),
+              'second': moment(timingEvent).get('second')
+            });
+
         parsedObject.title = value.medication,
-        parsedObject.fullTitle = formatDateTimeForUser(timingEvent) + " Medication " + value.medication + " - " + value.note;
-        parsedObject.start = moment(timingEvent);
+        parsedObject.fullTitle = helper.formatDateTimeForUser(dateTime) + " Medication " + value.medication + " - " + value.note;
+        parsedObject.start = dateTime;
         parsedObject.color = "#00384D";
         parsedObject.mode = "medication";
         parsedData.push(parsedObject);
@@ -256,10 +270,17 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
 
     angular.forEach(data, function(value, key) {
       angular.forEach(value.timingEvents, function(timingEvent) {
-        var parsedObject = {};
+        var parsedObject = {},
+            date = moment(value.periodStart),
+            dateTime = date.set({
+              'hour': moment(timingEvent).get('hour'),
+              'minute': moment(timingEvent).get('minute'),
+              'second': moment(timingEvent).get('second')
+            });
+
         parsedObject.title = value.device;
-        parsedObject.fullTitle = formatDateTimeForUser(timingEvent) + " Measurement " + value.device;
-        parsedObject.start = moment(timingEvent);
+        parsedObject.fullTitle = helper.formatDateTimeForUser(dateTime) + " Measurement " + value.device;
+        parsedObject.start = dateTime;
         parsedObject.color = "#043248";
         parsedObject.mode = "measurement";
         parsedData.push(parsedObject);
@@ -278,7 +299,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     angular.forEach(data, function(value, key) {
       var date = moment(value.start, 'YYYY-MM-DD');
       if(compareToDate.isSame(date, 'year') && compareToDate.isSame(date, 'month') && compareToDate.isSame(date, 'day')){
-        context.push({mode: value.mode, title: value.title, start: formatDateForUser(value.start)});
+        context.push({mode: value.mode, title: value.title, start: helper.formatDateForUser(value.start)});
       }
     });
   }
@@ -400,10 +421,10 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     $scope.resetData();
     $scope.loading = true;
 
-    return $q.all([$scope.getDiaryQuestionnaires(),$scope.getDiaryAppointments(), $scope.getDiaryMedications(), $scope.getDiaryDevices()])
+    return $q.all([/*$scope.getDiaryQuestionnaires(),*/$scope.getDiaryAppointments(), $scope.getDiaryMedications(), $scope.getDiaryDevices()])
     .then(function() {
-      $scope.addEvents($scope.questionnaires);
-      $scope.diaryEntriesTodayAndTomorrow($scope.questionnaires);
+      //$scope.addEvents($scope.questionnaires); check out
+      //$scope.diaryEntriesTodayAndTomorrow($scope.questionnaires);
       $scope.addEvents($scope.appointments);
       $scope.diaryEntriesTodayAndTomorrow($scope.appointments);
       $scope.addEvents($scope.medications);

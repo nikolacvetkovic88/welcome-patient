@@ -1,9 +1,8 @@
-app.factory('educationRepository', function($base64, $http, $q) {
-	var EducationRepository = {},
-	baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
+app.factory('educationRepository', function($base64, $http, $q, helper) {
+	var EducationRepository = {};
 
     EducationRepository.getEducationMaterial = function(username, password, patientId) {
-		var url =  baseUrl + 'Patient/' + patientId + '/PhaProgramOrder';
+		var url =  helper.baseUrl + '/Patient/' + patientId + '/PhaProgramOrder';
 		var encodedCred = $base64.encode(username + ':' + password);
 		return  $http({
 			url: url,

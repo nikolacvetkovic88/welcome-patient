@@ -1,4 +1,4 @@
-app.controller('reminderCtrl', function ($scope, $rootScope, ReminderService) {
+app.controller('reminderCtrl', function ($scope, ReminderService) {
     $scope.setReminders = function(duration) {
     	ReminderService.setReminders(duration);
     }

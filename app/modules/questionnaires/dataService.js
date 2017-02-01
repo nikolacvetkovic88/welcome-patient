@@ -1,7 +1,8 @@
-app.factory('questionnairesRepository', function($base64, $http, $q) {
+app.factory('questionnairesRepository', function($http, $q, helper, AccountService) {
     var QuestionnairesRepository = {},
-        staticQuestionnairesUrl = 'app/modules/questionnaires/staticQuestionnaires.json',
-        baseUrl = 'http://aerospace.med.auth.gr:8080/welcome/api/data/';
+        staticQuestionnairesUrl = 'app/modules/questionnaires/staticQuestionnaires.json';
+
+    var token = AccountService.getToken();
 
     QuestionnairesRepository.getStaticQuestionnaires =  function() {
         return $http( {
@@ -10,24 +11,15 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
             });
     }
 
-    QuestionnairesRepository.getQuestionnaires = function(username, password, patientId, start, end) {
-        var url =  baseUrl + 'Patient/' + patientId + '/QuestionnaireOrder';       
-        var encodedCred = $base64.encode(username + ':' + password);
+    QuestionnairesRepository.getQuestionnaires = function(patientId, start, end) {
+        var url =  helper.baseUrl + '/Patient/' + patientId + '/QuestionnaireOrder';       
 
         if(start)
-            url += '?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + formatDateForServer(start); 
+            url += '?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start); 
         if(end)
-            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + formatDateForServer(end);
+            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
 
-        return $http({
-            url: url,
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+        return helper.getCloudData(url, token);
     }
 
     QuestionnairesRepository.decodeQuestionnaires = function(data, patientId) {
@@ -53,17 +45,8 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
         return defer.promise;
     }
 
-    QuestionnairesRepository.getQuestionnaireByRef = function(username, password, url) {
-        var encodedCred = $base64.encode(username + ':' + password);
-        return  $http({
-            url: url,
-            method: 'GET',
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+    QuestionnairesRepository.getQuestionnaireByRef = function(url) {
+        return helper.getCloudData(url, token);
     }
 
     QuestionnairesRepository.decodeQuestionnaire = function(data) {
@@ -168,19 +151,9 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
                           FHIRResourcesExtensions:question WELCOME_entities:' + questionId + ';\
                         .';
 
-        var url = baseUrl + 'QuestionAnswer';
-        var encodedCred = $base64.encode(username + ':' + password);
+        var url = helper.baseUrl + '/QuestionAnswer';
 
-        return  $http({
-            url: url,
-            method: 'POST',
-            data: regBody,
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+        return helper.postCloudData(url, regBody);        
     }
 
     QuestionnairesRepository.postQuestionGroup = function(username, password, questionGroupId, score, questionAnswers) {
@@ -204,19 +177,9 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
 	    });
 	    regBody = regBody + 'FHIRResourcesExtensions:questionsGroup WELCOME_entities:' + questionGroupId + ';.';
 
-        var url = baseUrl + 'QuestionsGroupAnswers';
-        var encodedCred = $base64.encode(username + ':' + password);
-
-        return  $http({
-            url: url,
-            method: 'POST',
-            data: regBody,
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+        var url = helper.baseUrl + '/QuestionsGroupAnswers';
+        
+        return helper.postCloudData(url, regBody);
     }
 
     QuestionnairesRepository.postQuestionnaire = function(username, password, patientId, questionnaireId, score, questionGroupAnswers) {
@@ -232,7 +195,7 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
                           rdf:type FHIRResources:QuestionnaireAnswers ;\
                           <http://lomi.med.auth.gr/ontologies/FHIRResources#QuestionnaireAnswers.authored> [\
                               rdf:type FHIRpt:dateTime ;\
-                              rdf:value "' + moment().format("YYYY-MM-DDTHH:mm") + '"^^xsd:dateTime ;\
+                              rdf:value "' + helper.formatDateTimeForServer(moment()) + '"^^xsd:dateTime ;\
                             ] ;\
                           <http://lomi.med.auth.gr/ontologies/FHIRResources#QuestionnaireAnswers.status> FHIRResources:QuestionnaireAnswersStatus_completed ;\
                           FHIRResources:author <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;\
@@ -244,25 +207,14 @@ app.factory('questionnairesRepository', function($base64, $http, $q) {
                               rdf:value "' + score + '"^^xsd:decimal ;\
                             ] ;';
 
-
         angular.forEach(questionGroupAnswers, function(questionGroupAnswer) {
             regBody = regBody +  'FHIRResourcesExtensions:questionsGroupAnswers <' + questionGroupAnswer + '>;';
         });
         regBody = regBody + ".";
 
-        var url = baseUrl + 'QuestionnaireAnswers';
-        var encodedCred = $base64.encode(username + ':' + password);
+        var url = helper.baseUrl + '/QuestionnaireAnswers';
 
-        return  $http({
-            url: url,
-            method: 'POST',
-            data: regBody,
-            headers: {
-                'Authorization' : 'Basic ' + encodedCred,
-                'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
-            }
-        });
+        return helper.postCloudData(url, regBody);
     }
 
     var getItemPerSubject = function(items, searchValue){

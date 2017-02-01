@@ -1,11 +1,11 @@
-app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $location, $base64, AccountService, ReminderService) {
+app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $location, $base64, helper, AccountService, ReminderService) {
     return {
         login: function(credentials) {
             var data = "username=" +  encodeURIComponent(credentials.username) + "&password="
                 + encodeURIComponent(credentials.password) + "&grant_type=password&scope=read%20write&" +
                 "client_secret=mySecretOAuthSecret&client_id=welcomeapp";
             
-            return $http.post('http://welcome-test.exodussa.com/oauth/token', data, {
+            return $http.post(helper.hubUrl + '/oauth/token', data, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Accept": "application/json",
@@ -15,7 +15,7 @@ app.factory('AuthService', function loginService($rootScope, $http, $cookieStore
         },
         logout: function() {
             var self = this;
-            $http.post('http://welcome-test.exodussa.com/api/logout').then(function() {
+            $http.post(helper.hubUrl + '/api/logout').then(function() {
                 self.clearCredentials();
                 $location.path("/login");
                 ReminderService.clearReminders();

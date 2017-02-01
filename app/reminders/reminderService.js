@@ -1,4 +1,4 @@
-app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, diaryRepository, questionnairesRepository, medicationRepository) {
+app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepository, questionnairesRepository, medicationRepository) {
     var self = this;
 
     this.interval = null;
@@ -12,7 +12,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         if(!$rootScope.patient)
             return; 
         
-        return questionnairesRepository.getQuestionnaires('welk', 'welk', $rootScope.patient && $rootScope.patient.user.cloudRef, moment())
+        return questionnairesRepository.getQuestionnaires($rootScope.patient && $rootScope.patient.user.cloudRef, moment())
         .then(function(response) {
           return questionnairesRepository.decodeQuestionnaires(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
@@ -30,7 +30,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.getQuestionnaireUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(questionnairesRepository.getQuestionnaireByRef('welk', 'welk', ref));
+            promises.push(questionnairesRepository.getQuestionnaireByRef(ref));
         });
 
         return $q.all(promises);
@@ -49,7 +49,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         if(!$rootScope.patient)
             return; 
 
-        return diaryRepository.getAppointments('welk', 'welk', $rootScope.patient && $rootScope.patient.user.cloudRef, moment())
+        return diaryRepository.getAppointments($rootScope.patient && $rootScope.patient.user.cloudRef, moment())
         .then(function(response) {
           return diaryRepository.decodeAppointments(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
@@ -75,7 +75,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.getAppointmentUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getAppointmentByRef('welk', 'welk', ref));
+            promises.push(diaryRepository.getAppointmentByRef(ref));
         });
 
         return $q.all(promises);
@@ -109,7 +109,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     }
 
     this.getMedicationReminders = function() {
-      return medicationRepository.getMedications('welk', 'welk', $rootScope.patient && $rootScope.patient.user.cloudRef, moment())
+      return medicationRepository.getMedications($rootScope.patient && $rootScope.patient.user.cloudRef, moment())
       .then(function(response) {
         return medicationRepository.decodeMedications(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef);
       })
@@ -127,7 +127,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.getMedicationUriPromises = function(refs) {  
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(medicationRepository.getMedicationByRef('welk', 'welk', ref));
+            promises.push(medicationRepository.getMedicationByRef(ref));
         });
 
         return $q.all(promises);
@@ -146,7 +146,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
         if(!$rootScope.patient)
             return; 
 
-        return diaryRepository.getDevices('welk', 'welk', $rootScope.patient && $rootScope.patient.user.cloudRef)
+        return diaryRepository.getDevices($rootScope.patient && $rootScope.patient.user.cloudRef)
         .then(function(response) {
             return diaryRepository.decodeDevices(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef)
         })
@@ -177,7 +177,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.getDeviceUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getDeviceByRef('welk', 'welk', ref, formatDateForServer(moment())));
+            promises.push(diaryRepository.getDeviceByRef(ref, helper.formatDateForServer(moment())));
         });
 
         return $q.all(promises);
@@ -195,7 +195,7 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
     this.getDeviceRequestUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getDeviceRequestByRef ('welk', 'welk', ref));
+            promises.push(diaryRepository.getDeviceRequestByRef(ref));
         });
 
         return $q.all(promises);
@@ -386,9 +386,16 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
 
          angular.forEach(data, function(value, key) {
             angular.forEach(value.timingEvents, function(timingEvent) {
-                var parsedObject = {};
+                var parsedObject = {},
+                    date = moment(value.periodStart),
+                    dateTime = date.set({
+                      'hour': moment(timingEvent).get('hour'),
+                      'minute': moment(timingEvent).get('minute'),
+                      'second': moment(timingEvent).get('second')
+                    });
+
                 parsedObject.fullTitle = "Questionnaire" + value.questionnaire;
-                parsedObject.start = moment(timingEvent);
+                parsedObject.start = dateTime;
                 parsedData.push(parsedObject);
             });
         });
@@ -414,9 +421,16 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
 
         angular.forEach(data, function(value, key) {
           angular.forEach(value.timingEvents, function(timingEvent) {
-            var parsedObject = {};
+            var parsedObject = {},
+                date = moment(value.periodStart),
+                dateTime = date.set({
+                  'hour': moment(timingEvent).get('hour'),
+                  'minute': moment(timingEvent).get('minute'),
+                  'second': moment(timingEvent).get('second')
+                });
+
             parsedObject.fullTitle = "Medication " + value.medication + " - " + value.note;
-            parsedObject.start = moment(timingEvent);
+            parsedObject.start = dateTime;
             parsedData.push(parsedObject);
           });
         });
@@ -429,9 +443,16 @@ app.factory('ReminderService', function ($rootScope, $http, $q, $cookieStore, di
 
         angular.forEach(data, function(value, key) {
             angular.forEach(value.timingEvents, function(timingEvent) {
-                var parsedObject = {};
+                var parsedObject = {},
+                    date = moment(value.periodStart),
+                    dateTime = date.set({
+                      'hour': moment(timingEvent).get('hour'),
+                      'minute': moment(timingEvent).get('minute'),
+                      'second': moment(timingEvent).get('second')
+                    });
+
                 parsedObject.fullTitle = "Measurement " + value.device;
-                parsedObject.start = moment(timingEvent);
+                parsedObject.start = dateTime;
                 parsedData.push(parsedObject);
             });
         });

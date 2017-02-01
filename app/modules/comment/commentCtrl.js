@@ -1,4 +1,4 @@
-app.controller('commentCtrl', function($scope, commentRepository) {
+app.controller('commentCtrl', function($scope, commentRepository, helper) {
 	$scope.$emit('body:class:add', "transparent");
 	$scope.commentsToDisplay = null;
 
@@ -12,7 +12,7 @@ app.controller('commentCtrl', function($scope, commentRepository) {
 		})
 		.error(function() {
 			$scope.loading = false;
-			notify('Failed loading comments', 'danger'); 
+			helper.notify('Failed loading comments', 'danger'); 
 		});
 	}
 
@@ -61,11 +61,11 @@ app.controller('commentCtrl', function($scope, commentRepository) {
 
 	$scope.submitNewComment = function() {
 		if(!$scope.myComment || !$scope.myComment.length) {
-			notify('Please type your comment', 'warning'); 
+			helper.notify('Please type your comment', 'warning'); 
 			return false;
 		} else {
 			setTimeout(function() {
-				notify('Your comment has been submitted successfully!', 'success');
+				helper.notify('Your comment has been submitted successfully!', 'success');
 				$scope.loadComments();
 			}, 1000);
 		}

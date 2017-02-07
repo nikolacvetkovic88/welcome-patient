@@ -1,8 +1,7 @@
-app.factory('diaryRepository', function($http, $q, helper, AccountService) {
+app.factory('diaryRepository', function($http, $q, helper) {
 	var DiaryRepository = {};
-    var token = AccountService.getToken();
 
-    DiaryRepository.getDevices = function(patientId) {
+    DiaryRepository.getDevices = function(patientId, token) {
         var url =  helper.baseUrl + '/Patient/' + patientId + '/PortableBiomedicalSensorDevice'; 
 
         return helper.getCloudData(url, token);
@@ -31,10 +30,21 @@ app.factory('diaryRepository', function($http, $q, helper, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getDeviceByRef = function(url, start, end) {
-        url += '/DeviceUseRequest?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
-        if(end)
-            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
+    DiaryRepository.getDeviceByRef = function(url, start, end, token) {
+        url += '/DeviceUseRequest';
+        
+        if(start || end)
+            url += '?';
+
+        if(start) 
+            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
+
+        if(end) {
+            if(start)
+                url += '&';
+            
+            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
+        }
 
         return helper.getCloudData(url, token);
     }
@@ -62,7 +72,7 @@ app.factory('diaryRepository', function($http, $q, helper, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getDeviceRequestByRef  = function(url) {
+    DiaryRepository.getDeviceRequestByRef  = function(url, token) {
         return helper.getCloudData(url + "?depth=2&version=v2", token);
     }
 
@@ -191,10 +201,21 @@ app.factory('diaryRepository', function($http, $q, helper, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getAppointments = function(patientId, start, end) {
-        var url =  helper.baseUrl + '/Patient/' + patientId + '/Encounter?q=Period.start,afterEq,' + helper.formatDateForServer(start);
-        if(end)
-            url += '&q=Period.End,beforeEq,' + helper.formatDateForServer(end);
+    DiaryRepository.getAppointments = function(patientId, start, end, token) {
+        var url =  helper.baseUrl + '/Patient/' + patientId + '/Encounter';
+
+        if(start || end)
+            url += '?';
+
+        if(start) 
+            url += 'q=Period.start,afterEq,' + helper.formatDateForServer(start);
+
+        if(end) {
+            if(start)
+                url += '&';
+            
+            url += 'q=Period.end,beforeEq,' + helper.formatDateForServer(end);
+        }
 
         return helper.getCloudData(url, token);
     }
@@ -222,7 +243,7 @@ app.factory('diaryRepository', function($http, $q, helper, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getAppointmentByRef = function(url) {
+    DiaryRepository.getAppointmentByRef = function(url, token) {
         return helper.getCloudData(url, token);
     }
 
@@ -291,7 +312,7 @@ app.factory('diaryRepository', function($http, $q, helper, AccountService) {
         return defer.promise;
     }
 
-    DiaryRepository.getHCPByRef = function(cloudRef) {
+    DiaryRepository.getHCPByRef = function(cloudRef, token) {
         var url = helper.hubUrl + '/api/doctors/search/' + cloudRef;
 
         return helper.getHubData(url, token);

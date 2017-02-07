@@ -1,8 +1,6 @@
-app.factory('questionnairesRepository', function($http, $q, helper, AccountService) {
+app.factory('questionnairesRepository', function($http, $q, helper) {
     var QuestionnairesRepository = {},
         staticQuestionnairesUrl = 'app/modules/questionnaires/staticQuestionnaires.json';
-
-    var token = AccountService.getToken();
 
     QuestionnairesRepository.getStaticQuestionnaires =  function() {
         return $http( {
@@ -11,13 +9,21 @@ app.factory('questionnairesRepository', function($http, $q, helper, AccountServi
             });
     }
 
-    QuestionnairesRepository.getQuestionnaires = function(patientId, start, end) {
+    QuestionnairesRepository.getQuestionnaires = function(patientId, start, end, token) {
         var url =  helper.baseUrl + '/Patient/' + patientId + '/QuestionnaireOrder';       
 
-        if(start)
-            url += '?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start); 
-        if(end)
-            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
+        if(start || end)
+            url += '?';
+
+        if(start) 
+            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
+
+        if(end) {
+            if(start)
+                url += '&';
+
+            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
+        }
 
         return helper.getCloudData(url, token);
     }
@@ -45,7 +51,7 @@ app.factory('questionnairesRepository', function($http, $q, helper, AccountServi
         return defer.promise;
     }
 
-    QuestionnairesRepository.getQuestionnaireByRef = function(url) {
+    QuestionnairesRepository.getQuestionnaireByRef = function(url, token) {
         return helper.getCloudData(url, token);
     }
 
@@ -136,7 +142,7 @@ app.factory('questionnairesRepository', function($http, $q, helper, AccountServi
         return defer.promise;
     }
  
-    QuestionnairesRepository.postQuestion = function(username, password, questionId, answer) {
+    QuestionnairesRepository.postQuestion = function(questionId, answer, token) {
         var regBody =   '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\
                         @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\
                         @prefix FHIRct:   <http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#> .\
@@ -153,10 +159,10 @@ app.factory('questionnairesRepository', function($http, $q, helper, AccountServi
 
         var url = helper.baseUrl + '/QuestionAnswer';
 
-        return helper.postCloudData(url, regBody);        
+        return helper.postCloudData(url, regBody, token);        
     }
 
-    QuestionnairesRepository.postQuestionGroup = function(username, password, questionGroupId, score, questionAnswers) {
+    QuestionnairesRepository.postQuestionGroup = function(questionGroupId, score, questionAnswers, token) {
     	var regBody =  '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\
                         @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\
                         @prefix FHIRct:   <http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#> .\
@@ -179,10 +185,10 @@ app.factory('questionnairesRepository', function($http, $q, helper, AccountServi
 
         var url = helper.baseUrl + '/QuestionsGroupAnswers';
         
-        return helper.postCloudData(url, regBody);
+        return helper.postCloudData(url, regBody, token);
     }
 
-    QuestionnairesRepository.postQuestionnaire = function(username, password, patientId, questionnaireId, score, questionGroupAnswers) {
+    QuestionnairesRepository.postQuestionnaire = function(patientId, questionnaireId, score, questionGroupAnswers, token) {
         var regBody =   '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\
                         @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\
                         @prefix FHIRct:   <http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#> .\

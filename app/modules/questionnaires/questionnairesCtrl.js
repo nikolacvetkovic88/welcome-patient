@@ -1,6 +1,7 @@
-app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionnairesRepository) {
+app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionnairesRepository, AccountService) {
 	$scope.$emit('body:class:add', "transparent");
 	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
+	$scope.token = AccountService.getToken();
 
 	$scope.getAllStaticQuestionnaires = function(_callback) {
 		return questionnairesRepository.getStaticQuestionnaires()
@@ -10,7 +11,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.getAllAssignedQuestionnaires = function() {
-		return questionnairesRepository.getQuestionnaires($scope.patientId, moment())
+		return questionnairesRepository.getQuestionnaires($scope.patientId, moment(), null, $scope.token)
 		.then(function(response) {
 			return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
 		})
@@ -28,7 +29,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	$scope.getQuestionnaireUriPromises = function(refs) {
 		var promises = [];
 		angular.forEach(refs, function(ref) {
-			promises.push(questionnairesRepository.getQuestionnaireByRef(ref));
+			promises.push(questionnairesRepository.getQuestionnaireByRef(ref, $scope.token));
 		});
 
 		return $q.all(promises);
@@ -153,7 +154,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	$scope.postQuestionAnswers = function(questionAnswers) {
 		var promises = [];
 		angular.forEach(questionAnswers, function(questionAnswer) {
-			promises.push(questionnairesRepository.postQuestion(questionAnswer.questionId, questionAnswer.answer));
+			promises.push(questionnairesRepository.postQuestion(questionAnswer.questionId, questionAnswer.answer, $scope.token));
 		});
 
 		return $q.all(promises);
@@ -168,7 +169,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 				console.log(qa.headers().location, "Question group answer created");
 			});
 
-			promises.push(questionnairesRepository.postQuestionGroup(questionGroups[i].id, questionGroups[i].score, questionAnswers));
+			promises.push(questionnairesRepository.postQuestionGroup(questionGroups[i].id, questionGroups[i].score, questionAnswers, $scope.token));
 		});
 
 		return $q.all(promises);
@@ -181,7 +182,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 			console.log(ref.headers().location, "Questionnaire answer created");
 		});
 
-		return questionnairesRepository.postQuestionnaire($scope.patientId, questionnaire.id, questionnaire.score, questionGroupAnswers);
+		return questionnairesRepository.postQuestionnaire($scope.patientId, questionnaire.id, questionnaire.score, questionGroupAnswers, $scope.token);
 	}
 
     $scope.afterSubmit = function() {

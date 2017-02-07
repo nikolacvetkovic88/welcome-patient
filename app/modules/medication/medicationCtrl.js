@@ -1,11 +1,12 @@
-app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepository) {
+app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepository, AccountService) {
 	$scope.$emit('body:class:add', "transparent");
 	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
+    $scope.token = AccountService.getToken();
 
 	$scope.getAllMedications = function() {
         $scope.loading = true;
         
-        medicationRepository.getMedications($scope.patientId, moment())
+        medicationRepository.getMedications($scope.patientId, moment(), null, $scope.token)
         .then(function(response) {
         	return medicationRepository.decodeMedications(response.data, $scope.patientId);
         })
@@ -24,7 +25,7 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
 	$scope.getMedicationUriPromises = function(refs) {	
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(medicationRepository.getMedicationByRef(ref));
+            promises.push(medicationRepository.getMedicationByRef(ref, $scope.token));
         });
 
         return $q.all(promises);

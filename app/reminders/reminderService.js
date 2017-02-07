@@ -1,4 +1,4 @@
-app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepository, questionnairesRepository, medicationRepository) {
+app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepository, questionnairesRepository, medicationRepository, AccountService) {
     var self = this;
 
     this.interval = null;
@@ -7,12 +7,13 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.appointments = [];
     this.medications = [];
     this.measurements = [];
+    this.token = null;
 
     this.getQuestionnaireReminders = function() {
         if(!$rootScope.patient)
             return; 
         
-        return questionnairesRepository.getQuestionnaires($rootScope.patient && $rootScope.patient.user.cloudRef, moment())
+        return questionnairesRepository.getQuestionnaires($rootScope.patient && $rootScope.patient.user.cloudRef, moment(), moment().add(1, 'days'), self.token)
         .then(function(response) {
           return questionnairesRepository.decodeQuestionnaires(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
@@ -30,7 +31,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.getQuestionnaireUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(questionnairesRepository.getQuestionnaireByRef(ref));
+            promises.push(questionnairesRepository.getQuestionnaireByRef(ref, self.token));
         });
 
         return $q.all(promises);
@@ -49,7 +50,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         if(!$rootScope.patient)
             return; 
 
-        return diaryRepository.getAppointments($rootScope.patient && $rootScope.patient.user.cloudRef, moment())
+        return diaryRepository.getAppointments($rootScope.patient && $rootScope.patient.user.cloudRef, moment(), moment().add(1, 'days'), self.token)
         .then(function(response) {
           return diaryRepository.decodeAppointments(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
@@ -75,7 +76,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.getAppointmentUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getAppointmentByRef(ref));
+            promises.push(diaryRepository.getAppointmentByRef(ref, self.token));
         });
 
         return $q.all(promises);
@@ -93,7 +94,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.getAppointmentHCPData = function(appointments) {
         var promises = [];
         angular.forEach(appointments, function(appointment) {
-          promises.push(diaryRepository.getHCPByRef(appointment.hcpRef));
+          promises.push(diaryRepository.getHCPByRef(appointment.hcpRef, self.token));
         });
 
         return $q.all(promises);
@@ -109,7 +110,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     }
 
     this.getMedicationReminders = function() {
-      return medicationRepository.getMedications($rootScope.patient && $rootScope.patient.user.cloudRef, moment())
+      return medicationRepository.getMedications($rootScope.patient && $rootScope.patient.user.cloudRef, moment(), moment().add(1, 'days'), self.token)
       .then(function(response) {
         return medicationRepository.decodeMedications(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef);
       })
@@ -127,7 +128,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.getMedicationUriPromises = function(refs) {  
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(medicationRepository.getMedicationByRef(ref));
+            promises.push(medicationRepository.getMedicationByRef(ref, self.token));
         });
 
         return $q.all(promises);
@@ -146,7 +147,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         if(!$rootScope.patient)
             return; 
 
-        return diaryRepository.getDevices($rootScope.patient && $rootScope.patient.user.cloudRef)
+        return diaryRepository.getDevices($rootScope.patient && $rootScope.patient.user.cloudRef, self.token)
         .then(function(response) {
             return diaryRepository.decodeDevices(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef)
         })
@@ -177,7 +178,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.getDeviceUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getDeviceByRef(ref, helper.formatDateForServer(moment())));
+            promises.push(diaryRepository.getDeviceByRef(ref, moment(), moment().add(1, 'days'), self.token));
         });
 
         return $q.all(promises);
@@ -195,7 +196,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.getDeviceRequestUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getDeviceRequestByRef(ref));
+            promises.push(diaryRepository.getDeviceRequestByRef(ref, self.token));
         });
 
         return $q.all(promises);
@@ -349,7 +350,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
       
         var message = todayMessage + '\r\n' + tomorrowMessage;
         if(todayMessage || tomorrowMessage)
-            bootxbo.alert("div class='text-info'>" + message + "</div>");
+            bootbox.alert("<div class='text-info'>" + message + "</div>");
     }
 
     this.checkReminder = function(reminder) {
@@ -381,33 +382,65 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         };
     }
 
+    this.parseDates = function(data) {
+        var dates = [],
+            timings = [],
+            period = data.period,
+            periodUnit = data.periodUnit,
+            start = moment(data.periodStart),
+            end = moment(data.periodEnd),
+            current = start;
+
+        while(current < end) {
+          dates = dates.concat(self.addTimings(current, data.timingEvents));
+          current = self.addPeriod(current, period, periodUnit);
+        }
+        dates = dates.concat(self.addTimings(end, data.timingEvents));
+
+        return dates;
+    }
+ 
+    this.addPeriod = function(date, period, periodUnit) {
+        return moment(date).add(period, periodUnit);
+    }
+
+    this.addTimings = function(date, timings) {
+        var dateTimes = [];
+        $.each(timings, function(i, timing) {
+          var dateTime = date.set({
+                'hour': moment(timing).get('hour'),
+                'minute': moment(timing).get('minute'),
+                'second': moment(timing).get('second')
+              });
+
+          dateTimes.push(dateTime);
+        });
+
+        return dateTimes;
+    }
+
     this.parseQuestionnaires = function(data) {
         var parsedData = [];
-
-         angular.forEach(data, function(value, key) {
-            angular.forEach(value.timingEvents, function(timingEvent) {
-                var parsedObject = {},
-                    date = moment(value.periodStart),
-                    dateTime = date.set({
-                      'hour': moment(timingEvent).get('hour'),
-                      'minute': moment(timingEvent).get('minute'),
-                      'second': moment(timingEvent).get('second')
-                    });
-
-                parsedObject.fullTitle = "Questionnaire" + value.questionnaire;
-                parsedObject.start = dateTime;
-                parsedData.push(parsedObject);
-            });
+        angular.forEach(data, function(value, key) {
+          var dates = $scope.parseDates(value);
+          angular.forEach(dates, function(date) {
+            var parsedObject = {};
+            parsedObject.title = value.questionnaire;
+            parsedObject.fullTitle = "Questionnaire " + value.questionnaire;
+            parsedObject.start = date;
+            parsedData.push(parsedObject);
+          });
         });
 
         return parsedData;
-    } 
-
+    }
+       
     this.parseAppointments = function(data, hcpData) {
         var parsedData = [];
 
         angular.forEach(data, function(value, key) {
             var parsedObject = {};
+            parsedObject.title - value.comment;
             parsedObject.fullTitle = "Appointment " + value.comment + " with " + hcpData[key].specialty + " " + hcpData[key].user.firstName + " " + hcpData[key].user.lastName + " - " + value.status;
             parsedObject.start = moment(value.periodStart);
             parsedData.push(parsedObject);
@@ -418,19 +451,13 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
 
     this.parseMedications = function(data) {
         var parsedData = [];
-
         angular.forEach(data, function(value, key) {
-          angular.forEach(value.timingEvents, function(timingEvent) {
-            var parsedObject = {},
-                date = moment(value.periodStart),
-                dateTime = date.set({
-                  'hour': moment(timingEvent).get('hour'),
-                  'minute': moment(timingEvent).get('minute'),
-                  'second': moment(timingEvent).get('second')
-                });
-
+          var dates = $scope.parseDates(value);
+          angular.forEach(dates, function(date) {
+            var parsedObject = {};
+            parsedObject.title = value.medication;
             parsedObject.fullTitle = "Medication " + value.medication + " - " + value.note;
-            parsedObject.start = dateTime;
+            parsedObject.start = date;
             parsedData.push(parsedObject);
           });
         });
@@ -440,21 +467,15 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
 
     this.parseDevices = function(data) {
         var parsedData = [];
-
         angular.forEach(data, function(value, key) {
-            angular.forEach(value.timingEvents, function(timingEvent) {
-                var parsedObject = {},
-                    date = moment(value.periodStart),
-                    dateTime = date.set({
-                      'hour': moment(timingEvent).get('hour'),
-                      'minute': moment(timingEvent).get('minute'),
-                      'second': moment(timingEvent).get('second')
-                    });
-
-                parsedObject.fullTitle = "Measurement " + value.device;
-                parsedObject.start = dateTime;
-                parsedData.push(parsedObject);
-            });
+          var dates = $scope.parseDates(value);
+          angular.forEach(dates, function(date) {
+            var parsedObject = {};
+            parsedObject.title = value.device;
+            parsedObject.fullTitle = helper.formatDateTimeForUser(date) + " Measurement " + value.device;
+            parsedObject.start = date;
+            parsedData.push(parsedObject);
+          });
         });
 
         return parsedData;
@@ -465,6 +486,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         if($rootScope.reminderInterval < 0)
             return;
 
+        self.token = AccountService.getToken();
         return $q.all([self.getQuestionnaireReminders(), self.getAppointmentReminders(), self.getMedicationReminders(), self.getDeviceReminders()])
         .then(function() {
             self.checkReminders();

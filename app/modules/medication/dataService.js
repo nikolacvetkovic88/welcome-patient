@@ -1,14 +1,21 @@
-app.factory('medicationRepository', function($http, $q, helper, AccountService) {
+app.factory('medicationRepository', function($http, $q, helper) {
 	var MedicationRepository = {};
-    var token = AccountService.getToken();
 
-	MedicationRepository.getMedications = function(patientId, start, end) {
+	MedicationRepository.getMedications = function(patientId, start, end, token) {
 		var url =  helper.baseUrl + '/Patient/' + patientId + '/MedicationPrescription';
 
-        if(start)
-            url += '?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
-        if(end)
-            url += '&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
+        if(start || end)
+            url += '?';
+
+        if(start) 
+            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
+
+        if(end) {
+            if(start)
+                url += '&';
+            
+            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
+        }
 
 		return helper.getCloudData(url, token);
     }
@@ -36,7 +43,7 @@ app.factory('medicationRepository', function($http, $q, helper, AccountService) 
 		return defer.promise;
     }
 
-    MedicationRepository.getMedicationByRef = function(url) {
+    MedicationRepository.getMedicationByRef = function(url, token) {
         return helper.getCloudData(url, token);
     }
 

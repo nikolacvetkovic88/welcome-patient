@@ -1,7 +1,7 @@
 app.factory('helper', function($http, $base64) {
 	var helper = {};
 
-    helper.baseUrl = "https://cloud-welcome-project.eu/api/data";
+    helper.baseUrl = "https://cloud-welcome-project.eu/api/data";//http://aerospace.med.auth.gr:8080/welcome/api/data/
     helper.hubUrl = "http://welcome-test.exodussa.com";
 
 	helper.getCloudData = function(url, x_token) {
@@ -19,15 +19,15 @@ app.factory('helper', function($http, $base64) {
 	    });
 	}
 
-	helper.getHubData = function(url, token) {
+	helper.getHubData = function(url, x_token) {
 		return $http.get(url, {
             headers: {
-                "Authorization": "Bearer" + token
+                "Authorization": "Bearer" + x_token
             }
        });
 	}
 
-	helper.postCloudData = function(url, data) {
+	helper.postCloudData = function(url, data, x_token) {
 		var encodedCred = $base64.encode('welk' + ':' + 'welk');
 
 		return  $http({
@@ -37,7 +37,8 @@ app.factory('helper', function($http, $base64) {
             headers: {
                 'Authorization' : 'Basic ' + encodedCred,
                 'Accept' : 'text/turtle',
-                'Content-Type' : 'text/turtle'
+                'Content-Type' : 'text/turtle',
+                'X-Token': x_token
             }
         });
 	}

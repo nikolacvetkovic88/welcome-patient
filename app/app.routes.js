@@ -21,14 +21,14 @@ app.config(function($routeProvider) {
             controller: 'diaryCtrl'
         })
 
-        .when('/comment', {
-            templateUrl : 'app/modules/comment/commentView.html',
-            controller: 'commentCtrl'
+        .when('/comments', {
+            templateUrl : 'app/modules/comments/commentsView.html',
+            controller: 'commentsCtrl'
         })
 
-        .when('/medication', {
-            templateUrl : 'app/modules/medication/medicationView.html',
-            controller: 'medicationCtrl'
+        .when('/medications', {
+            templateUrl : 'app/modules/medications/medicationsView.html',
+            controller: 'medicationsCtrl'
         })
 
         .when('/questionnaires', {

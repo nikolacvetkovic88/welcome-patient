@@ -1,4 +1,4 @@
-app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepository, questionnairesRepository, medicationRepository, helper, AccountService) {
+app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepository, questionnairesRepository, medicationsRepository, helper, AccountService) {
   $scope.$emit('body:class:add', "transparent");
   $scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
   $scope.eventSources = [];
@@ -41,7 +41,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryAppointments = function() {
-    return diaryRepository.getAppointments($scope.patientId, $scope.getQueryParams(), $scope.token)
+    return diaryRepository.getAppointments($scope.patientId, $scope.getQueryParams("appointment"), $scope.token)
     .then(function(response) {
       return diaryRepository.decodeAppointments(response.data, $scope.patientId); 
     })
@@ -101,9 +101,9 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryMedications = function() {
-      return medicationRepository.getMedications($scope.patientId, $scope.getQueryParams(), $scope.token)
+      return medicationsRepository.getMedications($scope.patientId, $scope.getQueryParams(), $scope.token)
       .then(function(response) {
-        return medicationRepository.decodeMedications(response.data, $scope.patientId);
+        return medicationsRepository.decodeMedications(response.data, $scope.patientId);
       })
       .then(function(prescriptionRefs) {
         return $scope.getMedicationUriPromises(prescriptionRefs);
@@ -119,7 +119,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getMedicationUriPromises = function(refs) {  
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(medicationRepository.getMedicationByRef(ref, $scope.token));
+        promises.push(medicationsRepository.getMedicationByRef(ref, $scope.token));
     });
 
     return $q.all(promises);
@@ -128,7 +128,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getMedications = function(medications) {
     var promises = [];
     angular.forEach(medications, function(medication) {
-        promises.push(medicationRepository.decodeMedication(medication.data));
+        promises.push(medicationsRepository.decodeMedication(medication.data));
     });
 
     return $q.all(promises);
@@ -199,8 +199,22 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     return $q.all(promises);
   }
 
-  $scope.getQueryParams = function() {
+  $scope.getQueryParams = function(mode) {
     var params = "";
+
+    if(mode == "appointment") {
+       if($scope.start) 
+        params = "?q=Period.start,afterEq," + helper.formatDateForServer($scope.start);
+
+      if($scope.end) {
+          if($scope.start)
+            params += "&";
+          else 
+            params += "?";
+          
+          params += 'q=Period.end,beforeEq,' + helper.formatDateForServer($scope.end);
+      }
+    } else {
       if($scope.start) 
         params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq," + helper.formatDateForServer($scope.start);
 
@@ -212,6 +226,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
           
           params += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer($scope.end);
       }
+    }
 
     return params;
   }

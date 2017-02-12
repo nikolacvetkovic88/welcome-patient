@@ -56,7 +56,7 @@ app.factory('helper', function($http, $base64) {
 	}
 
 	helper.formatDateTimeForServer = function(dateTime) {
-		return moment(dateTime).format("YYYY-MM-DDTHH:mm:ssZ");
+		return moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
 	}
 
 	helper.notify = function(message, type) {

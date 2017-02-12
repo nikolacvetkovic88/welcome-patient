@@ -7,7 +7,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.token = AccountService.getToken();
 
   $scope.getDiaryQuestionnaires = function() {
-    return questionnairesRepository.getQuestionnaires($scope.patientId, $scope.start, $scope.end, $scope.token)
+    return questionnairesRepository.getQuestionnaires($scope.patientId, $scope.getQueryParams(), $scope.token)
     .then(function(response) {
       return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
     })
@@ -41,7 +41,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryAppointments = function() {
-    return diaryRepository.getAppointments($scope.patientId, $scope.start, $scope.end, $scope.token)
+    return diaryRepository.getAppointments($scope.patientId, $scope.getQueryParams(), $scope.token)
     .then(function(response) {
       return diaryRepository.decodeAppointments(response.data, $scope.patientId); 
     })
@@ -101,7 +101,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryMedications = function() {
-      return medicationRepository.getMedications($scope.patientId, $scope.start, $scope.end, $scope.token)
+      return medicationRepository.getMedications($scope.patientId, $scope.getQueryParams(), $scope.token)
       .then(function(response) {
         return medicationRepository.decodeMedications(response.data, $scope.patientId);
       })
@@ -166,7 +166,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getDeviceUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(diaryRepository.getDeviceByRef(ref, $scope.start, $scope.end, $scope.token));
+        promises.push(diaryRepository.getDeviceByRef(ref, $scope.getQueryParams(), $scope.token));
     });
 
     return $q.all(promises);
@@ -197,6 +197,23 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     });
 
     return $q.all(promises);
+  }
+
+  $scope.getQueryParams = function() {
+    var params = "";
+      if($scope.start) 
+        params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq," + helper.formatDateForServer($scope.start);
+
+      if($scope.end) {
+          if($scope.start)
+            params += "&";
+          else 
+            params += "?";
+          
+          params += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer($scope.end);
+      }
+
+    return params;
   }
 
   $scope.parseDates = function(data) {

@@ -9,27 +9,16 @@ app.factory('questionnairesRepository', function($http, $q, helper) {
             });
     }
 
-    QuestionnairesRepository.getQuestionnaires = function(patientId, start, end, token) {
+    QuestionnairesRepository.getQuestionnaires = function(patientId, queryParams, token) {
         var url =  helper.baseUrl + '/Patient/' + patientId + '/QuestionnaireOrder';       
-
-        if(start || end)
-            url += '?';
-
-        if(start) 
-            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
-
-        if(end) {
-            if(start)
-                url += '&';
-
-            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
-        }
-
+        if(queryParams)
+            url += queryParams;
+       
         return helper.getCloudData(url, token);
     }
 
     QuestionnairesRepository.decodeQuestionnaires = function(data, patientId) {
-        var subject = "http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/" + patientId + "/QuestionnaireOrder";
+        var subject = "https://cloud-welcome-project.eu/api/data/Patient/" + patientId + "/QuestionnaireOrder";
         var predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
         var parser = N3.Parser();
         var N3Util = N3.Util;
@@ -204,10 +193,10 @@ app.factory('questionnairesRepository', function($http, $q, helper) {
                               rdf:value "' + helper.formatDateTimeForServer(moment()) + '"^^xsd:dateTime ;\
                             ] ;\
                           <http://lomi.med.auth.gr/ontologies/FHIRResources#QuestionnaireAnswers.status> FHIRResources:QuestionnaireAnswersStatus_completed ;\
-                          FHIRResources:author <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;\
+                          FHIRResources:author <https://cloud-welcome-project.eu/api/data/Patient/' + patientId + '> ;\
                           FHIRResources:questionnaire WELCOME_entities:' + questionnaireId + ' ;\
-                          FHIRResources:source <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;\
-                          FHIRResources:subject <http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/' + patientId + '> ;\
+                          FHIRResources:source <https://cloud-welcome-project.eu/api/data/Patient/' + patientId + '> ;\
+                          FHIRResources:subject <https://cloud-welcome-project.eu/api/data/Patient/' + patientId + '> ;\
                           <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#QuestionnaireAnswers.score> [\
                               rdf:type FHIRpt:decimal ;\
                               rdf:value "' + score + '"^^xsd:decimal ;\

@@ -1,4 +1,4 @@
-app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepository, AccountService) {
+app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepository, helper, AccountService) {
 	$scope.$emit('body:class:add', "transparent");
 	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
     $scope.token = AccountService.getToken();
@@ -6,7 +6,7 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
 	$scope.getAllMedications = function() {
         $scope.loading = true;
         
-        medicationRepository.getMedications($scope.patientId, moment(), null, $scope.token)
+        medicationRepository.getMedications($scope.patientId, $scope.getQueryParams(), $scope.token)
         .then(function(response) {
         	return medicationRepository.decodeMedications(response.data, $scope.patientId);
         })
@@ -38,6 +38,14 @@ app.controller('medicationCtrl', function($scope, $rootScope, $q, medicationRepo
         });
 
         return $q.all(promises);
+    }
+
+    $scope.getQueryParams = function() {
+        var params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer(moment());
+        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
+        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq," +  helper.formatDateForServer(moment().add(1, 'month'));
+
+        return params;
     }
 
     $scope.refresh = function() {

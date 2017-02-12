@@ -1,4 +1,4 @@
-app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionnairesRepository, AccountService) {
+app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionnairesRepository, helper, AccountService) {
 	$scope.$emit('body:class:add', "transparent");
 	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
 	$scope.token = AccountService.getToken();
@@ -11,7 +11,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.getAllAssignedQuestionnaires = function() {
-		return questionnairesRepository.getQuestionnaires($scope.patientId, moment(), null, $scope.token)
+		return questionnairesRepository.getQuestionnaires($scope.patientId, $scope.getQueryParams(), $scope.token)
 		.then(function(response) {
 			return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
 		})
@@ -43,6 +43,14 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 
 		return $q.all(promises);
 	}
+
+	$scope.getQueryParams = function() {
+        var params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer(moment());
+        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
+        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq," +  helper.formatDateForServer(moment().add(1, 'month'));
+
+        return params;
+    }
 
 	$scope.parseData = function(questionnaires) {
 		var activeAssignedQuestionnaires = [];

@@ -8,7 +8,7 @@ app.factory('diaryRepository', function($http, $q, helper) {
     }
 
     DiaryRepository.decodeDevices  = function(data, patientId) {
-        var subject = "http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/" + patientId + "/PortableBiomedicalSensorDevice";
+        var subject = "https://cloud-welcome-project.eu/api/data/Patient/" + patientId + "/PortableBiomedicalSensorDevice";
         var predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
         var parser = N3.Parser();
         var N3Util = N3.Util;
@@ -30,27 +30,16 @@ app.factory('diaryRepository', function($http, $q, helper) {
         return defer.promise;
     }
 
-    DiaryRepository.getDeviceByRef = function(url, start, end, token) {
+    DiaryRepository.getDeviceByRef = function(url, queryParams, token) {
         url += '/DeviceUseRequest';
-        
-        if(start || end)
-            url += '?';
-
-        if(start) 
-            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
-
-        if(end) {
-            if(start)
-                url += '&';
-            
-            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
-        }
+        if(queryParams)
+        	url += queryParams;
 
         return helper.getCloudData(url, token);
     }
 
     DiaryRepository.decodeDevice = function(data) {
-        var partSubject = "http://aerospace.med.auth.gr:8080/welcome/api/data/PortableBiomedicalSensorDevice/";
+        var partSubject = "https://cloud-welcome-project.eu/api/data/PortableBiomedicalSensorDevice/";
         var predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
         var parser = N3.Parser();
         var N3Util = N3.Util;
@@ -201,27 +190,17 @@ app.factory('diaryRepository', function($http, $q, helper) {
         return defer.promise;
     }
 
-    DiaryRepository.getAppointments = function(patientId, start, end, token) {
+    DiaryRepository.getAppointments = function(patientId, queryParams, token) {
         var url =  helper.baseUrl + '/Patient/' + patientId + '/Encounter';
 
-        if(start || end)
-            url += '?';
-
-        if(start) 
-            url += 'q=Period.start,afterEq,' + helper.formatDateForServer(start);
-
-        if(end) {
-            if(start)
-                url += '&';
-            
-            url += 'q=Period.end,beforeEq,' + helper.formatDateForServer(end);
-        }
+        if(queryParams)
+        	url += queryParams;
 
         return helper.getCloudData(url, token);
     }
 
     DiaryRepository.decodeAppointments = function(data, patientId) {
-        var subject = "http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/" + patientId + "/Encounter";
+        var subject = "https://cloud-welcome-project.eu/api/data/Patient/" + patientId + "/Encounter";
         var predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
         var parser = N3.Parser();
         var N3Util = N3.Util;

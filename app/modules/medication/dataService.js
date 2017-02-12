@@ -1,27 +1,16 @@
 app.factory('medicationRepository', function($http, $q, helper) {
 	var MedicationRepository = {};
 
-	MedicationRepository.getMedications = function(patientId, start, end, token) {
+	MedicationRepository.getMedications = function(patientId, queryParams, token) {
 		var url =  helper.baseUrl + '/Patient/' + patientId + '/MedicationPrescription';
-
-        if(start || end)
-            url += '?';
-
-        if(start) 
-            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq,' + helper.formatDateForServer(start);
-
-        if(end) {
-            if(start)
-                url += '&';
-            
-            url += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer(end);
-        }
+        if(queryParams)
+            url += queryParams;
 
 		return helper.getCloudData(url, token);
     }
 
     MedicationRepository.decodeMedications = function(data, patientId) {
-    	var subject = "http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/" + patientId + "/MedicationPrescription";
+    	var subject = "https://cloud-welcome-project.eu/api/data/Patient/" + patientId + "/MedicationPrescription";
     	var predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     	var parser = N3.Parser();
         var N3Util = N3.Util;

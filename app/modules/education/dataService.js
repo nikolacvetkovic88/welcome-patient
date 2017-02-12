@@ -16,7 +16,7 @@ app.factory('educationRepository', function($base64, $http, $q, helper) {
     }
 
     EducationRepository.decodeEducationMaterial = function(data, patientId) {
-    	var subject = "http://aerospace.med.auth.gr:8080/welcome/api/data/Patient/" + patientId + "/PhaProgramOrder";
+    	var subject = "https://cloud-welcome-project.eu/api/data/Patient/" + patientId + "/PhaProgramOrder";
     	var predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
     	var parser = N3.Parser();
         var N3Util = N3.Util;

@@ -1,4 +1,4 @@
-app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepository, questionnairesRepository, medicationRepository, AccountService) {
+app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepository, questionnairesRepository, medicationRepository, helper, AccountService) {
     var self = this;
 
     this.interval = null;
@@ -13,7 +13,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         if(!$rootScope.patient)
             return; 
         
-        return questionnairesRepository.getQuestionnaires($rootScope.patient && $rootScope.patient.user.cloudRef, moment(), moment().add(1, 'days'), self.token)
+        return questionnairesRepository.getQuestionnaires($rootScope.patient && $rootScope.patient.user.cloudRef, this.getQueryParams(), self.token)
         .then(function(response) {
           return questionnairesRepository.decodeQuestionnaires(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
@@ -50,7 +50,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         if(!$rootScope.patient)
             return; 
 
-        return diaryRepository.getAppointments($rootScope.patient && $rootScope.patient.user.cloudRef, moment(), moment().add(1, 'days'), self.token)
+        return diaryRepository.getAppointments($rootScope.patient && $rootScope.patient.user.cloudRef, this.getQueryParams(), self.token)
         .then(function(response) {
           return diaryRepository.decodeAppointments(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
@@ -110,7 +110,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     }
 
     this.getMedicationReminders = function() {
-      return medicationRepository.getMedications($rootScope.patient && $rootScope.patient.user.cloudRef, moment(), moment().add(1, 'days'), self.token)
+      return medicationRepository.getMedications($rootScope.patient && $rootScope.patient.user.cloudRef, this.getQueryParams(), self.token)
       .then(function(response) {
         return medicationRepository.decodeMedications(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef);
       })
@@ -178,7 +178,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.getDeviceUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getDeviceByRef(ref, moment(), moment().add(1, 'days'), self.token));
+            promises.push(diaryRepository.getDeviceByRef(ref, this.getQueryParams(), self.token));
         });
 
         return $q.all(promises);
@@ -209,6 +209,14 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         });
 
         return $q.all(promises);
+    }
+
+    this.getQueryParams = function() {
+        var params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer(moment());
+        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
+        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq," +  helper.formatDateForServer(moment().add(1, 'month'));
+
+        return params;
     }
 
     this.initRemindersInterval = function() {

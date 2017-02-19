@@ -4,6 +4,12 @@
 
 <div class="row">
   <div class="col-sm-3">
+    <div class="form-group">
+      <select id="hcps-list" ng-options="o.specialty + ' ' + o.firstName + ' ' + o.lastName for o in hcps track by o.id" ng-model="hcp" class="form-control" data-style="btn-info" dropDown>
+        <option value="">Choose HCP...</option>
+      </select>
+    </div>
+
     <div class="btn-group-vertical" style="width: 100%">
       <button type="button" class="btn btn-default" ng-click="setType('current')">
       Current Comments
@@ -14,14 +20,30 @@
     </div>
   </div>
 
-  <div class="col-sm-9" ng-hide="type=='new'">
-    <div ng-repeat="message in messages">
-      <div class="row">
-        {{message.sender}}:
+  <div class="col-sm-9 panel panel-default" ng-show="type=='current'">
+    <div class="panel-body">
+      <div ng-repeat="message in messages">
+        <div class="row" ng-if="message.sender != myself">
+          <div>{{message.sender}}:</div>
+          <div class="text-info">
+            <div>{{message.message}}</div>
+            <div style="font-size: 11px;">{{message.dateSent}}</div>
+          </div>
+        </div>
+
+        <div class="row text-right" ng-if="message.sender == myself">
+          <div>{{message.sender}}:</div>
+          <div class="text-info">
+            <div>{{message.message}}</div>
+            <div style="font-size: 11px;">{{message.dateSent}}</div>
+          </div>
+        </div>
       </div>
-      <div class="row text-info">
-        <div>{{message.message}}</div>
-        <div style="font-size: 10px;">{{message.dateSent}}</div>
+      <div class="text-center" ng-if="!messages.length">
+         <button type="button" class="btn btn-primary" ng-click="loadMessages()">Load Messages</button>
+      </div>
+      <div class="text-center" ng-if="messages.length">
+         <button type="button" class="btn btn-primary" ng-click="loadMessages()">Load More</button>
       </div>
     </div>
   </div>
@@ -32,7 +54,7 @@
       <textarea class="form-control" rows="7" id="comment" placeholder="Type your comment here..." ng-model="message"></textarea>
     </div>
     <div class="text-center">
-      <button type="button" class="btn btn-success" ng-click="postComment()">Submit</button>
+      <button type="button" class="btn btn-success" ng-click="postMessage()">Submit</button>
     </div>
   </div>  
 </div>

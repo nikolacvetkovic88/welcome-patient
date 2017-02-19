@@ -101,7 +101,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryMedications = function() {
-      return medicationsRepository.getMedications($scope.patientId, $scope.getQueryParams(), $scope.token)
+      return medicationsRepository.getMedications($scope.patientId, $scope.getQueryParams("medication"), $scope.token)
       .then(function(response) {
         return medicationsRepository.decodeMedications(response.data, $scope.patientId);
       })
@@ -213,6 +213,18 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
             params += "?";
           
           params += 'q=Period.end,beforeEq,' + helper.formatDateForServer($scope.end);
+      }
+    } else if (mode == "medication") {
+      if($scope.start) 
+        params = "?q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.start,afterEq," + helper.formatDateForServer($scope.start);
+
+      if($scope.end) {
+          if($scope.start)
+            params += "&";
+          else 
+            params += "?";
+          
+          params += 'q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer($scope.end);
       }
     } else {
       if($scope.start) 

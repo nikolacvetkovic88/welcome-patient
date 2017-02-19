@@ -41,9 +41,9 @@ app.controller('medicationsCtrl', function($scope, $rootScope, $q, medicationsRe
     }
 
     $scope.getQueryParams = function() {
-        var params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer(moment());
-        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
-        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq," +  helper.formatDateForServer(moment().add(1, 'month'));
+        var params = "?q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer(moment());
+        params += "&q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
+        params += "&q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq," +  helper.formatDateForServer(moment().add(1, 'month'));
 
         return params;
     }

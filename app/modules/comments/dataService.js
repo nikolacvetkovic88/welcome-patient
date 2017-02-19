@@ -22,7 +22,7 @@ app.factory('commentsRepository', function($http, $q, helper) {
                 if (triple) {
                     if(triple && triple.subject === subject && triple.predicate != predicate)
                         messageRefs.push(triple.object);
-                }else if(error) {
+                } else if(error) {
                     console.log(error);
                 }
                 else
@@ -57,12 +57,12 @@ app.factory('commentsRepository', function($http, $q, helper) {
                     if(N3Util.isBlank(triple.object) && N3Util.isIRI(triple.subject) &&
                         (triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRResources#Communication.sent" || triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRResources#Communication.received")) {
                         if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRResources#Communication.sent" ) {
-                            messageObj.dateSent = getDatePerSubject(dates, triple.object);
+                            messageObj.dateSent = getItemPerSubject(dates, triple.object);
                             return;
                         }
 
                         if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRResources#Communication.received" ) {
-                            messageObj.dateReceived = getDatePerSubject(dates, triple.object);
+                            messageObj.dateReceived = getItemPerSubject(dates, triple.object);
                             return;
                         }
 

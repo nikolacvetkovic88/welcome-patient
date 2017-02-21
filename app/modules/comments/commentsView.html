@@ -24,26 +24,26 @@
     <div class="panel-body">
       <div ng-repeat="message in messages">
         <div class="row" ng-if="message.sender != myself">
-          <div>{{message.sender}}:</div>
+          <div>{{message.message}}</div>
           <div class="text-info">
-            <div>{{message.message}}</div>
+            <div>{{message.sender}}</div>
             <div style="font-size: 11px;">{{message.dateSent}}</div>
           </div>
         </div>
 
         <div class="row text-right" ng-if="message.sender == myself">
-          <div>{{message.sender}}:</div>
+          <div>{{message.message}}</div>
           <div class="text-info">
-            <div>{{message.message}}</div>
+            <div>{{message.sender}}</div>
             <div style="font-size: 11px;">{{message.dateSent}}</div>
           </div>
         </div>
       </div>
       <div class="text-center" ng-if="!messages.length">
-         <button type="button" class="btn btn-primary" ng-click="loadMessages()">Load Messages</button>
+         <button type="button" class="btn btn-primary" ng-click="loadMessages()" ng-hide="loading">Load Messages</button>
       </div>
       <div class="text-center" ng-if="messages.length">
-         <button type="button" class="btn btn-primary" ng-click="loadMessages()">Load More</button>
+         <button type="button" class="btn btn-primary" ng-click="loadMessages()" ng-show="messages.length < total && !loading">Load More</button>
       </div>
     </div>
   </div>

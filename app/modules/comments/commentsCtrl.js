@@ -7,9 +7,11 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 	$scope.message = null;
 	$scope.messages = [];
 	$scope.myself = "Me";
+	$scope.offset = 0;
+	$scope.limit = 20;
 	$scope.token = AccountService.getToken();
 
-    $scope.loadMessages = function() {
+    $scope.loadMessages = function(mode) {
     	if(!$scope.hcp) {
     		helper.notify('Please select HCP', 'warning'); 
     		return;
@@ -28,7 +30,8 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 			return $scope.getMessages(messages);
 		}).then(function(results) {
 			var messages = $scope.messages;
-			$scope.messages = $scope.sortData(messages.concat($scope.parseData(results)), false);
+			$scope.messages = $scope.sortData(messages.concat($scope.parseData(results)), true);
+			$scope.offset += $scope.limit;
 			$scope.loading = false;
 		});
 	}
@@ -57,7 +60,7 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 			var parsedObject = {};
 			parsedObject.subject = datum.subject;
 			parsedObject.message = datum.message;
-			parsedObject.dateSent = helper.formatDateTimeForUser(datum.dateSent);
+			parsedObject.dateSent = helper.formatDateTimeForUserWithSeconds(datum.dateSent);
 			parsedObject.sender = $scope.getSender(datum.sender);
 			parsedData.push(parsedObject);
 		});
@@ -90,10 +93,9 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 	}
 
 	$scope.getQueryParams = function() {
-		var params = "?q=res,like," + $scope.hcp.cloudRef + "&q=res,like," + $scope.patientId;
-        params += "&Communication.sent,after,1970,desc";
-
-        return params;
+		return  "?q=res,like," + $scope.hcp.cloudRef + "&q=res,like," + $scope.patientId +
+				"&q=Communication.sent,sortOnly,desc" +
+				"&offset=" + $scope.offset + "&limit=" + $scope.limit;
 	}
 
 	$scope.setType = function(type) {
@@ -119,6 +121,7 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 	$scope.refresh = function() {
 		$scope.message = null;
 		$scope.messages.length = 0;
+		$scope.offset = 0;
 		$scope.loadMessages();
 	}
 

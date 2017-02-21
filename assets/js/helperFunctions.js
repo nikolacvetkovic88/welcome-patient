@@ -51,6 +51,10 @@ app.factory('helper', function($http, $base64) {
 	    return moment(dateTime).format("ll HH:mm");
 	}
 
+	helper.formatDateTimeForUserWithSeconds = function(dateTime) {
+		return moment(dateTime).format("ll HH:mm:ss");	
+	}
+
 	helper.formatDateForServer = function(date) {
 		return moment(date).format("YYYY-MM-DD");
 	}

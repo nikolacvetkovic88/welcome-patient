@@ -1,7 +1,7 @@
 app.factory('helper', function($http, $base64) {
 	var helper = {};
 
-    helper.baseUrl = "https://cloud-welcome-project.eu/api/data";//http://aerospace.med.auth.gr:8080/welcome/api/data
+    helper.baseUrl = "https://cloud-welcome-project.eu/api/data";
     helper.hubUrl = "http://welcome-test.exodussa.com";
 
 	helper.getCloudData = function(url, x_token) {
@@ -53,6 +53,10 @@ app.factory('helper', function($http, $base64) {
 
 	helper.formatDateTimeForUserWithSeconds = function(dateTime) {
 		return moment(dateTime).format("ll HH:mm:ss");	
+	}
+
+	helper.formatTimeForUser = function(dateTime) {
+		return moment(dateTime).format("HH:mm");
 	}
 
 	helper.formatDateForServer = function(date) {

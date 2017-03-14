@@ -2,8 +2,7 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 	$scope.$emit('body:class:add', "transparent");
 	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
 	$scope.hcps = $rootScope.patient ? $rootScope.patient.doctors : [];
-	$scope.hcp = null;
-	$scope.type = "current";
+	$scope.hcp = $scope.hcps ? $scope.hcps[0] : null;
 	$scope.message = null;
 	$scope.messages = [];
 	$scope.myself = "Me";
@@ -98,11 +97,6 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 				"&offset=" + $scope.offset + "&limit=" + $scope.limit;
 	}
 
-	$scope.setType = function(type) {
-		$scope.message = null;
-		$scope.type = type;
-	}
-
 	$scope.postMessage= function() {
 		if(!$scope.message) {
 			helper.notify('Please type your comment', 'warning'); 
@@ -113,9 +107,14 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
     		return;
     	}
 
-		helper.notify('Your comment has been submitted successfully!', 'success');
-		$scope.type = "current";
-		$scope.getComments();
+    	var patientUrl = helper.baseUrl + '/Patient/' + $scope.patientId,
+    		hcpUrl = helper.baseUrl + '/' + $scope.hcp.specialty + '/' + $scope.hcp.cloudRef;
+
+    	return commentsRepository.postMessage($scope.patientId, patientUrl, hcpUrl, $scope.message, $scope.token)
+    	.then(function() {
+			helper.notify('Your comment has been submitted successfully!', 'success');
+			$scope.refresh();
+		});
 	}
 
 	$scope.refresh = function() {

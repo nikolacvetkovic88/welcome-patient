@@ -86,6 +86,42 @@ app.factory('questionnairesRepository', function($http, $q, helper) {
                         return;
                     }
 
+                    if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) &&
+                        (triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.durationUnits" ||
+                        triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.periodUnits")) {
+
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.durationUnits") {
+                            questionnaireObj.durationUnit = getItemPerSubject(stringValues, triple.object);
+                            return;
+                        }
+
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.periodUnits") {
+                            questionnaireObj.periodUnit = getItemPerSubject(stringValues, triple.object);
+                            return;
+                        }
+                    }
+
+                    if(N3Util.isBlank(triple.object) && N3Util.isBlank(triple.subject) &&
+                        (triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.duration" ||
+                        triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.frequency" ||
+                        triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.period")) {
+
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.duration") {
+                            questionnaireObj.duration = getItemPerSubject(numbers, triple.object);
+                            return;
+                        }
+
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.frequency") {
+                            questionnaireObj.frequency = getItemPerSubject(numbers, triple.object);
+                            return;
+                        }
+
+                        if(triple.predicate === "http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#Timing.repeat.period") {
+                            questionnaireObj.period = getItemPerSubject(numbers, triple.object);
+                            return;
+                        }
+                    }
+
                     if (N3Util.isBlank(triple.subject) && triple.predicate == "http://www.w3.org/1999/02/22-rdf-syntax-ns#value" &&
                         N3Util.isLiteral(triple.object) && (N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#date" ||
                         N3Util.getLiteralType(triple.object) == "http://www.w3.org/2001/XMLSchema#dateTime")) {
@@ -209,7 +245,7 @@ app.factory('questionnairesRepository', function($http, $q, helper) {
 
         var url = helper.baseUrl + '/QuestionnaireAnswers';
 
-        return helper.postCloudData(url, regBody);
+        return helper.postCloudData(url, regBody, token);
     }
 
     var getItemPerSubject = function(items, searchValue){

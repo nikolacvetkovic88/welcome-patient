@@ -45,11 +45,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.getQueryParams = function() {
-        var params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer(moment());
-        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
-        params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq," +  helper.formatDateForServer(moment().add(1, 'month'));
-
-        return params;
+		return "?q=Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
     }
 
 	$scope.parseData = function(questionnaires) {
@@ -84,7 +80,6 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		for(var i = 0; i < answers.length; i++) {
 			var answerScore = parseFloat(answers[i].answer);
 			if(isNaN(answerScore)) {
-				score = null;
 				break;
 			} else {
 				score += answerScore;
@@ -104,7 +99,6 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 		for(var i = 0; i < answers.length; i++) {
 			var answerScore = parseFloat(answers[i].answer);
 			if(isNaN(answerScore)) {
-				score = null;
 				break;
 			} else {
 				score += answerScore;
@@ -237,6 +231,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	}
 
 	$scope.refresh = function() {
+		$scope.setSelectedQuestionnaire(null);
 		$scope.getAllQuestionnaires();
 	}
 

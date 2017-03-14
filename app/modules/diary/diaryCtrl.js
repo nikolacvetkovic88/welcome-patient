@@ -7,7 +7,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.token = AccountService.getToken();
 
   $scope.getDiaryQuestionnaires = function() {
-    return questionnairesRepository.getQuestionnaires($scope.patientId, $scope.getQueryParams(), $scope.token)
+    return questionnairesRepository.getQuestionnaires($scope.patientId, $scope.getQueryParams("q"), $scope.token)
     .then(function(response) {
       return questionnairesRepository.decodeQuestionnaires(response.data, $scope.patientId); 
     })
@@ -41,7 +41,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryAppointments = function() {
-    return diaryRepository.getAppointments($scope.patientId, $scope.getQueryParams("appointment"), $scope.token)
+    return diaryRepository.getAppointments($scope.patientId, $scope.getQueryParams("a"), $scope.token)
     .then(function(response) {
       return diaryRepository.decodeAppointments(response.data, $scope.patientId); 
     })
@@ -101,7 +101,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   }
 
   $scope.getDiaryMedications = function() {
-      return medicationsRepository.getMedications($scope.patientId, $scope.getQueryParams("medication"), $scope.token)
+      return medicationsRepository.getMedications($scope.patientId, $scope.getQueryParams("m"), $scope.token)
       .then(function(response) {
         return medicationsRepository.decodeMedications(response.data, $scope.patientId);
       })
@@ -166,7 +166,7 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getDeviceUriPromises = function(refs) {
     var promises = [];
     angular.forEach(refs, function(ref) {
-        promises.push(diaryRepository.getDeviceByRef(ref, $scope.getQueryParams(), $scope.token));
+        promises.push(diaryRepository.getDeviceByRef(ref, $scope.getQueryParams("d"), $scope.token));
     });
 
     return $q.all(promises);
@@ -202,42 +202,24 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.getQueryParams = function(mode) {
     var params = "";
 
-    if(mode == "appointment") {
+    if(mode == "a") {
        if($scope.start) 
-        params = "?q=Period.start,afterEq," + helper.formatDateForServer($scope.start);
-
-      if($scope.end) {
-          if($scope.start)
-            params += "&";
-          else 
-            params += "?";
-          
-          params += 'q=Period.end,beforeEq,' + helper.formatDateForServer($scope.end);
-      }
-    } else if (mode == "medication") {
-      if($scope.start) 
-        params = "?q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.start,afterEq," + helper.formatDateForServer($scope.start);
-
-      if($scope.end) {
-          if($scope.start)
-            params += "&";
-          else 
-            params += "?";
-          
-          params += 'q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer($scope.end);
-      }
+        params = "?q=Period.start,afterEq," + helper.formatDateForServer($scope.start) + 
+                "&q=Period.start,beforeEq," + helper.formatDateForServer($scope.end);
+    } else if (mode == "m") {
+        if($scope.start) 
+          params = "?q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.start,afterEq," + helper.formatDateForServer($scope.start) +
+                  "&q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer($scope.end);
+    } else if (mode == "d") {
+        if($scope.start) 
+          params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq," + helper.formatDateForServer($scope.start) +
+                  "&q=Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer($scope.end);
+    } else if (mode == "q") {
+        if($scope.start) 
+          params = "?q=Timing.repeat.bounds/Period.start,afterEq," + helper.formatDateForServer($scope.start) + // check out
+                "&q=Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer($scope.end);
     } else {
-      if($scope.start) 
-        params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,afterEq," + helper.formatDateForServer($scope.start);
-
-      if($scope.end) {
-          if($scope.start)
-            params += "&";
-          else 
-            params += "?";
-          
-          params += 'q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq,' + helper.formatDateForServer($scope.end);
-      }
+      return;
     }
 
     return params;
@@ -268,7 +250,8 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.addTimings = function(date, timings) {
     var dateTimes = [];
     $.each(timings, function(i, timing) {
-      var dateTime = date.set({
+      var tempDate = moment(date);
+      var dateTime = tempDate.set({
             'hour': moment(timing).get('hour'),
             'minute': moment(timing).get('minute'),
             'second': moment(timing).get('second')
@@ -380,11 +363,11 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
         message = "Go to Measurements";
       break;
       case "questionnaire":
-        location = "#questionnaire";
+        location = "#questionnaires";
         message = "Go to Questionnaires"
       break;
       case "medication":
-        location = "#medication";
+        location = "#medications";
         message = "Go to Medications";
       default:
         break;

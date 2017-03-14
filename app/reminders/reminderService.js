@@ -13,7 +13,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         if(!$rootScope.patient)
             return; 
         
-        return questionnairesRepository.getQuestionnaires($rootScope.patient && $rootScope.patient.user.cloudRef, self.getQueryParams(), self.token)
+        return questionnairesRepository.getQuestionnaires($rootScope.patient && $rootScope.patient.user.cloudRef, self.getQueryParams("q"), self.token)
         .then(function(response) {
           return questionnairesRepository.decodeQuestionnaires(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
@@ -50,7 +50,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         if(!$rootScope.patient)
             return; 
 
-        return diaryRepository.getAppointments($rootScope.patient && $rootScope.patient.user.cloudRef, self.getQueryParams("appointment"), self.token)
+        return diaryRepository.getAppointments($rootScope.patient && $rootScope.patient.user.cloudRef, self.getQueryParams("a"), self.token)
         .then(function(response) {
           return diaryRepository.decodeAppointments(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef); 
         })
@@ -110,7 +110,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     }
 
     this.getMedicationReminders = function() {
-      return medicationsRepository.getMedications($rootScope.patient && $rootScope.patient.user.cloudRef, self.getQueryParams(), self.token)
+      return medicationsRepository.getMedications($rootScope.patient && $rootScope.patient.user.cloudRef, self.getQueryParams("m"), self.token)
       .then(function(response) {
         return medicationsRepository.decodeMedications(response.data, $rootScope.patient && $rootScope.patient.user.cloudRef);
       })
@@ -178,7 +178,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.getDeviceUriPromises = function(refs) {
         var promises = [];
         angular.forEach(refs, function(ref) {
-            promises.push(diaryRepository.getDeviceByRef(ref, self.getQueryParams(), self.token));
+            promises.push(diaryRepository.getDeviceByRef(ref, self.getQueryParams("d"), self.token));
         });
 
         return $q.all(promises);
@@ -212,15 +212,18 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     }
 
     this.getQueryParams = function(mode) { 
-        if(mode == "appointment") {
-            var params = "?q=Period.start,beforeEq," + helper.formatDateForServer(moment());
-            params += "&q=Period.end,afterEq," +  helper.formatDateForServer(moment());
-            params += "&q=Period.end,beforeEq," +  helper.formatDateForServer(moment().add(1, 'month'));
+        if(mode == "a") {
+            var params = "?q=Period.end,afterEq," +  helper.formatDateForServer(moment());
+        } else if (mode == "m") {
+            var params = "?q=MedicationPrescription.dosageInstruction.scheduled/Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
+        } else if (mode == "d") {
+            var params = "?q=Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
+        } else if (mode == "q") {
+            var params = "?q=Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
         } else {
-            var params = "?q=Timing.repeat/Timing.repeat.bounds/Period.start,beforeEq," + helper.formatDateForServer(moment());
-            params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,afterEq," +  helper.formatDateForServer(moment());
-            params += "&q=Timing.repeat/Timing.repeat.bounds/Period.end,beforeEq," +  helper.formatDateForServer(moment().add(1, 'month'));
+            return;
         }
+        
         return params;
     }
 
@@ -286,16 +289,16 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
                 todayReminders.push(reminder.fullTitle + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
             if(questionnaireReminder.isTomorrow) {
-                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow");
+                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow at " + helper.formatTimeForUser(new Date(reminder.start)));
             }
         });
 
         if(todayReminders.length) {
-            todayMessage += todayReminders.toString() + ".";
+            todayMessage += todayReminders.toString() + ".<br/>";
         }
 
         if(tomorrowReminders.length) {
-            tomorrowMessage += tomorrowReminders.toString() + ".";
+            tomorrowMessage += tomorrowReminders.toString() + ".<br/>";
         }
 
         todayReminders.length = 0;
@@ -307,16 +310,16 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
                 todayReminders.push(reminder.fullTitle + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
             if(appointmentReminder.isTomorrow) {
-                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow");
+                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow at " + helper.formatTimeForUser(new Date(reminder.start)));
             }
         });
 
         if(todayReminders.length) {
-            todayMessage += todayReminders.toString() + ".";
+            todayMessage += todayReminders.toString() + ".<br/>";
         }
 
         if(tomorrowReminders.length) {
-            tomorrowMessage += tomorrowReminders.toString() + ".";
+            tomorrowMessage += tomorrowReminders.toString() + ".<br/>";
         }
 
         todayReminders.length = 0;
@@ -325,19 +328,19 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         angular.forEach(self.medications, function(reminder, i) {
             var medicationReminder = self.checkReminder(reminder.start);
             if(medicationReminder.isToday) {
-                todayReminders.push(reminder.fullTitle + " to be taken at " + moment.duration(moment().diff(reminder.start)).humanize());
+                todayReminders.push(reminder.fullTitle + " to be taken in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
             if(medicationReminder.isTomorrow) {
-                tomorrowReminders.push(reminder.fullTitle + " to be taken tomorrow");
+                tomorrowReminders.push(reminder.fullTitle + " to be taken tomorrow at " + helper.formatTimeForUser(new Date(reminder.start)));
             }
         });
 
         if(todayReminders.length) {
-            todayMessage += todayReminders.toString() + ".";
+            todayMessage += todayReminders.toString() + ".<br/>";
         }
 
         if(tomorrowReminders.length) {
-            tomorrowMessage += tomorrowReminders.toString() + ".";
+            tomorrowMessage += tomorrowReminders.toString() + ".<br/>";
         }
 
         todayReminders.length = 0;
@@ -349,16 +352,16 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
                 todayReminders.push(reminder.fullTitle + " is due in " + moment.duration(moment().diff(reminder.start)).humanize());
             }
             if(measurementReminder.isTomorrow) {
-                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow");
+                tomorrowReminders.push(reminder.fullTitle + " is due tomorrow at " + helper.formatTimeForUser(new Date(reminder.start)));
             }
         });
 
         if(todayReminders.length) {
-            todayMessage += todayReminders.toString() + ".";
+            todayMessage += todayReminders.toString() + ".<br/>";
         }
 
         if(tomorrowReminders.length) {
-            tomorrowMessage += tomorrowReminders.toString() + ".";
+            tomorrowMessage += tomorrowReminders.toString() + ".<br/>";
         }
       
         var message = todayMessage + '\r\n' + tomorrowMessage;
@@ -420,7 +423,8 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.addTimings = function(date, timings) {
         var dateTimes = [];
         $.each(timings, function(i, timing) {
-          var dateTime = date.set({
+            var tempDate = moment(date);
+            var dateTime = tempDate.set({
                 'hour': moment(timing).get('hour'),
                 'minute': moment(timing).get('minute'),
                 'second': moment(timing).get('second')
@@ -453,7 +457,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
 
         angular.forEach(data, function(value, key) {
             var parsedObject = {};
-            parsedObject.title - value.comment;
+            parsedObject.title = value.comment;
             parsedObject.fullTitle = "Appointment " + value.comment + " with " + hcpData[key].specialty + " " + hcpData[key].user.firstName + " " + hcpData[key].user.lastName + " - " + value.status;
             parsedObject.start = moment(value.periodStart);
             parsedData.push(parsedObject);
@@ -469,7 +473,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
           angular.forEach(dates, function(date) {
             var parsedObject = {};
             parsedObject.title = value.medication;
-            parsedObject.fullTitle = "Medication " + value.medication + " - " + value.note;
+            parsedObject.fullTitle = "Medication " + value.medication;
             parsedObject.start = date;
             parsedData.push(parsedObject);
           });

@@ -2,26 +2,15 @@
   <span class="glyphicon glyphicon-refresh"></span>
 </button>
 
-<div class="row">
-  <div class="col-sm-3">
-    <div class="form-group">
-      <select id="hcps-list" ng-options="o.specialty + ' ' + o.firstName + ' ' + o.lastName for o in hcps track by o.id" ng-model="hcp" class="form-control" data-style="btn-info" dropDown>
-        <option value="">Choose HCP...</option>
-      </select>
-    </div>
+<div class="form-group">
+  <select class="from-control" id="hcps-list" ng-options="o.specialty + ' ' + o.firstName + ' ' + o.lastName for o in hcps track by o.id" ng-model="hcp" class="form-control" data-style="btn-info" dropDown>
+    <option value="">Choose HCP...</option>
+  </select>
+</div>
 
-    <div class="btn-group-vertical" style="width: 100%">
-      <button type="button" class="btn btn-default" ng-click="setType('current')">
-      Current Comments
-      </button>
-      <button type="button" class="btn btn-default" ng-click="setType('new')"> 
-        New Comment<span class="glyphicon glyphicon-envelope pull-right"></span>
-      </button>
-    </div>
-  </div>
-
-  <div class="col-sm-9 panel panel-default" ng-show="type=='current'">
-    <div class="panel-body">
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="container-fluid">
       <div ng-repeat="message in messages">
         <div class="row" ng-if="message.sender != myself">
           <div>{{message.message}}</div>
@@ -39,24 +28,24 @@
           </div>
         </div>
       </div>
-      <div class="text-center" ng-if="!messages.length">
-         <button type="button" class="btn btn-primary" ng-click="loadMessages()" ng-hide="loading">Load Messages</button>
-      </div>
-      <div class="text-center" ng-if="messages.length">
-         <button type="button" class="btn btn-primary" ng-click="loadMessages()" ng-show="messages.length < total && !loading">Load More</button>
-      </div>
+    </div>
+
+    <div class="text-center" ng-if="!messages.length">
+       <button type="button" class="btn btn-primary" ng-click="loadMessages()" ng-hide="loading">Load Messages</button>
+    </div>
+    <div class="text-center" ng-if="messages.length">
+       <button type="button" class="btn btn-primary" ng-click="loadMessages()" ng-show="messages.length < total && !loading">Load More</button>
     </div>
   </div>
+</div>
 
-  <div class="col-sm-9" ng-show="type=='new'">
-    <div class="form-group">
-      <label for='comment'>Comment:</label>
-      <textarea class="form-control" rows="7" id="comment" placeholder="Type your comment here..." ng-model="message"></textarea>
-    </div>
-    <div class="text-center">
-      <button type="button" class="btn btn-success" ng-click="postMessage()">Submit</button>
-    </div>
-  </div>  
+<div class="row">
+  <div class="col-sm-11">
+    <textarea class="form-control" rows="2" id="comment" placeholder="Type your comment here..." ng-model="message"></textarea>
+  </div>
+  <div class="col-sm-1">
+    <button type="button" class="btn btn-success" ng-click="postMessage()">Submit</button>
+  </div>
 </div>
 
 <div class="loader" ng-show="loading"></div>

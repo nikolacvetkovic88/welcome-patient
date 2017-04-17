@@ -1,13 +1,13 @@
 app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsRepository, helper, AccountService) {
 	$scope.$emit('body:class:add', "transparent");
 	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
-	$scope.hcps = $rootScope.patient ? $rootScope.patient.doctors : [];
-	$scope.hcp = $scope.hcps ? $scope.hcps[0] : null;
 	$scope.message = null;
 	$scope.messages = [];
 	$scope.myself = "Me";
 	$scope.offset = 0;
 	$scope.limit = 20;
+	$scope.hcps = $rootScope.patient ? $rootScope.patient.doctors : [];
+	$scope.hcp = $scope.hcps ? $scope.hcps[0] : null;
 	$scope.token = AccountService.getToken();
 
     $scope.loadMessages = function(mode) {
@@ -19,7 +19,7 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
     	$scope.loading = true;	
 		return commentsRepository.getMessages($scope.patientId, $scope.getQueryParams(), $scope.token)
 		.then(function(response) {
-			$scope.total = response.headers('X-Total-Count');
+			$scope.total = parseInt(response.headers('X-Total-Count'));
 			return commentsRepository.decodeMessages(response.data, $scope.patientId);
 		})
 		.then(function(messageRefs) {
@@ -53,7 +53,7 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 		return $q.all(promises);
 	}
 
-	$scope.parseData = function(data){
+	$scope.parseData = function(data) {
 		var parsedData = [];
 		angular.forEach(data, function(datum) {
 			var parsedObject = {};
@@ -81,9 +81,8 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 	$scope.getSender = function(senderRef) {
 		if(senderRef.indexOf("Patient") == -1) {
 			var hcpRef = senderRef.split("/");
-			hcpRef = hcpRef[hcpRef.length - 1];
-
-			var sender = $.grep($scope.hcps, function(hcp) { return hcp.cloudRef == hcpRef; })[0];
+				hcpRef = hcpRef[hcpRef.length - 1],
+				sender = $.grep($scope.hcps, function(hcp) { return hcp.cloudRef == hcpRef; })[0];
 
 			return sender ? sender.specialty + " " + sender.firstName + " " + sender.lastName : "Unknown HCP";
 	    } else {
@@ -110,7 +109,7 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
     	var patientUrl = helper.baseUrl + '/Patient/' + $scope.patientId,
     		hcpUrl = helper.baseUrl + '/' + $scope.hcp.specialty + '/' + $scope.hcp.cloudRef;
 
-    	return commentsRepository.postMessage($scope.patientId, patientUrl, hcpUrl, $scope.message, $scope.token)
+    	return commentsRepository.postMessage(patientUrl, hcpUrl, $scope.message, $scope.token)
     	.then(function() {
 			helper.notify('Your comment has been submitted successfully!', 'success');
 			$scope.refresh();
@@ -123,5 +122,15 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 		$scope.offset = 0;
 		$scope.loadMessages();
 	}
+
+	$scope.$watch('hcp', function(hcp) {
+        if(hcp) {
+        	$scope.refresh();
+        } else {
+        	$scope.message = null;
+			$scope.messages.length = 0;
+		 	$scope.offset = 0;
+        }
+    });
 
 });

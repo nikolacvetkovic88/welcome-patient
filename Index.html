@@ -40,6 +40,7 @@
 	<script src="assets/libs/angular.min.js"></script>
 	<script src="assets/libs/angular-route.min.js"></script>
 	<script src="assets/libs/angular-cookies.min.js"></script>
+	<script src="assets/libs/angular-local-storage.js"></script>
 	<script src="assets/libs/angular-base64.js"></script>
 	<script src="assets/libs/bootbox.min.js"></script>
 	<script src="assets/libs/bootstrap-notify.js"></script>
@@ -51,9 +52,8 @@
 	<script src="assets/libs/fullcalendar.min.js"></script>
 	<script src="assets/libs/gcal.js"></script>
 	<!--<script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="http://code.highcharts.com/modules/exporting.js"></script>-->
-	<script src="assets/libs/highcharts-ng.js"></script>
-	<script src="assets/libs/ng-videosharing-embed.min.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+	<script src="assets/libs/highcharts-ng.js"></script>-->
 	<script src="assets/libs/n3-browserify.js"></script>
 	<script src="app/app.module.js"></script>
     <script src="app/app.routes.js"></script>
@@ -150,9 +150,9 @@
 		<nav class="nav navbar-inverse navigation-bar ng-hide" ng-show="showMainContent && !isHomePage">
 		  <ul class="nav navbar-nav">
 		    <li><a href="#home" data-icon="home"><span class="glyphicon glyphicon-home" ng-click="$route.reload()"></span>Home</a></li>    
-		    <li><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurements</a></li>   
-		    <li><a href="#questionnaires" data-icon="edit"><span class="glyphicon glyphicon-pencil"></span>Questionnaires</a></li>    
-		    <!--<li><a href="#education" data-icon="info"><span class="glyphicon glyphicon-info-sign"></span>Education</a></li>-->    
+		    <li><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurements</a></li>
+		    <li><a href="#questionnaires" data-icon="edit"><span class="glyphicon glyphicon-pencil"></span>Questionnaires</a></li>
+		    <li><a href="#education" data-icon="info"><span class="glyphicon glyphicon-info-sign"></span>Education</a></li>
 		    <li><a href="#comments" data-icon="comment"><span class="glyphicon glyphicon-blackboard"></span>Comments</a></li>     
 		    <li><a href="#diary" data-icon="calendar"><span class="glyphicon glyphicon-calendar"></span>Diary</a></li>   
 		    <li><a href="#medications" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medications</a></li>   

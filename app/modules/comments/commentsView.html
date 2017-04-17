@@ -8,7 +8,7 @@
   </select>
 </div>
 
-<div class="panel panel-default">
+<div class="panel panel-default" ng-if="messages.length">
   <div class="panel-body">
     <div class="container-fluid">
       <div ng-repeat="message in messages">
@@ -30,10 +30,7 @@
       </div>
     </div>
 
-    <div class="text-center" ng-if="!messages.length">
-       <button type="button" class="btn btn-primary" ng-click="loadMessages()" ng-hide="loading">Load Messages</button>
-    </div>
-    <div class="text-center" ng-if="messages.length">
+    <div class="text-center">
        <button type="button" class="btn btn-primary" ng-click="loadMessages()" ng-show="messages.length < total && !loading">Load More</button>
     </div>
   </div>

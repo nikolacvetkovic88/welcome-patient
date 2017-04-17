@@ -1,4 +1,4 @@
-app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionnairesRepository, helper, AccountService) {
+app.controller('questionnairesCtrl', function($scope, $rootScope, $q, localStorageService, questionnairesRepository, helper, AccountService) {
 	$scope.$emit('body:class:add', "transparent");
 	$scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
 	$scope.token = AccountService.getToken();
@@ -62,6 +62,8 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, questionna
 	$scope.mergeData = function(questionnaires) {
 		var questionnaireIds = $.map(questionnaires, function(questionnaire) { return questionnaire.id; });
 		$scope.assignedQuestionnaires = $.grep($scope.staticQuestionnaires, function(questionnaire) { return questionnaireIds.indexOf(questionnaire.id) != -1 });
+		if($scope.assignedQuestionnaires.length)
+			$scope.setSelectedQuestionnaire($scope.assignedQuestionnaires[0]);
 	}
 
 	$scope.setSelectedQuestionnaire = function(questionnaire) {

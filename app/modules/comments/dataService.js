@@ -15,6 +15,7 @@ app.factory('commentsRepository', function($http, $q, helper) {
         var parser = N3.Parser();
         var N3Util = N3.Util;
         var messageRefs = [];
+
         var defer = $q.defer();
 
         parser.parse(data,
@@ -24,8 +25,7 @@ app.factory('commentsRepository', function($http, $q, helper) {
                         messageRefs.push(triple.object);
                 } else if(error) {
                     console.log(error);
-                }
-                else
+                } else
                     defer.resolve(messageRefs);
             });
 
@@ -96,10 +96,9 @@ app.factory('commentsRepository', function($http, $q, helper) {
                             return;
                         }
                     }
-                } else if(error){
+                } else if(error) {
                     console.log(error);
-                }
-                else {
+                } else {
                     defer.resolve(messageObj);
                 }
             });
@@ -107,7 +106,7 @@ app.factory('commentsRepository', function($http, $q, helper) {
         return defer.promise;
     }
 
-    CommentsRepository.postMessage = function(patientId, patientUrl, hcpUrl, message, token) {
+    CommentsRepository.postMessage = function(patientUrl, hcpUrl, message, token) {
         var url =  helper.baseUrl + '/PersonalCommunication';
         var dateSent = helper.formatDateTimeForServer(moment());
         var regBody = '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .' +
@@ -115,8 +114,6 @@ app.factory('commentsRepository', function($http, $q, helper) {
             '@prefix ns2:   <http://lomi.med.auth.gr/ontologies/FHIRResources#> .' +
             '@prefix ns1:   <http://lomi.med.auth.gr/ontologies/WELCOME_entities#> .' +
             '@prefix ns4:   <http://lomi.med.auth.gr/ontologies/FHIRPrimitiveTypes#> .' +
-            //'@prefix ns3:   <welkv2://welcome-project.eu/data/Patient/> .' +
-
             '<http://aerospace.med.auth.gr:8080/welcome/api/data/PersonalCommunication/45f7eb43-114b-4ad3-8a78-194ea23d1a2b>' +
             'a                           ns1:PersonalCommunication ;' +
             'ns2:Communication.payload   [ a          ns4:string ;' +
@@ -133,16 +130,11 @@ app.factory('commentsRepository', function($http, $q, helper) {
             'ns2:sender                  <'+ patientUrl +'> ;' +
             'ns2:subject                 <'+ patientUrl +'> .';
 
-                    /*'ns2:Communication.status    ns2: CommunicationStatus_in_progress ;' +
-                    'ns2:recipient               <'+ patientUrl +'> ;' +
-                    'ns2:sender                  <'+ hcpUrl +'> ;' +
-                    'ns2:subject                 <'+ patientUrl +'> .'; */          
-
         return  helper.postCloudData(url, regBody, token);
     }
 
     var getItemPerSubject = function(items, searchValue){
-        for(var i = 0; i < items.length; i++){
+        for(var i = 0; i < items.length; i++) {
             if(items[i].subject === searchValue) {
                 return items[i].value;
             }

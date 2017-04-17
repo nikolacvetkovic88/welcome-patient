@@ -1,6 +1,7 @@
 app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepository, questionnairesRepository, medicationsRepository, helper, AccountService) {
   $scope.$emit('body:class:add', "transparent");
   $scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
+  $scope.devices = $rootScope.patient ? $rootScope.patient.devices : [];
   $scope.eventSources = [];
   $scope.diaryToday = [];
   $scope.diaryTomorrow = [];
@@ -319,11 +320,14 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
   $scope.parseDevices = function(data) {
     var parsedData = [];
     angular.forEach(data, function(value, key) {
-      var dates = $scope.parseDates(value);
+      var dates = $scope.parseDates(value),
+      	  device = $.grep($scope.devices, function(device) { return device.cloudRef == value.device; })[0],
+          type = device && device.type;
+
       angular.forEach(dates, function(date) {
         var parsedObject = {};
-        parsedObject.title = value.device;
-        parsedObject.fullTitle = helper.formatDateTimeForUser(date) + " Measurement " + value.device;
+        parsedObject.title = type;
+        parsedObject.fullTitle = helper.formatDateTimeForUser(date) + " Measurement " + type;
         parsedObject.start = date;
         parsedObject.color = "#043248";
         parsedObject.mode = "measurement";

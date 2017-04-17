@@ -1,4 +1,4 @@
-var app = angular.module("welcomeApp", ['ngRoute', 'ngCookies', 'highcharts-ng', 'videosharing-embed', 'ui.calendar', 'base64'])
+var app = angular.module("welcomeApp", ['ngRoute', 'ngCookies', 'LocalStorageModule', /*'highcharts-ng',*/ 'ui.calendar', 'base64'])
 .run(function ($rootScope, $location, $cookieStore, AuthService, AccountService, ReminderService) {
         // keep user logged in after page refresh
         $rootScope.currentUser = AuthService.getCredentials();

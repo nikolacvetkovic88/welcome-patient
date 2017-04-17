@@ -2,7 +2,7 @@ app.factory('helper', function($http, $base64) {
 	var helper = {};
 
     helper.baseUrl = "https://cloud-welcome-project.eu/api/data";
-    helper.hubUrl = "http://welcome-test.exodussa.com";
+    helper.hubUrl = "https://welcome-test.exodussa.com";
 
 	helper.getCloudData = function(url, x_token) {
 		var encodedCred = $base64.encode('welk' + ':' + 'welk');

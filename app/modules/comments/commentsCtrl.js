@@ -70,13 +70,13 @@ app.controller('commentsCtrl', function($scope, $rootScope, $q, commentsReposito
 	$scope.sortData = function(data, asc) {
         if (asc)
             return data.sort(function (a, b) {
-                return new Date(a.dateSent).getTime() - new Date(b.dateSent).getTime()
+                return new Date(a.dateSent).getTime() - new Date(b.dateSent).getTime();
             });
         else
             return data.sort(function (a, b) {
-                return new Date(b.dateSent).getTime() - new Date(a.dateSent).getTime()
+                return new Date(b.dateSent).getTime() - new Date(a.dateSent).getTime();
             });
-    };
+    }
 
 	$scope.getSender = function(senderRef) {
 		if(senderRef.indexOf("Patient") == -1) {

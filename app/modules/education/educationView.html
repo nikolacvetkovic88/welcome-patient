@@ -12,7 +12,9 @@
   <div class="panel-body">
     <div class="container-fluid">
       <div ng-repeat="material in educationMaterial">
+        <h4>{{material.program}}</h4>
         <a ng-href="{{material.url}}" class="btn btn-link">{{material.title}}</a>
+        <div style="font-size: 11px;">{{material.dateSent}}</div>
       </div>
     </div>
 

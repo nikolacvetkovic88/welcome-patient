@@ -26,7 +26,8 @@ app.controller('educationCtrl', function($scope, $rootScope, $sce, $q, education
       return $scope.getEducationMaterial(educationMaterial);
     })
     .then(function(results) {
-      $scope.messages = $scope.parseData(results);
+      var educationMaterial = $scope.educationMaterial;
+      $scope.educationMaterial = $scope.sortData(educationMaterial.concat($scope.parseData(results)), true);
       $scope.offset += $scope.limit;
       $scope.loading = false;
     });
@@ -62,6 +63,17 @@ app.controller('educationCtrl', function($scope, $rootScope, $sce, $q, education
     });
 
     return parsedData;
+  }
+
+  $scope.sortData = function(data, asc) {
+    if (asc)
+        return data.sort(function (a, b) {
+            return new Date(a.dateSent).getTime() - new Date(b.dateSent).getTime();
+        });
+    else
+        return data.sort(function (a, b) {
+            return new Date(b.dateSent).getTime() - new Date(a.dateSent).getTime();
+        });
   }
 
   $scope.getSender = function(senderRef) {

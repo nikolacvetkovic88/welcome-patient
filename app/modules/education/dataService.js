@@ -121,5 +121,13 @@ app.factory('educationRepository', function($base64, $http, $q, helper) {
         return defer.promise;
     };
 
+    var getItemPerSubject = function(items, searchValue){
+        for(var i = 0; i < items.length; i++) {
+            if(items[i].subject === searchValue) {
+                return items[i].value;
+            }
+        }
+    }
+
     return EducationRepository;
 });

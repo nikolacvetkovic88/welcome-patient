@@ -148,14 +148,14 @@
 		<div id="notification" class='notifications top-left'></div>
 
 		<nav class="nav navbar-inverse navigation-bar ng-hide" ng-show="showMainContent && !isHomePage">
-		  <ul class="nav navbar-nav">
+		  <ul class="nav navbar-nav" ng-controller="homeCtrl">
 		    <li><a href="#home" data-icon="home"><span class="glyphicon glyphicon-home" ng-click="$route.reload()"></span>Home</a></li>    
-		    <li><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurements</a></li>
-		    <li><a href="#questionnaires" data-icon="edit"><span class="glyphicon glyphicon-pencil"></span>Questionnaires</a></li>
-		    <li><a href="#education" data-icon="info"><span class="glyphicon glyphicon-info-sign"></span>Education</a></li>
-		    <li><a href="#comments" data-icon="comment"><span class="glyphicon glyphicon-blackboard"></span>Comments</a></li>     
-		    <li><a href="#diary" data-icon="calendar"><span class="glyphicon glyphicon-calendar"></span>Diary</a></li>   
-		    <li><a href="#medications" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medications</a></li>   
+		    <li ng-if="moduleVisible('Measurements')"><a href="patienthub://app" data-icon="clock"><span class="glyphicon glyphicon-time"></span>Measurements</a></li>
+		    <li ng-if="moduleVisible('Questionnaires')"><a href="#questionnaires" data-icon="edit"><span class="glyphicon glyphicon-pencil"></span>Questionnaires</a></li>
+		    <li ng-if="moduleVisible('Education')"><a href="#education" data-icon="info"><span class="glyphicon glyphicon-info-sign"></span>Education</a></li>
+		    <li ng-if="moduleVisible('Comments')"><a href="#comments" data-icon="comment"><span class="glyphicon glyphicon-blackboard"></span>Comments</a></li>
+		    <li ng-if="moduleVisible('Diary')"><a href="#diary" data-icon="calendar"><span class="glyphicon glyphicon-calendar"></span>Diary</a></li>   
+		    <li ng-if="moduleVisible('Medication')"><a href="#medications" data-icon="plus"><span class="glyphicon glyphicon-plus-sign"></span>Medications</a></li>
 		  </ul>
 		</nav>
 		<div ng-view></div>

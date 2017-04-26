@@ -1,5 +1,6 @@
 app.controller('educationCtrl', function($scope, $rootScope, $sce, $q, educationRepository, helper, AccountService) {
   $scope.$emit('body:class:add', "transparent");
+  $scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
   $scope.educationMaterial = [];
   $scope.offset = 0;
   $scope.limit = 20;

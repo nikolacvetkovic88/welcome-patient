@@ -8,20 +8,18 @@
   </select>
 </div>
 
-<div class="panel panel-default" ng-if="educationMaterial.length">
-  <div class="panel-body">
-    <div class="container-fluid">
-      <div ng-repeat="material in educationMaterial">
-        <h4>{{material.program}}</h4>
-        <a ng-href="{{material.url}}" class="btn btn-link">{{material.title}}</a>
-        <div style="font-size: 11px;">{{material.dateSent}}</div>
-      </div>
-    </div>
-
-    <div class="text-center">
-       <button type="button" class="btn btn-primary" ng-click="loadEducationMaterial()" ng-show="messages.length < total && !loading">Load More</button>
-    </div>
+<div class="panel panel-default" ng-repeat="material in educationMaterial">
+  <div class="panel-heading">
+    {{material.program}}
   </div>
+  <div class="panel-body">
+    <a ng-href="{{material.url}}" class="btn btn-link" target="_blank">{{material.title}}</a>
+    <div style="font-size: 11px;">{{material.dateSent}}</div>
+  </div>
+</div>
+
+<div class="text-center">
+   <button type="button" class="btn btn-primary" ng-click="loadEducationMaterial()" ng-show="messages.length < total && !loading">Load More</button>
 </div>
 
 <div class="loader" ng-show="loading"></div>

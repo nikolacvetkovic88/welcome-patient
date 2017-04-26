@@ -326,7 +326,8 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
       		message += "<p>" + reminder + "</p>";
       	});
 
-      	message += "<hr />";
+        if(message)
+      	    message += "<hr />";
 
       	angular.forEach(tomorrowReminders, function(reminder) {
       		message += "<p>" + reminder + "</p>";

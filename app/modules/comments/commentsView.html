@@ -1,6 +1,8 @@
-<button class="btn btn-info pull-right btn-sm refresh" ng-click="refresh()">
-  <span class="glyphicon glyphicon-refresh"></span>
-</button>
+<div class="row">
+  <button class="btn btn-info pull-right btn-sm refresh" ng-click="refresh()">
+    <span class="glyphicon glyphicon-refresh"></span>
+  </button>
+</div>
 
 <div class="form-group">
   <select class="from-control" id="hcps-list" ng-options="o.specialty + ' ' + o.firstName + ' ' + o.lastName for o in hcps track by o.id" ng-model="hcp" class="form-control" data-style="btn-info" dropDown>

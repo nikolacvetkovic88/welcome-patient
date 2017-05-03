@@ -1,132 +1,30 @@
-<button class="btn btn-info pull-right btn-sm refresh" ng-click="getHistoryData()">
-  <span class="glyphicon glyphicon-refresh"></span>
-</button>
-
-<div class="row container">
-	<div class="col-sm-3">
-		<ul class="list-group">
-			<li class="list-group-item history-item" ng-click="setSelected(1)" ng-class="{'selected-item': selected == 1}">Blood Pressure</li>
-			<li class="list-group-item history-item" ng-click="setSelected(2)" ng-class="{'selected-item': selected == 2}">Weight</li>
-			<li class="list-group-item history-item" ng-click="setSelected(3)" ng-class="{'selected-item': selected == 3}">Blood Glucose</li>
-			<li class="list-group-item history-item" ng-click="setSelected(4)" ng-class="{'selected-item': selected == 4}">Temperature</li>
-			<li class="list-group-item history-item" ng-click="setSelected(5)" ng-class="{'selected-item': selected ==  5}">Spirometer</li>
-			<li class="list-group-item history-item" ng-click="setSelected(6)" ng-class="{'selected-item': selected ==  6}">Number of execerbations</li>
-			<li class="list-group-item history-item" ng-click="setSelected(7)" ng-class="{'selected-item': selected ==  7}">Number of hospital admissions</li>
-			<li class="list-group-item history-item" ng-click="setSelected(8)" ng-class="{'selected-item': selected ==  8}">Number of cigarettes smoked</li>
-			<li class="list-group-item history-item" ng-click="setSelected(9)" ng-class="{'selected-item': selected ==  9}">Medication adherence</li>
-			<li class="list-group-item history-item" ng-click="setSelected(10)" ng-class="{'selected-item': selected ==  10}">Signs of oedema</li>
-			<li class="list-group-item history-item" ng-click="setSelected(11)" ng-class="{'selected-item': selected ==  11}">Mood</li>
-			<li class="list-group-item history-item" ng-click="setSelected(12)" ng-class="{'selected-item': selected ==  12}">Physical Activity</li>
-		</ul>
-	</div>
-	<div class="col-sm-9">
-		<div id="blood-pressure" ng-if="selected == 1">
-			<div class="table-responsive">        
-				<table st-table="getSpecificData(1).values" class="table table-striped table-condensed table-bordered">
-					<thead>
-						<tr>
-							<th class="text-center">Systolic(mmHg)</th>
-							<th class="text-center">Diastolic(mmHg)</th>
-							<th class="text-center">Date and Time</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="text-center" ng-repeat="value in getSpecificData(1).values">
-							<td>{{value.systolic}}</td>
-							<td>{{value.diastolic}}</td>
-							<td>{{parseDateTime(value.datetime)}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<button class="btn btn-primary" ng-click="BPtoggle()">Show/Hide graph</button>
-			<div ng-show="BPvisible">
-				<button class="btn btn-info" style="margin-left: 50%;" ng-click="swapBPChartType()">Line/Bar</button>
-		        <highchart id="blood-pressure-chart" config="BPchartConfig" class="span12"></highchart>
-		    </div>
-		</div>
-		<div id="weight" ng-if="selected == 2">
-			<div class="table-responsive">          
-				<table st-table="getSpecificData(2).values" class="table table-striped table-condensed table-bordered">
-					<thead>
-						<tr>
-							<th class="text-center">Weight(kg)</th>
-							<th class="text-center">Date and Time</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="text-center" ng-repeat="value in getSpecificData(2).values">
-							<td>{{value.weight}}</td>
-							<td>{{parseDateTime(value.datetime)}}</td>
-					</tbody>
-				</table>
-			</div>
-			<button class="btn btn-primary" ng-click="Wtoggle()">Show/Hide graph</button>
-			<div ng-show="Wvisible">
-		        <highchart id="weight-chart" config="WchartConfig" class="span12"></highchart>
-		    </div>
-		</div>
-		<div id="blood-glucose" ng-if="selected == 3">
-			<div class="table-responsive">          
-				<table st-table="getSpecificData(3).values" class="table table-striped table-condensed table-bordered">
-					<thead>
-						<tr>
-							<th class="text-center">Morning</th>
-							<th class="text-center">Date and Time</th>
-							<th class="text-center">Afternoon</th>
-							<th class="text-center">Date and Time</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="text-center" ng-repeat="value in getSpecificData(3).values">
-							<td>{{value.morning}}</td>
-							<td>{{parseDateTime(value.morningdatetime)}}</td>
-							<td>{{value.afternoon}}</td>
-							<td>{{parseDateTime(value.afternoondatetime)}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<button class="btn btn-primary" ng-click="BGtoggle()">Show/Hide graph</button>
-			<div class="row">
-				<div class="col-sm-6" ng-show="BGvisible">
-			        <highchart id="blood-glucose-chart-morning" config="BGchartConfig1" class="span12"></highchart>
-			    </div>
-			    <div class="col-sm-6" ng-show="BGvisible">
-			        <highchart id="blood-glucose-chart-afternoon" config="BGchartConfig2" class="span12"></highchart>
-			    </div>
-		    </div>
-		</div>
-		<div id="physical-activity" ng-if="selected == 4">
-			<div class="table-responsive">          
-				<table st-table="getSpecificData(4).values" class="table table-striped table-condensed table-bordered">
-					<thead>
-						<tr>
-							<th class="text-center">Temperature(°C)</th>
-							<th class="text-center">Date and Time</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="text-center" ng-repeat="value in getSpecificData(4).values">
-							<td>{{value.temperature}}</td>
-							<td>{{parseDateTime(value.datetime)}}</td>
-					</tbody>
-				</table>
-			</div>
-			<button class="btn btn-primary" ng-click="Ttoggle()">Show/Hide graph</button>
-			<div ng-show="Tvisible">
-		        <highchart id="temperature-chart" config="TchartConfig" class="span12"></highchart>
-		    </div>
-		</div>
-		<div id="spirometer" ng-if="selected == 5"></div>
-		<div id="exacerbations" ng-if="selected == 6"></div>
-		<div id="hospital-admissions" ng-if="selected == 7"></div>
-		<div id="cigarettes-smoked" ng-if="selected == 8"></div>
-		<div id="medication-adherence" ng-if="selected == 9"></div>
-		<div id="oedema-signs" ng-if="selected == 10"></div>
-		<div id="mood" ng-if="selected == 11"></div>
-		<div id="physical-activites" ng-if="selected == 5"></div>
-	</div>
+<div class="row">
+  <button class="btn btn-info pull-right btn-sm refresh" ng-click="refresh()">
+    <span class="glyphicon glyphicon-refresh"></span>
+  </button>
 </div>
 
-<div class="loader" ng-show="loading"></div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3">
+			<ul class="list-group">
+				<li class="list-group-item history-item" ng-click="loadBloodPressureData()" ng-class="{'selected-item': selected == 1}">Blood Pressure</li>
+				<li class="list-group-item history-item" ng-click="loadWeightData()" ng-class="{'selected-item': selected == 2}">Weight</li>
+				<li class="list-group-item history-item" ng-click="loadBloodGlucoseData()" ng-class="{'selected-item': selected == 3}">Blood Glucose</li>
+				<li class="list-group-item history-item" ng-click="loadTemperatureData()" ng-class="{'selected-item': selected == 4}">Temperature</li>
+				<li class="list-group-item history-item" ng-click="loadSpirometerData()" ng-class="{'selected-item': selected ==  5}">Spirometer</li>
+				<li class="list-group-item history-item" ng-click="loadExacerbationsData()" ng-class="{'selected-item': selected ==  6}">Number of execerbations</li>
+				<li class="list-group-item history-item" ng-click="loadHospitalAdmissionsData()" ng-class="{'selected-item': selected ==  7}">Number of hospital admissions</li>
+				<li class="list-group-item history-item" ng-click="loadCigarettesSmokedData()" ng-class="{'selected-item': selected ==  8}">Number of cigarettes smoked</li>
+				<li class="list-group-item history-item" ng-click="loadMedicationAdherenceData()" ng-class="{'selected-item': selected ==  9}">Medication adherence</li>
+				<li class="list-group-item history-item" ng-click="loadOedemaData()" ng-class="{'selected-item': selected ==  10}">Signs of oedema</li>
+				<li class="list-group-item history-item" ng-click="loadMoodData()" ng-class="{'selected-item': selected ==  11}">Mood</li>
+				<li class="list-group-item history-item" ng-click="loadPhysicalActivitiesData()" ng-class="{'selected-item': selected ==  12}">Physical Activity</li>
+			</ul>
+		</div>
+		<div class="col-sm-9">
+		</div>
+	</div>
+
+	<div class="loader" ng-show="loading"></div>
+</div>

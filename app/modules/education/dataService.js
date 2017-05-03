@@ -7,7 +7,7 @@ app.factory('educationRepository', function($base64, $http, $q, helper) {
             url += queryParams;
 
         return helper.getCloudData(url, token);
-    };
+    }
 
     EducationRepository.decodeAllEducationMaterial = function(data, patientId) {
         var subject = "https://cloud-welcome-project.eu/api/data/Patient/" + patientId + "/EducationalMaterial";

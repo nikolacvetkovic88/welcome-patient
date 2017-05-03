@@ -1,4 +1,4 @@
-app.factory('AuthService', function loginService($rootScope, $http, $cookieStore, $location, $base64, helper, AccountService, ReminderService) {
+app.factory('AuthService', function loginService($rootScope, $http, $location, $base64, localStorageService, helper, AccountService, ReminderService) {
     return {
         login: function(credentials) {
             var data = "username=" +  encodeURIComponent(credentials.username) + "&password="
@@ -34,14 +34,14 @@ app.factory('AuthService', function loginService($rootScope, $http, $cookieStore
                 authdata: authdata,
                 token: response
             };
-            $cookieStore.put('currentUser', $rootScope.currentUser);
+            localStorageService.set('currentUser', $rootScope.currentUser);
         },
         clearCredentials: function() {
             $rootScope.currentUser = null;
-            $cookieStore.remove("currentUser");
+            localStorageService.remove("currentUser");
         },
         getCredentials: function () {
-            return $cookieStore.get('currentUser');
+            return localStorageService.get('currentUser');
         },
         hasValidToken: function () {
             var credentials = this.getCredentials(),

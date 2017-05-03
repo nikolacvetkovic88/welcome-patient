@@ -1,5 +1,5 @@
-var app = angular.module("welcomeApp", ['ngRoute', 'ngCookies', 'LocalStorageModule', 'ui.calendar', 'base64'])
-.run(function ($rootScope, $location, $cookieStore, AuthService, AccountService, ReminderService) {
+var app = angular.module("welcomeApp", ['ngRoute', 'LocalStorageModule', 'ui.calendar', 'base64'])
+.run(function ($rootScope, $location, AuthService, AccountService, ReminderService) {
         // keep user logged in after page refresh
         $rootScope.currentUser = AuthService.getCredentials();
         $rootScope.patient = AccountService.retrievePatient();

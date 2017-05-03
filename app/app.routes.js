@@ -41,5 +41,10 @@ app.config(function($routeProvider) {
             controller: 'educationCtrl'
         })
 
+        .when('/history', {
+            templateUrl : 'app/modules/history/historyView.html',
+            controller: 'historyCtrl'
+        })
+
         .otherwise({ redirectTo: '/login' });
 });

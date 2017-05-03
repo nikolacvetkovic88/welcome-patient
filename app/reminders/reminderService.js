@@ -1,4 +1,4 @@
-app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepository, questionnairesRepository, medicationsRepository, helper, AccountService) {
+app.factory('ReminderService', function ($rootScope, $q, localStorageService, diaryRepository, questionnairesRepository, medicationsRepository, helper, AccountService) {
     var self = this;
 
     this.interval = null;
@@ -229,7 +229,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
 
     this.initRemindersInterval = function() {
         self.clearReminders();
-        var interval = $rootScope.currentUser ? $cookieStore.get('reminders-' + $rootScope.currentUser.username) : null;
+        var interval = $rootScope.currentUser ? localStorageService.get('reminders-' + $rootScope.currentUser.username) : null;
         $rootScope.reminderInterval = interval || 3600000;
     }
 
@@ -240,7 +240,7 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
         self.clearReminders();
         self.setInterval(interval);
         $rootScope.reminderInterval = interval;
-        $cookieStore.put('reminders-' + $rootScope.currentUser.username, $rootScope.reminderInterval);
+        localStorageService.set('reminders-' + $rootScope.currentUser.username, $rootScope.reminderInterval);
     }
 
     this.clearReminders = function() {
@@ -250,13 +250,13 @@ app.factory('ReminderService', function ($rootScope, $q, $cookieStore, diaryRepo
     this.removeReminders = function() {
         self.clearReminders();
         $rootScope.reminderInterval = null;
-        $cookieStore.remove('reminders-' + $rootScope.currentUser.username);
+        localStorageService.remove('reminders-' + $rootScope.currentUser.username);
     }
 
     this.disableReminders = function() {
         self.clearReminders();
         $rootScope.reminderInterval = -1;
-        $cookieStore.put('reminders-' + $rootScope.currentUser.username, $rootScope.reminderInterval);
+        localStorageService.set('reminders-' + $rootScope.currentUser.username, $rootScope.reminderInterval);
     }
 
     this.clearInterval = function() {

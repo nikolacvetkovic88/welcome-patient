@@ -1,14 +1,13 @@
-app.factory('historyRepository', function($http) {
+app.factory('historyRepository', function($http, $q, helper) {
+    var HistoryRepository = {};
 
-var historyUrl = "app/modules/testData/history.json";
+    HistoryRepository.getBloodPressureData =  function (patientId, queryParams, token) {
+        var url =  helper.baseUrl + '/Patient/' + patientId + '';
+        if(queryParams)
+            url += queryParams;
 
-return {
-        getAllHistoryEntries: function() {
-            return $http( {
-                method: 'GET',
-                url: historyUrl
-            })
-        }
-    };
-
+        return helper.getCloudData(url, token);
+    }; 
+     
+    return HistoryRepository;
 });

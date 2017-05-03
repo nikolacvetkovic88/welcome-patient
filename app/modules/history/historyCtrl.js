@@ -1,97 +1,101 @@
-app.controller('historyCtrl', function($scope, $timeout, historyRepository) {
+app.controller('historyCtrl', function($scope, $rootScope, $q, historyRepository, helper, AccountService) {
     $scope.$emit('body:class:add', "transparent");
+    $scope.patientId = $rootScope.patient ? $rootScope.patient.user.cloudRef : null;
+    $scope.token = AccountService.getToken();
     $scope.selected = null;
+    $scope.selectedData = null;
 
-    $scope.getHistoryData = function() {
-        $scope.loading = true;
+    $scope.loadBloodPressureData = function() {
+        bootbox.alert("blood pressure");
+        $scope.selected = 1;
+    }
+
+    $scope.loadWeightData = function() {
+        bootbox.alert("weight");
+        $scope.selected = 2;
+    }    
+
+    $scope.loadBloodGlucoseData = function() {
+        bootbox.alert("blood glucose");
+        $scope.selected = 3;
+    }
+
+    $scope.loadTemperatureData = function() {
+        bootbox.alert("temperature");
+        $scope.selected = 4;
+    }
+
+    $scope.loadSpirometerData = function() {
+        bootbox.alert("spirometer");
+        $scope.selected = 5;
+    }
+
+    $scope.loadExacerbationsData = function() {
+        bootbox.alert("exacerbations");
+        $scope.selected = 6;    
+    }
+
+    $scope.loadHospitalAdmissionsData = function() {
+        bootbox.alert("hospital admissions");
+        $scope.selected = 7;
+    }
+
+    $scope.loadCigarettesSmokedData = function() {
+        bootbox.alert("cigarettes smoked");
+        $scope.selected = 8;
+    }
+
+    $scope.loadMedicationAdherenceData = function() {
+        bootbox.alert("medication adherence");
+        $scope.selected = 9;
+    }
+
+    $scope.loadOedemaData = function() {
+        bootbox.alert("oedema");
+        $scope.selected = 10;
+    }
+
+    $scope.loadMoodData = function() {
+        bootbox.alert("mood");
+        $scope.selected = 11;
+    }
+
+    $scope.loadPhysicalActivitiesData = function() {
+        bootbox.alert("physical activities");
+        $scope.selected = 12;
+    }
+
+    $scope.refresh = function() {
+        var selected = $scope.selected;
+
+        switch (selected) {
+            case 1:
+                return $scope.loadBloodPressureData();
+            case 2:
+                return $scope.loadWeightData();
+            case 3:
+                return $scope.loadBloodGlucoseData();
+            case 4:
+                return $scope.loadTemperatureData();
+            case 5:
+                return $scope.loadSpirometerData();
+            case 6:
+                return $scope.loadExacerbationsData();
+            case 7:
+                return $scope.loadHospitalAdmissionsData();
+            case 8:
+                return $scope.loadCigarettesSmokedData();
+            case 9:
+                return $scope.loadMedicationAdherenceData();
+            case 10:
+                return $scope.loadOedemaData();
+            case 11:
+                return $scope.loadMoodData();
+            case 12:
+                return $scope.loadPhysicalActivitiesData();
+            default:
+                break;
+        }
         
-        historyRepository.getAllHistoryEntries()
-        .success(function(data) {
-            $scope.historyData = data.history;
-            $scope.loading = false;
-
-            $scope.setSelected($scope.historyData[0].id);
-            initCharts($scope); // init here or just push data here?
-         })
-        .error(function() {
-            $scope.loading = false;
-            notify("Failed loading history data", "error");
-        });
     }
-
-    $scope.setSelected = function(id) {
-        $scope.selected = id;
-    }
-
-    $scope.getSpecificData = function(id) {
-    	var found = false,
-        specificData = {};
-
-        angular.forEach($scope.historyData, function (data, index) {
-            if(!found) {
-                if(data.id == id) {
-                    specificData = data;
-                    found = true;
-                }
-            }
-        });
-
-        return specificData;
-   }
-    
-    $scope.parseDateTime = function(value) {
-        return formatDateTimeForUser(value);
-    }
-
-    $scope.getGraphLabels = function(id) {
-        var graphLabels = [],
-            labels1 = [],
-            labels2 = [];
-
-        angular.forEach($scope.getSpecificData(id).values, function (value, index) {
-            if(id == 3) {
-                labels1.push($scope.parseDateTime(value.morningdatetime));
-                labels2.push($scope.parseDateTime(value.afternoondatetime));
-            } else {
-                labels1.push($scope.parseDateTime(value.datetime));
-            }
-        });
-        graphLabels.push(labels1);
-        graphLabels.push(labels2);
-
-        return graphLabels;
-    }
-
-    $scope.getGraphData = function(id) {
-        var graphData = [],
-            dataSet1 = [],
-            dataSet2 = [];
-
-        angular.forEach($scope.getSpecificData(id).values, function (data, index) {
-            switch(id) {
-                case 1:
-                    dataSet1.push(parseInt(data.systolic));
-                    dataSet2.push(parseInt(data.diastolic));
-                    break;
-                case 2:
-                    dataSet1.push(parseFloat(data.weight));
-                    break;
-                case 3:
-                    dataSet1.push(parseInt(data.morning));
-                    dataSet2.push(parseInt(data.afternoon));
-                    break;
-                case 4:
-                    dataSet1.push(parseFloat(data.temperature));
-                    break;
-                default:
-                    break;
-            }
-        });
-        graphData.push(dataSet1);
-        graphData.push(dataSet2);
-
-        return graphData;
-    }
-
-    $scope.getHistoryData();
 });

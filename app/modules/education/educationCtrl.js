@@ -77,18 +77,6 @@ app.controller('educationCtrl', function($scope, $rootScope, $sce, $q, education
         });
   }
 
-  $scope.getSender = function(senderRef) {
-    if(senderRef.indexOf("Patient") == -1) {
-      var hcpRef = senderRef.split("/");
-        hcpRef = hcpRef[hcpRef.length - 1],
-        sender = $.grep($scope.hcps, function(hcp) { return hcp.cloudRef == hcpRef; })[0];
-
-      return sender ? sender.specialty + " " + sender.firstName + " " + sender.lastName : "Unknown HCP";
-      } else {
-        return $scope.myself;
-      }
-  }
-
   $scope.getQueryParams = function() {
     return  "?q=res,like," + $scope.hcp.cloudRef + "&q=res,like," + $scope.patientId +
         "&q=Communication.sent,sortOnly,desc" +

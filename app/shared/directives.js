@@ -67,10 +67,11 @@ app.directive("dropdown", function($timeout) {
 		link: function(scope, elem, attrs) {
 		    elem.change(function() {
 		        var value = $(this).val(),
-		        questionType = $(this).data('questionType'),
-		        questionGroupId = $(this).data('questionGroupId'),
-		        questionId = $(this).data('questionId'),
-		        questionnaire = scope.selectedQuestionnaire;
+		        	score = $(this).data('score') || scope.selectedOption && scope.selectedOption.option_score && scope.selectedOption.option_score.value, 
+		        	questionType = $(this).data('questionType'),
+		        	questionGroupId = $(this).data('questionGroupId'),
+		        	questionId = $(this).data('questionId'),
+		        	questionnaire = scope.selectedQuestionnaire;
 
 		        var index = $.map(questionnaire.answers, function(answer) { return answer.questionId; }).indexOf(questionId); 
 		        if(index != -1) {
@@ -88,7 +89,7 @@ app.directive("dropdown", function($timeout) {
 			    	else 
 			    		answer = value;
 
-			        questionnaire.answers.push({ questionGroupId: questionGroupId, questionId: questionId, answer: answer });
+			        questionnaire.answers.push({ questionGroupId: questionGroupId, questionId: questionId, questionType: questionType, score: score, answer: answer });
 			    }
 		   });
 		}

@@ -167,20 +167,28 @@ app.factory('questionnairesRepository', function($http, $q, helper) {
         return defer.promise;
     }
  
-    QuestionnairesRepository.postQuestion = function(questionId, answer, token) {
-        var regBody =   '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\
-                        @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\
-                        @prefix FHIRct:   <http://lomi.med.auth.gr/ontologies/FHIRComplexTypes#> .\
-                        @prefix FHIRpt:   <http://lomi.med.auth.gr/ontologies/FHIRPrimitiveTypes#> .\
-                        @prefix FHIRResources:   <http://lomi.med.auth.gr/ontologies/FHIRResources#> .\
-                        @prefix FHIRResourcesExtensions: <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#> .\
-                        @prefix WELCOME_entities: <http://lomi.med.auth.gr/ontologies/WELCOME_entities#> .\
+    QuestionnairesRepository.postQuestion = function(questionId, questionType, answer, token) {
+        var regBody =   questionType != "free-choice" ?
+                        '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . \
+                        @prefix ns2:   <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#> . \
+                        @prefix ns1:   <welkv2://welcome-project.eu/data/QuestionAnswer/> . \
+                        @prefix ns3:   <http://lomi.med.auth.gr/ontologies/WELCOME_entities#> . \
                         \
-                        []\
-                          rdf:type FHIRResourcesExtensions:QuestionAnswer ;\
-                          <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#QuestionAnswer.value> WELCOME_entities:' + answer + ';\
-                          FHIRResourcesExtensions:question WELCOME_entities:' + questionId + ';\
-                        .';
+                        ns2:QuestionAnswer_1 a ns2:QuestionAnswer ; \
+                        <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#QuestionAnswer.value> ns3:' + answer + '; \
+                        ns2:question ns2:' + questionId + '.' :
+
+                        '@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> . \
+                        @prefix ns2:   <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#> . \
+                        @prefix ns1:   <welkv2://welcome-project.eu/data/QuestionAnswer/> . \
+                        @prefix ns3:   <http://lomi.med.auth.gr/ontologies/WELCOME_entities#> . \
+                        @prefix ns7:   <http://lomi.med.auth.gr/ontologies/FHIRPrimitiveTypes#>. \
+                        @prefix xsd:   <http://www.w3.org/2001/XMLSchema#>. \
+                        \
+                        ns2:QuestionAnswer_1 a ns2:QuestionAnswer ; \
+                        <http://lomi.med.auth.gr/ontologies/FHIRResourcesExtensions#QuestionAnswer.value> [ \
+                        rdf:value"' + answer + '"^^xsd:string; \
+                        ]; ns2:question ns2:' + questionId + '.';
 
         var url = helper.baseUrl + '/QuestionAnswer';
 

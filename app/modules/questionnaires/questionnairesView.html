@@ -23,7 +23,7 @@
 						</div>
 						<div class="btn-group btn-group-justified" data-toggle="buttons">
 						    <label class="btn btn-label" ng-repeat="option in question.options">
-							    <input type="radio" name="{{question.question.name}}" ng-model="radioOption" ng-value="option.option_score.value || option.option.value" data-question-type="choice-radio" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" question-Answer />{{option.option_display.value}}
+							    <input type="radio" name="{{question.question.name}}" ng-value="option.option.value" data-question-type="choice-radio" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" data-score="{{option.option_score.value}}" question-Answer />{{option.option_display.value}}
 						    </label>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
 						</div>
 						<div class="radio">
 							<label ng-repeat="option in question.options">
-							    <input type="radio" name="{{question.question.name}}" ng-model="radioOption2" ng-value="option.option_score.value || option.option.value" data-question-type="choice-radio2" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" question-Answer />{{option.option_display.value}}
+							    <input type="radio" name="{{question.question.name}}" ng-value="option.option.value" data-question-type="choice-radio2" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" data-score="{{option.option_score.value}}" question-Answer />{{option.option_display.value}}
 							</label>  
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 					<div class="panel-body">
 					    <div class="form-group">
 							<label class="control-label" for="{{question.question.id}}">{{question.question_text.name}}</label>
-							<select ng-attr-id="{{question.question.id}}" ng-options="o.option_display.value for o in question.options track by o.option_score.value || o.option.value" ng-model="dropdownOption" class="form-control" data-style="btn-info" data-question-type="choice-dropdown" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" question-Answer dropDown>
+							<select ng-attr-id="{{question.question.id}}" ng-options="o.option_display.value for o in question.options track by o.option.value" ng-model="selectedOption" class="form-control" data-style="btn-info" data-question-type="choice-dropdown" data-question-group-id="{{questionGroup.id}}" data-question-id="{{question.question.id}}" question-Answer dropdown>
 								<option value="">Please select...</option>
 							</select>
 						</div>

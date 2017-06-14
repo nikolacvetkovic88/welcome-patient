@@ -269,9 +269,11 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
     angular.forEach(data, function(value, key) {
       var dates = $scope.parseDates(value);
       angular.forEach(dates, function(date) {
-        var parsedObject = {};
-        parsedObject.title = value.questionnaire;
-        parsedObject.fullTitle = helper.formatDateTimeForUser(date) + " Questionnaire " + value.questionnaire;
+        var parsedObject = {},
+            mappedQuestionnaire = $.grep(helper.questionnaireMappings, function(mapping) { return mapping.id == value.id; })[0];
+        
+        parsedObject.title = mappedQuestionnaire && mappedQuestionnaire.name || value.questionnaire;
+        parsedObject.fullTitle = helper.formatDateTimeForUser(date) + " Questionnaire " + parsedObject.title;
         parsedObject.start = date;
         parsedObject.color = "#3A87AD";
         parsedObject.mode = "questionnaire";
@@ -326,8 +328,8 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
 
       angular.forEach(dates, function(date) {
         var parsedObject = {};
-        parsedObject.title = type;
-        parsedObject.fullTitle = helper.formatDateTimeForUser(date) + " Measurement " + type;
+        parsedObject.title = type && type.charAt(0).toUpperCase() + type.substr(1).toLowerCase();
+        parsedObject.fullTitle = helper.formatDateTimeForUser(date) + " Measurement " + parsedObject.title;
         parsedObject.start = date;
         parsedObject.color = "#043248";
         parsedObject.mode = "measurement";
@@ -365,14 +367,15 @@ app.controller('diaryCtrl', function($scope, $rootScope, $window, $q, diaryRepos
       case "measurement":
         location = "patienthub://app";
         message = "Go to Measurements";
-      break;
+        break;
       case "questionnaire":
         location = "#questionnaires";
         message = "Go to Questionnaires"
-      break;
+        break;
       case "medication":
         location = "#medications";
         message = "Go to Medications";
+        break;
       default:
         break;
     }

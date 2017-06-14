@@ -7,6 +7,10 @@ body {
   color: #F07822;
 }
 
+.fc-title {
+  white-space: normal;
+}
+
 button.fc-state-default{
   background: #00AEEF;
   color: white;

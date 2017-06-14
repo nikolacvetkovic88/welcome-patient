@@ -7,7 +7,7 @@ app.factory('diaryRepository', function($http, $q, helper) {
         return helper.getCloudData(url, token);
     }
 
-    DiaryRepository.decodeDevices  = function(data, patientId) {
+    DiaryRepository.decodeDevices = function(data, patientId) {
         var subject = "https://cloud-welcome-project.eu/api/data/Patient/" + patientId + "/PortableBiomedicalSensorDevice";
         var predicate = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
         var parser = N3.Parser();

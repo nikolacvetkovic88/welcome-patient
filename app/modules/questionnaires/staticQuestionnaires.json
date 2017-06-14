@@ -882,7 +882,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_8",
             "id": "Questionnaire_DSQ_8",
-            "name": "Daily Questionnaire 8",
+            "name": "Disease Specific Questionnaire 8",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -970,7 +970,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_1",
             "id": "Questionnaire_DSQ_1",
-            "name": "Daily Questionnaire 1",
+            "name": "Disease Specific Questionnaire 1",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -1058,7 +1058,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_6",
             "id": "Questionnaire_DSQ_6",
-            "name": "Daily Questionnaire 6",
+            "name": "Disease Specific Questionnaire 6",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -1779,7 +1779,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_16",
             "id": "Questionnaire_DSQ_16",
-            "name": "Daily Questionnaire 16",
+            "name": "Disease Specific Questionnaire 16",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -2819,7 +2819,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_13",
             "id": "Questionnaire_DSQ_13",
-            "name": "Daily Questionnaire 13",
+            "name": "Disease Specific Questionnaire 13",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -2907,7 +2907,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_9",
             "id": "Questionnaire_DSQ_9",
-            "name": "Daily Questionnaire 9",
+            "name": "Disease Specific Questionnaire 9",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -2995,7 +2995,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_11",
             "id": "Questionnaire_DSQ_11",
-            "name": "Daily Questionnaire 11",
+            "name": "Disease Specific Questionnaire 11",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -3083,7 +3083,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_7",
             "id": "Questionnaire_DSQ_7",
-            "name": "Daily Questionnaire 7",
+            "name": "Disease Specific Questionnaire 7",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -3171,7 +3171,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_4",
             "id": "Questionnaire_DSQ_4",
-            "name": "Daily Questionnaire 4",
+            "name": "Disease Specific Questionnaire 4",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -3259,7 +3259,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_2",
             "id": "Questionnaire_DSQ_2",
-            "name": "Daily Questionnaire 2",
+            "name": "Disease Specific Questionnaire 2",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -3347,7 +3347,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_14",
             "id": "Questionnaire_DSQ_14",
-            "name": "Daily Questionnaire 14",
+            "name": "Disease Specific Questionnaire 14",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -3385,7 +3385,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_12",
             "id": "Questionnaire_DSQ_12",
-            "name": "Daily Questionnaire 12",
+            "name": "Disease Specific Questionnaire 12",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -3473,7 +3473,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_5",
             "id": "Questionnaire_DSQ_5",
-            "name": "Daily Questionnaire 5",
+            "name": "Disease Specific Questionnaire 5",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -4232,7 +4232,6 @@
 	                    "question": {
 	                        "type": "uri",
 	                        "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Question_HADS_q7",
-	                        "id": "Question_HADS_q7",
 	                        "id": "Question_HADS_q7",
 	                        "name": "HADS_q7"
 	                    },
@@ -5737,7 +5736,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_3",
             "id": "Questionnaire_DSQ_3",
-            "name": "Daily Questionnaire 3",
+            "name": "Disease Specific Questionnaire 3",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -5825,7 +5824,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_10",
             "id": "Questionnaire_DSQ_10",
-            "name": "Daily Questionnaire 10",
+            "name": "Disease Specific Questionnaire 10",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",
@@ -5863,7 +5862,7 @@
             "type": "uri",
             "value": "http://lomi.med.auth.gr/ontologies/WELCOME_entities#Questionnaire_DSQ_15",
             "id": "Questionnaire_DSQ_15",
-            "name": "Daily Questionnaire 15",
+            "name": "Disease Specific Questionnaire 15",
             "questionGroups": [{
 	    		"type": "literal",
 	            "value": "",

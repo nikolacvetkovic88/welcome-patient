@@ -409,9 +409,11 @@ app.factory('ReminderService', function ($rootScope, $q, localStorageService, di
         angular.forEach(data, function(value, key) {
             var dates = self.parseDates(value);
             angular.forEach(dates, function(date) {
-                var parsedObject = {};
-                parsedObject.title = value.questionnaire;
-                parsedObject.fullTitle = "Questionnaire " + value.questionnaire;
+                var parsedObject = {},
+                    mappedQuestionnaire = $.grep(helper.questionnaireMappings, function(mapping) { return mapping.id == value.id; })[0];
+        
+                parsedObject.title = mappedQuestionnaire && mappedQuestionnaire.name || value.questionnaire;
+                parsedObject.fullTitle = "Questionnaire " + parsedObject.title;
                 parsedObject.start = date;
                 parsedData.push(parsedObject);
             });
@@ -461,8 +463,8 @@ app.factory('ReminderService', function ($rootScope, $q, localStorageService, di
 
             angular.forEach(dates, function(date) {
                 var parsedObject = {};
-                parsedObject.title = type;
-                parsedObject.fullTitle = "Measurement " + type;
+                parsedObject.title = type && type.charAt(0).toUpperCase() + type.substr(1).toLowerCase();
+                parsedObject.fullTitle = "Measurement " + parsedObject.title;
                 parsedObject.start = date;
                 parsedData.push(parsedObject);
             });

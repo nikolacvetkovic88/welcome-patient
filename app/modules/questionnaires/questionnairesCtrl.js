@@ -77,10 +77,10 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, localStora
 			return;
 
 		var score = 0,
-		answers = $scope.selectedQuestionnaire.answers;
+			answers = $scope.selectedQuestionnaire.answers;
 
 		for(var i = 0; i < answers.length; i++) {
-			var answerScore = parseFloat(answers[i].answer);
+			var answerScore = parseFloat(answers[i].score);
 			if(isNaN(answerScore)) {
 				break;
 			} else {
@@ -96,10 +96,10 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, localStora
 			return;
 
 		var score = 0,
-		answers = $.grep($scope.selectedQuestionnaire.answers, function(answer) {  return answer.questionGroupId == questionGroupId; });
+			answers = $.grep($scope.selectedQuestionnaire.answers, function(answer) {  return answer.questionGroupId == questionGroupId; });
 
 		for(var i = 0; i < answers.length; i++) {
-			var answerScore = parseFloat(answers[i].answer);
+			var answerScore = parseFloat(answers[i].score);
 			if(isNaN(answerScore)) {
 				break;
 			} else {
@@ -158,7 +158,7 @@ app.controller('questionnairesCtrl', function($scope, $rootScope, $q, localStora
 	$scope.postQuestionAnswers = function(questionAnswers) {
 		var promises = [];
 		angular.forEach(questionAnswers, function(questionAnswer) {
-			promises.push(questionnairesRepository.postQuestion(questionAnswer.questionId, questionAnswer.answer, $scope.token));
+			promises.push(questionnairesRepository.postQuestion(questionAnswer.questionId, questionAnswer.questionType, questionAnswer.answer, $scope.token));
 		});
 
 		return $q.all(promises);
